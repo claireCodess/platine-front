@@ -30,6 +30,15 @@ public class EventLite {
 
     }
 
+    /**
+     * Constructeur en définissant les paramètres directement
+     */
+    public EventLite(String name, Date date, String location) {
+        this.name = name;
+        this.date = date;
+        this.location = location;
+    }
+
     public String getName() {
         return name;
     }

@@ -83,7 +83,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         // Sauvegarder les informations dans le holder
         holder.eventLite = item;
         holder.nameText.setText(item.getName());
-        SimpleDateFormat dateFormat = new SimpleDateFormat("E d M 'à' HH:mm");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE d MMMM 'à' HH'h'mm");
+        // Ajouter dans le SimpleDateFormat un Locale non obligatoire mais peut être nécessaire si on veut rendre notre appli internationale : , Locale.FRENCH);
         holder.dateText.setText(dateFormat.format(item.getDate()));
         holder.locationText.setText(item.getLocation());
         holder.itemView.setTag(item);
