@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Lille1Campus</string>
+    <string name="static_description">A l\'approche de la prochaine éclipse lunaire, Patrick Durand, enseignant-chercheur de Physique à Lille 1, propose une conférence pour parler plus en détail de ce phénomène.</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
 </resources>
