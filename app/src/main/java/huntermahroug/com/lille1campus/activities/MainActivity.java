@@ -1,14 +1,13 @@
 package huntermahroug.com.lille1campus.activities;
 
-import android.content.res.Configuration;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.MenuItem;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import org.androidannotations.annotations.EActivity;
@@ -19,37 +18,52 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import huntermahroug.com.lille1campus.BottomNavigationViewHelper;
+import huntermahroug.com.lille1campus.EventListFragment_;
 import huntermahroug.com.lille1campus.R;
 import huntermahroug.com.lille1campus.adapters.RecyclerViewAdapter;
 import huntermahroug.com.lille1campus.listeners.EventItemClickListener;
 import huntermahroug.com.lille1campus.model.EventLite;
 
 @EActivity
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity { //implements EventListFragment.OnFragmentInteractionListener {
 
     @ViewById(R.id.listEvents)
     RecyclerView listEventsView;
 
-    @ViewById(R.id.drawer_layout)
-    DrawerLayout mDrawerLayout;
+    @ViewById(R.id.bottom_nav_layout)
+    BottomNavigationView bottomNavigationView;
 
-    private ActionBarDrawerToggle mDrawerToggle;
+    @ViewById(R.id.titleBar)
+    Toolbar toolBar;
 
+    // private ActionBarDrawerToggle mDrawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        setupDrawer();
+        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
 
+        // get fragment manager
+        FragmentManager fm = getFragmentManager();
+
+        // add
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.add(R.id.fragment_placeholder, new EventListFragment_());
+        ft.commit();
+
+        // setupDrawer();
+
+        /* setSupportActionBar(toolBar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true); */
 
-        refreshView();
+        // refreshView();
     }
 
-    @Override
+    /* @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         // Synchroniser l'état de basculement après que la méthode
@@ -78,13 +92,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.bottom_nav_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
         }
-    }
+    } */
 
     /**
      * Rafraîchit la vue avec des données pour l'instant statiques (par la suite, de la base de données).
@@ -140,8 +154,8 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Construit le menu latéral
      */
-    private void setupDrawer() {
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
+    /* private void setupDrawer() {
+        mDrawerToggle = new ActionBarDrawerToggle(this, bottomNavigationView,
                 R.string.drawer_open, R.string.drawer_close) {
 
             // Appelé quand le menu latéral vient d'être ouvert
@@ -158,6 +172,6 @@ public class MainActivity extends AppCompatActivity {
         };
 
         mDrawerToggle.setDrawerIndicatorEnabled(true);
-        mDrawerLayout.addDrawerListener(mDrawerToggle);
-    }
+        bottomNavigationView.addDrawerListener(mDrawerToggle);
+    } */
 }

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/nav_view"
+        android:title="Consulter"
+        android:icon="@drawable/ic_view_events"
+        app:showAsAction="always|withText" />
+
+    <item
+        android:id="@+id/nav_search"
+        android:title="Rechercher"
+        android:icon="@drawable/ic_search"
+        app:showAsAction="always|withText" />
+
+    <item
+        android:id="@+id/nav_categories"
+        android:title="Catégories"
+        android:icon="@drawable/ic_categories"
+        app:showAsAction="always|withText" />
+
+    <item
+        android:id="@+id/nav_add"
+        android:title="Proposer"
+        android:icon="@drawable/ic_suggest_event"
+        app:showAsAction="always|withText" />
+
+</menu>
