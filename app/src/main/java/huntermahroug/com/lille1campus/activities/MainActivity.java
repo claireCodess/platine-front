@@ -3,11 +3,13 @@ package huntermahroug.com.lille1campus.activities;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 
 import org.androidannotations.annotations.EActivity;
@@ -18,9 +20,12 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import huntermahroug.com.lille1campus.AddEventFragment_;
 import huntermahroug.com.lille1campus.BottomNavigationViewHelper;
+import huntermahroug.com.lille1campus.CategoriesFragment_;
 import huntermahroug.com.lille1campus.EventListFragment_;
 import huntermahroug.com.lille1campus.R;
+import huntermahroug.com.lille1campus.SearchFragment_;
 import huntermahroug.com.lille1campus.adapters.RecyclerViewAdapter;
 import huntermahroug.com.lille1campus.listeners.EventItemClickListener;
 import huntermahroug.com.lille1campus.model.EventLite;
@@ -46,13 +51,42 @@ public class MainActivity extends AppCompatActivity { //implements EventListFrag
 
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
 
-        // get fragment manager
-        FragmentManager fm = getFragmentManager();
+        final FragmentManager fragmentManager = getFragmentManager();
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    switch (item.getItemId()) {
+                        // TODO : si on a appuyé sur un élément du menu et qu'on réappuie dessus ça ne fait rien
+                        case R.id.nav_view:
+                            fragmentTransaction.add(R.id.fragment_placeholder, new EventListFragment_());
+                            break;
+
+                        case R.id.nav_search:
+                            fragmentTransaction.add(R.id.fragment_placeholder, new SearchFragment_());
+                            break;
+
+                        case R.id.nav_categories:
+                            fragmentTransaction.add(R.id.fragment_placeholder, new CategoriesFragment_());
+                            break;
+
+                        case R.id.nav_add:
+                            fragmentTransaction.add(R.id.fragment_placeholder, new AddEventFragment_());
+
+                    }
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+                    return true;
+                }
+            }
+        );
 
         // add
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.add(R.id.fragment_placeholder, new EventListFragment_());
-        ft.commit();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.fragment_placeholder, new EventListFragment_());
+        fragmentTransaction.commit();
 
         // setupDrawer();
 

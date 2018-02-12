@@ -4,26 +4,26 @@
 
     <item
         android:id="@+id/nav_view"
-        android:title="Consulter"
+        android:title="@string/title_view_events"
         android:icon="@drawable/ic_view_events"
-        app:showAsAction="always|withText" />
+        app:showAsAction="ifRoom|withText" />
 
     <item
         android:id="@+id/nav_search"
-        android:title="Rechercher"
+        android:title="@string/title_search"
         android:icon="@drawable/ic_search"
-        app:showAsAction="always|withText" />
+        app:showAsAction="ifRoom|withText" />
 
     <item
         android:id="@+id/nav_categories"
-        android:title="Catégories"
+        android:title="@string/title_categories"
         android:icon="@drawable/ic_categories"
-        app:showAsAction="always|withText" />
+        app:showAsAction="ifRoom|withText" />
 
     <item
         android:id="@+id/nav_add"
-        android:title="Proposer"
+        android:title="@string/title_add_event"
         android:icon="@drawable/ic_suggest_event"
-        app:showAsAction="always|withText" />
+        app:showAsAction="ifRoom|withText" />
 
 </menu>
