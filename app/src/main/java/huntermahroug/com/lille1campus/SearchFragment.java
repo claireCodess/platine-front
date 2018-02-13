@@ -1,11 +1,13 @@
 package huntermahroug.com.lille1campus;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.widget.SearchView;
 
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.ViewById;
 
 
 /**
@@ -28,6 +30,9 @@ public class SearchFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    @ViewById(R.id.search_view)
+    SearchView searchView;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -83,6 +88,25 @@ public class SearchFragment extends Fragment {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }*/
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // TODO : afficher le résultat le plus récent d'abord
+                // TODO : puis proposer à l'utilisateur d'aller à tous les résultats
+                // TODO : (retour à l'écran de la liste des événements)
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
     }
 
     @Override
