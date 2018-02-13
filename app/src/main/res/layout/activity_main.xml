@@ -17,12 +17,12 @@
         android:id="@+id/titleBar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
+        android:background="@color/colorPrimaryDark"
         app:title="Lille Campus"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
-        <!-- A rajouter quand on aura fait le logo de l'université de Lille
-        app:logo="@drawable/ic_logo_tree" /> -->
+        app:theme="@style/ToolBarStyle"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:logo="@drawable/ic_ulille_mini_logo" />
+        <!-- TODO : logo à changer plus tard (trop de padding dans le fichier SVG) -->
 
     <FrameLayout
         android:id="@+id/fragment_placeholder"
@@ -35,9 +35,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
-        app:itemBackground="@color/colorPrimary"
-        app:itemIconTint="@color/color1"
-        app:itemTextColor="@color/color1"
+        app:itemBackground="@color/colorPrimaryDark"
+        app:itemIconTint="@color/white"
+        app:itemTextColor="@color/white"
         app:menu="@menu/activity_main_bottom_nav" />
 
     <!-- </android.support.design.widget.AppBarLayout> -->

@@ -90,9 +90,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.itemView.setTag(item);
 
         if ((position % 2) == 0) {
-            holder.itemView.setBackgroundResource(R.color.color1);
+            holder.itemView.setBackgroundResource(R.color.colorList1);
         } else {
-            holder.itemView.setBackgroundResource(R.color.color2);
+            holder.itemView.setBackgroundResource(R.color.colorList2);
         }
 
     }
