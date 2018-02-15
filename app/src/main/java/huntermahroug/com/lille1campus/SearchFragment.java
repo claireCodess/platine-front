@@ -1,19 +1,32 @@
 package huntermahroug.com.lille1campus;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import huntermahroug.com.lille1campus.activities.MainActivity;
+import huntermahroug.com.lille1campus.model.EventLite;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link SearchFragment.OnFragmentInteractionListener} interface
+ * {@link OnSearchPerformedListener} interface
  * to handle interaction events.
  * Use the {@link SearchFragment#newInstance} factory method to
  * create an instance of this fragment.
@@ -29,10 +42,22 @@ public class SearchFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
+    private OnSearchPerformedListener mListener;
 
     @ViewById(R.id.search_view)
     SearchView searchView;
+
+    @ViewById(R.id.best_result_view)
+    TextView bestResultView;
+
+    @ViewById(R.id.result_layout)
+    FrameLayout resultLayout;
+
+    @ViewById(R.id.all_results_view)
+    Button allResultsButton;
+
+    /*@ViewById(R.id.list_item_layout)
+    RelativeLayout*/
 
     public SearchFragment() {
         // Required empty public constructor
@@ -75,28 +100,60 @@ public class SearchFragment extends Fragment {
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            mListener.onSearchPerformed(uri);
         }
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        /*if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+        /*if (context instanceof OnSearchPerformedListener) {
+            mListener = (OnSearchPerformedListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + " must implement OnSearchPerformedListener");
         }*/
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        final FragmentManager childFragmentManager = getChildFragmentManager();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                // TODO : afficher le résultat le plus récent d'abord
+                // Appeler l'activité qui va aller récupérer une liste d'événements
+                MainActivity activity = (MainActivity) getActivity();
+                List<EventLite> list = activity.getAllEvents();
+
+                List<EventLite> filteredResults;
+
+                // TODO : on affichera le résultat avec la date la plus récente d'abord
+                // En attendant, filtrer la liste
+                // On peut utiliser les streams pour optimiser, mais uniquement si la version
+                // de l'API est au dessus de 24 (seulement ces versions utilisent Java 8)
+                if(Build.VERSION.SDK_INT >= 24) {
+                     filteredResults = list.stream() // Convertir la liste en "stream"
+                            .filter(event -> event.getName().contains(query)) // Vérifier que le nom de l'événement contient la requête
+                            .collect(Collectors.toList()); // Convertir le stream en List
+                } else {
+                    filteredResults = new ArrayList<>();
+                    for (EventLite event : list) {
+                        // Vérifier que le nom de l'événement contient la requête
+                        if (event.getName().contains(query)) {
+                            filteredResults.add(event);
+                        }
+                    }
+                }
+
+                // Afficher le premier élément de la liste
+                /*FragmentTransaction fragmentTransaction = childFragmentManager.beginTransaction();
+                fragmentTransaction.add(R.id.search_fragment_placeholder, ShowSearchResultsFragment_.newInstance("Soirée rock"));
+                fragmentTransaction.commit();*/
+                bestResultView.setVisibility(View.VISIBLE);
+                resultLayout.setVisibility(View.VISIBLE);
+                allResultsButton.setVisibility(View.VISIBLE);
+
                 // TODO : puis proposer à l'utilisateur d'aller à tous les résultats
                 // TODO : (retour à l'écran de la liste des événements)
                 return false;
@@ -125,8 +182,7 @@ public class SearchFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+    public interface OnSearchPerformedListener {
+        void onSearchPerformed(Uri uri);
     }
 }

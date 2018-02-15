@@ -6,11 +6,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
@@ -26,12 +24,10 @@ import huntermahroug.com.lille1campus.CategoriesFragment_;
 import huntermahroug.com.lille1campus.EventListFragment_;
 import huntermahroug.com.lille1campus.R;
 import huntermahroug.com.lille1campus.SearchFragment_;
-import huntermahroug.com.lille1campus.adapters.RecyclerViewAdapter;
-import huntermahroug.com.lille1campus.listeners.EventItemClickListener;
 import huntermahroug.com.lille1campus.model.EventLite;
 
 @EActivity
-public class MainActivity extends AppCompatActivity { //implements EventListFragment.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity { //implements EventListFragment.OnSearchPerformedListener {
 
     @ViewById(R.id.listEvents)
     RecyclerView listEventsView;
@@ -135,10 +131,9 @@ public class MainActivity extends AppCompatActivity { //implements EventListFrag
     } */
 
     /**
-     * Rafraîchit la vue avec des données pour l'instant statiques (par la suite, de la base de données).
+     * Récupère les données pour l'instant statiques (par la suite, de la base de données).
      */
-    private void refreshView() {
-
+    public List<EventLite> getAllEvents() {
         List<EventLite> items = new ArrayList<>();
         Calendar calendar = new GregorianCalendar();
 
@@ -166,23 +161,7 @@ public class MainActivity extends AppCompatActivity { //implements EventListFrag
         calendar.set(2017, 9, 11, 14, 0);
         items.add(new EventLite("Concours sciences", calendar.getTime(), "Lilliad, Lille 1"));
 
-        /*
-         * Afficher cette liste dans le RecyclerView.
-         */
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(items, R.layout.list_item_layout);
-
-        /*
-         * Définir le listener
-         */
-        adapter.setListener(new EventItemClickListener() {
-            @Override
-            public void onItemClick(View view, EventLite problemLite) {
-                // TODO
-            }
-        });
-
-        listEventsView.setAdapter(adapter);
-        listEventsView.setLayoutManager(new LinearLayoutManager(this));
+        return items;
     }
 
     /**
