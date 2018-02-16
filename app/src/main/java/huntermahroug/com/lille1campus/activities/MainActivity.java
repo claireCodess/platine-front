@@ -137,29 +137,29 @@ public class MainActivity extends AppCompatActivity { //implements EventListFrag
         List<EventLite> items = new ArrayList<>();
         Calendar calendar = new GregorianCalendar();
 
-        calendar.set(2017, 9, 5, 19, 30);
-        items.add(new EventLite("Soirée bowling", calendar.getTime(), "Bowling Van Gogh, Villeneuve-d'Ascq"));
+        calendar.set(2018, 1, 2, 19, 30);
+        items.add(new EventLite("Soirée bowling", calendar.getTime(), "Bowling Van Gogh, Villeneuve-d'Ascq", "outing"));
 
-        calendar.set(2017, 9, 6, 11, 0);
-        items.add(new EventLite("Conférence astronomie", calendar.getTime(), "Lilliad, Lille 1"));
+        calendar.set(2018, 1, 3, 11, 0);
+        items.add(new EventLite("Conférence astronomie", calendar.getTime(), "Lilliad, Lille 1", "educational"));
 
-        calendar.set(2017, 9, 6, 20, 0);
-        items.add(new EventLite("Concert de rock", calendar.getTime(), "MDE, Lille 1"));
+        calendar.set(2018, 1, 5, 20, 0);
+        items.add(new EventLite("Course hivernale", calendar.getTime(), "Halle Vallin, Lille 1", "sport"));
 
-        calendar.set(2017, 9, 7, 10, 0);
-        items.add(new EventLite("Forum métiers de l'avenir", calendar.getTime(), "Lilliad, Lille 1"));
+        calendar.set(2018, 1, 6, 10, 0);
+        items.add(new EventLite("Forum métiers de l'avenir", calendar.getTime(), "Lilliad, Lille 1", "educational"));
 
-        calendar.set(2017, 9, 9, 20, 30);
-        items.add(new EventLite("Soirée internationale", calendar.getTime(), "Bar L'Apostrophe, Lille"));
+        calendar.set(2018, 1, 6, 12, 30);
+        items.add(new EventLite("Déjeuner technologique", calendar.getTime(), "Amphi Bacchus, M5, Lille 1", "educational"));
 
-        calendar.set(2017, 9, 10, 12, 30);
-        items.add(new EventLite("Déjeuner technologique", calendar.getTime(), "Amphi Bacchus, M5, Lille 1"));
+        calendar.set(2018, 1, 6, 18, 30);
+        items.add(new EventLite("Atelier langues", calendar.getTime(), "Maison des langues, Lille 1", "educational"));
 
-        calendar.set(2017, 9, 10, 18, 30);
-        items.add(new EventLite("Atelier langues", calendar.getTime(), "Maison des langues, Lille 1"));
+        calendar.set(2018, 1, 7, 14, 0);
+        items.add(new EventLite("Concours sciences", calendar.getTime(), "Lilliad, Lille 1", "educational"));
 
-        calendar.set(2017, 9, 11, 14, 0);
-        items.add(new EventLite("Concours sciences", calendar.getTime(), "Lilliad, Lille 1"));
+        calendar.set(2018, 1, 8, 20, 30);
+        items.add(new EventLite("Soirée rock", calendar.getTime(), "MDE, Lille 1", "cultural"));
 
         return items;
     }

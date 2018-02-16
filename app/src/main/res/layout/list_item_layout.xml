@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/list_item_layout"
     android:layout_width="match_parent"
@@ -9,14 +10,12 @@
         android:id="@+id/event_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/icon_category"
         android:fontFamily="sans-serif"
         android:paddingBottom="2dp"
-        android:paddingLeft="8dp"
-        android:paddingStart="8dp"
         android:text="Soirée bowling"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="18sp"
         android:textStyle="bold" />
 
@@ -40,7 +39,7 @@
         android:layout_toRightOf="@+id/event_date_img"
         android:layout_toEndOf="@+id/event_date_img"
         android:paddingBottom="2dp"
-        android:text="jeudi 5 octobre à 19h30"
+        android:text="jeudi 1 février à 19h30"
         android:textSize="16sp"
         android:textStyle="normal" />
 
@@ -64,8 +63,18 @@
         android:layout_marginBottom="10dp"
         android:layout_toEndOf="@+id/event_location_img"
         android:layout_toRightOf="@+id/event_location_img"
-        android:text="Bowling Van Gogh, Villeneuve-d'Ascq"
+        android:text="MDE, Lille 1"
         android:textSize="16sp"
         android:textStyle="normal" />
+
+    <ImageView
+        android:id="@+id/icon_category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/event_date"
+        android:tint="@color/colorPrimaryDark"
+        app:srcCompat="@drawable/ic_view_events" />
 
 </RelativeLayout>

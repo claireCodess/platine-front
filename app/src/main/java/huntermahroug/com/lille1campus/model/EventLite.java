@@ -24,6 +24,11 @@ public class EventLite {
     private String location;
 
     /**
+     * Catégorie de l'événement
+     */
+    private String category;
+
+    /**
      * Constructeur vide
      */
     public EventLite() {
@@ -33,10 +38,11 @@ public class EventLite {
     /**
      * Constructeur en définissant les paramètres directement
      */
-    public EventLite(String name, Date date, String location) {
+    public EventLite(String name, Date date, String location, String category) {
         this.name = name;
         this.date = date;
         this.location = location;
+        this.category = category;
     }
 
     public String getName() {
@@ -61,5 +67,13 @@ public class EventLite {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

@@ -56,8 +56,8 @@ public class SearchFragment extends Fragment {
     @ViewById(R.id.all_results_view)
     Button allResultsButton;
 
-    /*@ViewById(R.id.list_item_layout)
-    RelativeLayout*/
+    @ViewById(R.id.list_item_layout)
+    View resultContentView;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -134,13 +134,13 @@ public class SearchFragment extends Fragment {
                 // de l'API est au dessus de 24 (seulement ces versions utilisent Java 8)
                 if(Build.VERSION.SDK_INT >= 24) {
                      filteredResults = list.stream() // Convertir la liste en "stream"
-                            .filter(event -> event.getName().contains(query)) // Vérifier que le nom de l'événement contient la requête
+                            .filter(event -> event.getName().toLowerCase().contains(query.toLowerCase())) // Vérifier que le nom de l'événement contient la requête
                             .collect(Collectors.toList()); // Convertir le stream en List
                 } else {
                     filteredResults = new ArrayList<>();
                     for (EventLite event : list) {
                         // Vérifier que le nom de l'événement contient la requête
-                        if (event.getName().contains(query)) {
+                        if (event.getName().toLowerCase().contains(query.toLowerCase())) {
                             filteredResults.add(event);
                         }
                     }
@@ -151,7 +151,13 @@ public class SearchFragment extends Fragment {
                 fragmentTransaction.add(R.id.search_fragment_placeholder, ShowSearchResultsFragment_.newInstance("Soirée rock"));
                 fragmentTransaction.commit();*/
                 bestResultView.setVisibility(View.VISIBLE);
-                resultLayout.setVisibility(View.VISIBLE);
+
+                if(!filteredResults.isEmpty()) {
+                    TextView eventNameText = resultContentView.findViewById(R.id.event_name);
+                    eventNameText.setText(filteredResults.get(1).getName());
+                    resultLayout.setVisibility(View.VISIBLE);
+                }
+
                 allResultsButton.setVisibility(View.VISIBLE);
 
                 // TODO : puis proposer à l'utilisateur d'aller à tous les résultats

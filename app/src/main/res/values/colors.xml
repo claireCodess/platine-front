@@ -3,7 +3,8 @@
     <color name="colorPrimary">#ae2573</color>
     <color name="colorPrimaryDark">#7a0048</color>
     <color name="colorPrimaryLight">#e35ba2</color>
-    <color name="colorList1">#ffffff</color>
-    <color name="colorList2">#ffeaec</color>
+    <color name="colorSecondary">#aeae9d</color>
+    <color name="colorSecondaryLight">#e0e0ce</color>
+    <color name="colorSecondaryDark">#7f7f6f</color>
     <color name="white">#ffffff</color>
 </resources>

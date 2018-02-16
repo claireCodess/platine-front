@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -87,12 +88,28 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         // Ajouter dans le SimpleDateFormat un Locale non obligatoire mais peut être nécessaire si on veut rendre notre appli internationale : , Locale.FRENCH);
         holder.dateText.setText(dateFormat.format(item.getDate()));
         holder.locationText.setText(item.getLocation());
+
+        // Associer le nom de la catégorie à l'image
+        switch(item.getCategory()) {
+            case "cultural":
+                holder.categoryImage.setImageResource(R.drawable.ic_category_cultural);
+                break;
+            case "educational":
+                holder.categoryImage.setImageResource(R.drawable.ic_category_educational);
+                break;
+            case "outing":
+                holder.categoryImage.setImageResource(R.drawable.ic_category_outing);
+                break;
+            case "sport":
+                holder.categoryImage.setImageResource(R.drawable.ic_category_sport);
+        }
+
         holder.itemView.setTag(item);
 
         if ((position % 2) == 0) {
-            holder.itemView.setBackgroundResource(R.color.colorList1);
+            holder.itemView.setBackgroundResource(R.color.white);
         } else {
-            holder.itemView.setBackgroundResource(R.color.colorList2);
+            holder.itemView.setBackgroundResource(R.color.colorSecondaryLight);
         }
 
     }
@@ -107,6 +124,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         // Vue texte pour l'affichage du lieu de l'événement
         public TextView locationText;
+
+        // Image pour la catégorie de l'événement
+        public ImageView categoryImage;
 
         // L'événement dans la liste des événements
         public EventLite eventLite;
@@ -130,6 +150,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             nameText = itemView.findViewById(R.id.event_name);
             dateText = itemView.findViewById(R.id.event_date);
             locationText = itemView.findViewById(R.id.event_location);
+            categoryImage = itemView.findViewById(R.id.icon_category);
         }
 
     }
