@@ -13,6 +13,9 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        debug {
+            testCoverageEnabled = true
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -38,4 +41,11 @@ dependencies {
     compile 'com.android.support:recyclerview-v7'
     compile 'com.android.support:gridlayout-v7:26.1.0'
     compile 'com.squareup.retrofit:retrofit:1.9.0'
+}
+
+sonarqube {
+    properties {
+        property "sonar.java.binaries", "build/intermediates/classes/debug"
+        property "sonar.jacoco.reportPath","build/outputs/code-coverage/connected/coverage.ec"
+    }
 }
