@@ -12,7 +12,7 @@ import java.util.List;
 
 import huntermahroug.com.lille1campus.R;
 import huntermahroug.com.lille1campus.listeners.EventItemClickListener;
-import huntermahroug.com.lille1campus.model.EventLite;
+import huntermahroug.com.lille1campus.model.EventLight;
 
 /**
  * Created by Claire on 22/01/2018.
@@ -23,7 +23,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     /**
      * La liste des événements
      */
-    private List<EventLite> events;
+    private List<EventLight> events;
 
     /**
      * L'ID ressource du layout à utiliser
@@ -40,7 +40,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         this.listener = listener;
     }
 
-    public RecyclerViewAdapter(List<EventLite> events, int eventLayout) {
+    public RecyclerViewAdapter(List<EventLight> events, int eventLayout) {
         this.events = events;
         this.eventLayout = eventLayout;
     }
@@ -79,10 +79,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(RecyclerViewAdapter.ViewHolder holder, int position) {
 
         // Chercher l'élément par sa position
-        EventLite item = events.get(position);
+        EventLight item = events.get(position);
 
         // Sauvegarder les informations dans le holder
-        holder.eventLite = item;
+        holder.eventLight = item;
         holder.nameText.setText(item.getName());
         SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE d MMMM 'à' HH'h'mm");
         // Ajouter dans le SimpleDateFormat un Locale non obligatoire mais peut être nécessaire si on veut rendre notre appli internationale : , Locale.FRENCH);
@@ -129,7 +129,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public ImageView categoryImage;
 
         // L'événement dans la liste des événements
-        public EventLite eventLite;
+        public EventLight eventLight;
 
         /**
          * Constructeur ViewHolder
@@ -142,7 +142,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onItemClick(v, eventLite);
+                    listener.onItemClick(v, eventLight);
                 }
             });
 

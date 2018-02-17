@@ -1,4 +1,4 @@
-package huntermahroug.com.lille1campus;
+package huntermahroug.com.lille1campus.view.fragments;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -19,8 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import huntermahroug.com.lille1campus.activities.MainActivity;
-import huntermahroug.com.lille1campus.model.EventLite;
+import huntermahroug.com.lille1campus.R;
+import huntermahroug.com.lille1campus.view.MainActivity;
+import huntermahroug.com.lille1campus.model.EventLight;
 
 
 /**
@@ -124,9 +125,9 @@ public class SearchFragment extends Fragment {
             public boolean onQueryTextSubmit(String query) {
                 // Appeler l'activité qui va aller récupérer une liste d'événements
                 MainActivity activity = (MainActivity) getActivity();
-                List<EventLite> list = activity.getAllEvents();
+                List<EventLight> list = activity.getAllEvents();
 
-                List<EventLite> filteredResults;
+                List<EventLight> filteredResults;
 
                 // TODO : on affichera le résultat avec la date la plus récente d'abord
                 // En attendant, filtrer la liste
@@ -138,7 +139,7 @@ public class SearchFragment extends Fragment {
                             .collect(Collectors.toList()); // Convertir le stream en List
                 } else {
                     filteredResults = new ArrayList<>();
-                    for (EventLite event : list) {
+                    for (EventLight event : list) {
                         // Vérifier que le nom de l'événement contient la requête
                         if (event.getName().toLowerCase().contains(query.toLowerCase())) {
                             filteredResults.add(event);

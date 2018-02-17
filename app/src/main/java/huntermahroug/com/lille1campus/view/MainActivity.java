@@ -1,4 +1,4 @@
-package huntermahroug.com.lille1campus.activities;
+package huntermahroug.com.lille1campus.view;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -24,7 +24,7 @@ import huntermahroug.com.lille1campus.CategoriesFragment_;
 import huntermahroug.com.lille1campus.EventListFragment_;
 import huntermahroug.com.lille1campus.R;
 import huntermahroug.com.lille1campus.SearchFragment_;
-import huntermahroug.com.lille1campus.model.EventLite;
+import huntermahroug.com.lille1campus.model.EventLight;
 
 @EActivity
 public class MainActivity extends AppCompatActivity { //implements EventListFragment.OnSearchPerformedListener {
@@ -133,33 +133,33 @@ public class MainActivity extends AppCompatActivity { //implements EventListFrag
     /**
      * Récupère les données pour l'instant statiques (par la suite, de la base de données).
      */
-    public List<EventLite> getAllEvents() {
-        List<EventLite> items = new ArrayList<>();
+    public List<EventLight> getAllEvents() {
+        List<EventLight> items = new ArrayList<>();
         Calendar calendar = new GregorianCalendar();
 
         calendar.set(2018, 1, 2, 19, 30);
-        items.add(new EventLite("Soirée bowling", calendar.getTime(), "Bowling Van Gogh, Villeneuve-d'Ascq", "outing"));
+        items.add(new EventLight("Soirée bowling", calendar.getTime(), "Bowling Van Gogh, Villeneuve-d'Ascq", "outing"));
 
         calendar.set(2018, 1, 3, 11, 0);
-        items.add(new EventLite("Conférence astronomie", calendar.getTime(), "Lilliad, Lille 1", "educational"));
+        items.add(new EventLight("Conférence astronomie", calendar.getTime(), "Lilliad, Lille 1", "educational"));
 
         calendar.set(2018, 1, 5, 20, 0);
-        items.add(new EventLite("Course hivernale", calendar.getTime(), "Halle Vallin, Lille 1", "sport"));
+        items.add(new EventLight("Course hivernale", calendar.getTime(), "Halle Vallin, Lille 1", "sport"));
 
         calendar.set(2018, 1, 6, 10, 0);
-        items.add(new EventLite("Forum métiers de l'avenir", calendar.getTime(), "Lilliad, Lille 1", "educational"));
+        items.add(new EventLight("Forum métiers de l'avenir", calendar.getTime(), "Lilliad, Lille 1", "educational"));
 
         calendar.set(2018, 1, 6, 12, 30);
-        items.add(new EventLite("Déjeuner technologique", calendar.getTime(), "Amphi Bacchus, M5, Lille 1", "educational"));
+        items.add(new EventLight("Déjeuner technologique", calendar.getTime(), "Amphi Bacchus, M5, Lille 1", "educational"));
 
         calendar.set(2018, 1, 6, 18, 30);
-        items.add(new EventLite("Atelier langues", calendar.getTime(), "Maison des langues, Lille 1", "educational"));
+        items.add(new EventLight("Atelier langues", calendar.getTime(), "Maison des langues, Lille 1", "educational"));
 
         calendar.set(2018, 1, 7, 14, 0);
-        items.add(new EventLite("Concours sciences", calendar.getTime(), "Lilliad, Lille 1", "educational"));
+        items.add(new EventLight("Concours sciences", calendar.getTime(), "Lilliad, Lille 1", "educational"));
 
         calendar.set(2018, 1, 8, 20, 30);
-        items.add(new EventLite("Soirée rock", calendar.getTime(), "MDE, Lille 1", "cultural"));
+        items.add(new EventLight("Soirée rock", calendar.getTime(), "MDE, Lille 1", "cultural"));
 
         return items;
     }

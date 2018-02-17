@@ -1,4 +1,4 @@
-package huntermahroug.com.lille1campus;
+package huntermahroug.com.lille1campus.view.fragments;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -16,9 +16,10 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import huntermahroug.com.lille1campus.R;
 import huntermahroug.com.lille1campus.adapters.RecyclerViewAdapter;
 import huntermahroug.com.lille1campus.listeners.EventItemClickListener;
-import huntermahroug.com.lille1campus.model.EventLite;
+import huntermahroug.com.lille1campus.model.EventLight;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -132,32 +133,32 @@ public class EventListFragment extends Fragment {
      */
     private void refreshView() {
 
-        List<EventLite> items = new ArrayList<>();
+        List<EventLight> items = new ArrayList<>();
         Calendar calendar = new GregorianCalendar();
 
         calendar.set(2018, 1, 2, 19, 30);
-        items.add(new EventLite("Soirée bowling", calendar.getTime(), "Bowling Van Gogh, Villeneuve-d'Ascq", "outing"));
+        items.add(new EventLight("Soirée bowling", calendar.getTime(), "Bowling Van Gogh, Villeneuve-d'Ascq", "outing"));
 
         calendar.set(2018, 1, 3, 11, 0);
-        items.add(new EventLite("Conférence astronomie", calendar.getTime(), "Lilliad, Lille 1", "educational"));
+        items.add(new EventLight("Conférence astronomie", calendar.getTime(), "Lilliad, Lille 1", "educational"));
 
         calendar.set(2018, 1, 5, 20, 0);
-        items.add(new EventLite("Course hivernale", calendar.getTime(), "Halle Vallin, Lille 1", "sport"));
+        items.add(new EventLight("Course hivernale", calendar.getTime(), "Halle Vallin, Lille 1", "sport"));
 
         calendar.set(2018, 1, 6, 10, 0);
-        items.add(new EventLite("Forum métiers de l'avenir", calendar.getTime(), "Lilliad, Lille 1", "educational"));
+        items.add(new EventLight("Forum métiers de l'avenir", calendar.getTime(), "Lilliad, Lille 1", "educational"));
 
         calendar.set(2018, 1, 6, 12, 30);
-        items.add(new EventLite("Déjeuner technologique", calendar.getTime(), "Amphi Bacchus, M5, Lille 1", "educational"));
+        items.add(new EventLight("Déjeuner technologique", calendar.getTime(), "Amphi Bacchus, M5, Lille 1", "educational"));
 
         calendar.set(2018, 1, 6, 18, 30);
-        items.add(new EventLite("Atelier langues", calendar.getTime(), "Maison des langues, Lille 1", "educational"));
+        items.add(new EventLight("Atelier langues", calendar.getTime(), "Maison des langues, Lille 1", "educational"));
 
         calendar.set(2018, 1, 7, 14, 0);
-        items.add(new EventLite("Concours sciences", calendar.getTime(), "Lilliad, Lille 1", "educational"));
+        items.add(new EventLight("Concours sciences", calendar.getTime(), "Lilliad, Lille 1", "educational"));
 
         calendar.set(2018, 1, 8, 20, 30);
-        items.add(new EventLite("Soirée rock", calendar.getTime(), "MDE, Lille 1", "cultural"));
+        items.add(new EventLight("Soirée rock", calendar.getTime(), "MDE, Lille 1", "cultural"));
 
         /*
          * Afficher cette liste dans le RecyclerView.
@@ -169,7 +170,7 @@ public class EventListFragment extends Fragment {
          */
         adapter.setListener(new EventItemClickListener() {
             @Override
-            public void onItemClick(View view, EventLite problemLite) {
+            public void onItemClick(View view, EventLight problemLite) {
                 // TODO
             }
         });

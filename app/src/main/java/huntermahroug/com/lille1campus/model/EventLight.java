@@ -6,7 +6,7 @@ import java.util.Date;
  * Created by Claire on 22/01/2018.
  */
 
-public class EventLite {
+public class EventLight {
 
     /**
      * Nom de l'événement
@@ -31,14 +31,14 @@ public class EventLite {
     /**
      * Constructeur vide
      */
-    public EventLite() {
+    public EventLight() {
 
     }
 
     /**
      * Constructeur en définissant les paramètres directement
      */
-    public EventLite(String name, Date date, String location, String category) {
+    public EventLight(String name, Date date, String location, String category) {
         this.name = name;
         this.date = date;
         this.location = location;
