@@ -1,4 +1,4 @@
-package huntermahroug.com.lille1campus.listeners;
+package huntermahroug.com.lille1campus.util.listener;
 
 import android.view.View;
 

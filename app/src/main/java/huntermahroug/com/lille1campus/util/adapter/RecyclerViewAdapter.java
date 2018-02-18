@@ -1,4 +1,4 @@
-package huntermahroug.com.lille1campus.adapters;
+package huntermahroug.com.lille1campus.util.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,7 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 import huntermahroug.com.lille1campus.R;
-import huntermahroug.com.lille1campus.listeners.EventItemClickListener;
+import huntermahroug.com.lille1campus.util.listener.EventItemClickListener;
 import huntermahroug.com.lille1campus.model.EventLight;
 
 /**
@@ -86,12 +86,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.nameText.setText(item.getName());
         SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE d MMMM 'à' HH'h'mm");
         // Ajouter dans le SimpleDateFormat un Locale non obligatoire mais peut être nécessaire si on veut rendre notre appli internationale : , Locale.FRENCH);
-        holder.dateText.setText(dateFormat.format(item.getDate()));
+        holder.dateText.setText(item.getDate());
         holder.locationText.setText(item.getLocation());
 
         // Associer le nom de la catégorie à l'image
         switch(item.getCategory()) {
-            case "cultural":
+            case "Culture":
                 holder.categoryImage.setImageResource(R.drawable.ic_category_cultural);
                 break;
             case "educational":
@@ -100,7 +100,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             case "outing":
                 holder.categoryImage.setImageResource(R.drawable.ic_category_outing);
                 break;
-            case "sport":
+            case "Sport":
                 holder.categoryImage.setImageResource(R.drawable.ic_category_sport);
         }
 

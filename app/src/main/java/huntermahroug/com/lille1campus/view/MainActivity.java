@@ -18,13 +18,13 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import huntermahroug.com.lille1campus.AddEventFragment_;
-import huntermahroug.com.lille1campus.BottomNavigationViewHelper;
-import huntermahroug.com.lille1campus.CategoriesFragment_;
-import huntermahroug.com.lille1campus.EventListFragment_;
+import huntermahroug.com.lille1campus.util.helper.BottomNavigationViewHelper;
 import huntermahroug.com.lille1campus.R;
-import huntermahroug.com.lille1campus.SearchFragment_;
 import huntermahroug.com.lille1campus.model.EventLight;
+import huntermahroug.com.lille1campus.view.fragments.AddEventFragment_;
+import huntermahroug.com.lille1campus.view.fragments.CategoriesFragment_;
+import huntermahroug.com.lille1campus.view.fragments.EventListFragment_;
+import huntermahroug.com.lille1campus.view.fragments.SearchFragment_;
 
 @EActivity
 public class MainActivity extends AppCompatActivity { //implements EventListFragment.OnSearchPerformedListener {
@@ -37,8 +37,6 @@ public class MainActivity extends AppCompatActivity { //implements EventListFrag
 
     @ViewById(R.id.titleBar)
     Toolbar toolBar;
-
-    // private ActionBarDrawerToggle mDrawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,51 +82,7 @@ public class MainActivity extends AppCompatActivity { //implements EventListFrag
         fragmentTransaction.add(R.id.fragment_placeholder, new EventListFragment_());
         fragmentTransaction.commit();
 
-        // setupDrawer();
-
-        /* setSupportActionBar(toolBar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true); */
-
-        // refreshView();
     }
-
-    /* @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        // Synchroniser l'état de basculement après que la méthode
-        // onRestoreInstanceState ait été appelée.
-        mDrawerToggle.syncState();
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        mDrawerToggle.onConfigurationChanged(newConfig);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Peut-être à utiliser plus tard
-        // int id = item.getItemId();
-
-        // Activer le basculement du menu latéral
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.bottom_nav_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    } */
 
     /**
      * Récupère les données pour l'instant statiques (par la suite, de la base de données).
@@ -137,54 +91,31 @@ public class MainActivity extends AppCompatActivity { //implements EventListFrag
         List<EventLight> items = new ArrayList<>();
         Calendar calendar = new GregorianCalendar();
 
-        calendar.set(2018, 1, 2, 19, 30);
-        items.add(new EventLight("Soirée bowling", calendar.getTime(), "Bowling Van Gogh, Villeneuve-d'Ascq", "outing"));
+        /*calendar.set(2018, 1, 2, 19, 30);
+        items.add(new EventLight(1, "Soirée bowling", calendar.getTime(), "Bowling Van Gogh, Villeneuve-d'Ascq", "outing"));
 
         calendar.set(2018, 1, 3, 11, 0);
-        items.add(new EventLight("Conférence astronomie", calendar.getTime(), "Lilliad, Lille 1", "educational"));
+        items.add(new EventLight(2, "Conférence astronomie", calendar.getTime(), "Lilliad, Lille 1", "educational"));
 
         calendar.set(2018, 1, 5, 20, 0);
-        items.add(new EventLight("Course hivernale", calendar.getTime(), "Halle Vallin, Lille 1", "sport"));
+        items.add(new EventLight(3, "Course hivernale", calendar.getTime(), "Halle Vallin, Lille 1", "sport"));
 
         calendar.set(2018, 1, 6, 10, 0);
-        items.add(new EventLight("Forum métiers de l'avenir", calendar.getTime(), "Lilliad, Lille 1", "educational"));
+        items.add(new EventLight(4, "Forum métiers de l'avenir", calendar.getTime(), "Lilliad, Lille 1", "educational"));
 
         calendar.set(2018, 1, 6, 12, 30);
-        items.add(new EventLight("Déjeuner technologique", calendar.getTime(), "Amphi Bacchus, M5, Lille 1", "educational"));
+        items.add(new EventLight(5, "Déjeuner technologique", calendar.getTime(), "Amphi Bacchus, M5, Lille 1", "educational"));
 
         calendar.set(2018, 1, 6, 18, 30);
-        items.add(new EventLight("Atelier langues", calendar.getTime(), "Maison des langues, Lille 1", "educational"));
+        items.add(new EventLight(6, "Atelier langues", calendar.getTime(), "Maison des langues, Lille 1", "educational"));
 
         calendar.set(2018, 1, 7, 14, 0);
-        items.add(new EventLight("Concours sciences", calendar.getTime(), "Lilliad, Lille 1", "educational"));
+        items.add(new EventLight(7, "Concours sciences", calendar.getTime(), "Lilliad, Lille 1", "educational"));
 
         calendar.set(2018, 1, 8, 20, 30);
-        items.add(new EventLight("Soirée rock", calendar.getTime(), "MDE, Lille 1", "cultural"));
+        items.add(new EventLight(8, "Soirée rock", calendar.getTime(), "MDE, Lille 1", "cultural"));*/
 
         return items;
     }
 
-    /**
-     * Construit le menu latéral
-     */
-    /* private void setupDrawer() {
-        mDrawerToggle = new ActionBarDrawerToggle(this, bottomNavigationView,
-                R.string.drawer_open, R.string.drawer_close) {
-
-            // Appelé quand le menu latéral vient d'être ouvert
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-                invalidateOptionsMenu(); // appelle onPrepareOptionsMenu()
-            }
-
-            // Appelé quand le menu latéral vient d'être fermé
-            public void onDrawerClosed(View drawerView) {
-                super.onDrawerClosed(drawerView);
-                invalidateOptionsMenu(); // appelle onPrepareOptionsMenu()
-            }
-        };
-
-        mDrawerToggle.setDrawerIndicatorEnabled(true);
-        bottomNavigationView.addDrawerListener(mDrawerToggle);
-    } */
 }

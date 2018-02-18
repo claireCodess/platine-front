@@ -1,12 +1,15 @@
 package huntermahroug.com.lille1campus.model;
 
-import java.util.Date;
-
 /**
  * Created by Claire on 22/01/2018.
  */
 
 public class EventLight {
+
+    /**
+     * ID de l'événement
+     */
+    private int id;
 
     /**
      * Nom de l'événement
@@ -16,7 +19,7 @@ public class EventLight {
     /**
      * Date de l'événement
      */
-    private Date date;
+    private String date;
 
     /**
      * Lieu de l'événement
@@ -38,11 +41,20 @@ public class EventLight {
     /**
      * Constructeur en définissant les paramètres directement
      */
-    public EventLight(String name, Date date, String location, String category) {
+    public EventLight(int id, String name, String date, String location, String category) {
+        this.id = id;
         this.name = name;
         this.date = date;
         this.location = location;
         this.category = category;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -53,11 +65,11 @@ public class EventLight {
         this.name = name;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

@@ -1,4 +1,4 @@
-package huntermahroug.com.lille1campus;
+package huntermahroug.com.lille1campus.util.helper;
 
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;

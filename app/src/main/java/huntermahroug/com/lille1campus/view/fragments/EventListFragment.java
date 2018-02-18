@@ -11,15 +11,17 @@ import android.view.View;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 
+import huntermahroug.com.lille1campus.LilleCampusApplication;
 import huntermahroug.com.lille1campus.R;
-import huntermahroug.com.lille1campus.adapters.RecyclerViewAdapter;
-import huntermahroug.com.lille1campus.listeners.EventItemClickListener;
+import huntermahroug.com.lille1campus.util.adapter.RecyclerViewAdapter;
+import huntermahroug.com.lille1campus.LilleCampusAPI;
+import huntermahroug.com.lille1campus.util.listener.EventItemClickListener;
 import huntermahroug.com.lille1campus.model.EventLight;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,17 +33,11 @@ import huntermahroug.com.lille1campus.model.EventLight;
  */
 @EFragment(R.layout.fragment_event_list)
 public class EventListFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     @ViewById(R.id.listEvents)
     RecyclerView listEventsView;
+
+    private LilleCampusAPI lilleCampusAPI;
 
     private OnFragmentInteractionListener mListener;
 
@@ -49,39 +45,10 @@ public class EventListFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment EventListFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static EventListFragment newInstance(String param1, String param2) {
-        EventListFragment fragment = new EventListFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
-
-    /*@Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return null;
-    }*/
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -93,17 +60,12 @@ public class EventListFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        /* if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        } */
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        lilleCampusAPI = ((LilleCampusApplication) this.getActivity().getApplication()).getLilleCampusAPI();
         refreshView();
     }
 
@@ -132,38 +94,25 @@ public class EventListFragment extends Fragment {
      * Rafraîchit la vue avec des données pour l'instant statiques (par la suite, de la base de données).
      */
     private void refreshView() {
+        lilleCampusAPI.getAllEvents(new Callback<List<EventLight>>() {
+            @Override
+            public void success(List<EventLight> events, Response response) {
+                showEvents(events);
+            }
 
-        List<EventLight> items = new ArrayList<>();
-        Calendar calendar = new GregorianCalendar();
+            @Override
+            public void failure(RetrofitError error) {
+                System.out.println(error.getMessage());
+            }
+        });
 
-        calendar.set(2018, 1, 2, 19, 30);
-        items.add(new EventLight("Soirée bowling", calendar.getTime(), "Bowling Van Gogh, Villeneuve-d'Ascq", "outing"));
+    }
 
-        calendar.set(2018, 1, 3, 11, 0);
-        items.add(new EventLight("Conférence astronomie", calendar.getTime(), "Lilliad, Lille 1", "educational"));
-
-        calendar.set(2018, 1, 5, 20, 0);
-        items.add(new EventLight("Course hivernale", calendar.getTime(), "Halle Vallin, Lille 1", "sport"));
-
-        calendar.set(2018, 1, 6, 10, 0);
-        items.add(new EventLight("Forum métiers de l'avenir", calendar.getTime(), "Lilliad, Lille 1", "educational"));
-
-        calendar.set(2018, 1, 6, 12, 30);
-        items.add(new EventLight("Déjeuner technologique", calendar.getTime(), "Amphi Bacchus, M5, Lille 1", "educational"));
-
-        calendar.set(2018, 1, 6, 18, 30);
-        items.add(new EventLight("Atelier langues", calendar.getTime(), "Maison des langues, Lille 1", "educational"));
-
-        calendar.set(2018, 1, 7, 14, 0);
-        items.add(new EventLight("Concours sciences", calendar.getTime(), "Lilliad, Lille 1", "educational"));
-
-        calendar.set(2018, 1, 8, 20, 30);
-        items.add(new EventLight("Soirée rock", calendar.getTime(), "MDE, Lille 1", "cultural"));
-
+    private void showEvents(List<EventLight> events) {
         /*
          * Afficher cette liste dans le RecyclerView.
          */
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(items, R.layout.list_item_layout);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(events, R.layout.list_item_layout);
 
         /*
          * Définir le listener
