@@ -1,41 +1,32 @@
-package huntermahroug.com.lille1campus.view.fragments;
+package huntermahroug.com.lille1campus.view.fragment;
 
 import android.app.Fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import org.androidannotations.annotations.BindingObject;
+import org.androidannotations.annotations.DataBound;
 import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.ViewById;
 
 import java.util.List;
 
+import huntermahroug.com.lille1campus.LilleCampusAPI;
 import huntermahroug.com.lille1campus.LilleCampusApplication;
 import huntermahroug.com.lille1campus.R;
-import huntermahroug.com.lille1campus.util.adapter.RecyclerViewAdapter;
-import huntermahroug.com.lille1campus.LilleCampusAPI;
-import huntermahroug.com.lille1campus.util.listener.EventItemClickListener;
+import huntermahroug.com.lille1campus.databinding.FragmentEventListBinding;
 import huntermahroug.com.lille1campus.model.EventLight;
+import huntermahroug.com.lille1campus.util.adapter.EventAdapter;
+import huntermahroug.com.lille1campus.util.listener.EventItemClickListener;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link EventListFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link EventListFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+@DataBound
 @EFragment(R.layout.fragment_event_list)
 public class EventListFragment extends Fragment {
-
-    @ViewById(R.id.listEvents)
-    RecyclerView listEventsView;
 
     private LilleCampusAPI lilleCampusAPI;
 
@@ -75,6 +66,9 @@ public class EventListFragment extends Fragment {
         mListener = null;
     }
 
+    @BindingObject
+    FragmentEventListBinding binding;
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -112,7 +106,7 @@ public class EventListFragment extends Fragment {
         /*
          * Afficher cette liste dans le RecyclerView.
          */
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(events, R.layout.list_item_layout);
+        EventAdapter adapter = new EventAdapter(events, getActivity());
 
         /*
          * Définir le listener
@@ -124,8 +118,8 @@ public class EventListFragment extends Fragment {
             }
         });
 
-        listEventsView.setAdapter(adapter);
-        listEventsView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        binding.listEvents.setAdapter(adapter);
+        binding.listEvents.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
 }

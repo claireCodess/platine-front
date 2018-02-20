@@ -1,4 +1,4 @@
-package huntermahroug.com.lille1campus.view.fragments;
+package huntermahroug.com.lille1campus.view.fragment;
 
 import android.app.Fragment;
 import android.app.FragmentManager;

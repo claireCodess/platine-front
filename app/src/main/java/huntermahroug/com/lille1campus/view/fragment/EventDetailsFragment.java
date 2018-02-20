@@ -1,4 +1,4 @@
-package huntermahroug.com.lille1campus.view.fragments;
+package huntermahroug.com.lille1campus.view.fragment;
 
 import android.content.Context;
 import android.net.Uri;

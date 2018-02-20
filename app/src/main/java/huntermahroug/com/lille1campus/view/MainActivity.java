@@ -21,15 +21,15 @@ import java.util.List;
 import huntermahroug.com.lille1campus.util.helper.BottomNavigationViewHelper;
 import huntermahroug.com.lille1campus.R;
 import huntermahroug.com.lille1campus.model.EventLight;
-import huntermahroug.com.lille1campus.view.fragments.AddEventFragment_;
-import huntermahroug.com.lille1campus.view.fragments.CategoriesFragment_;
-import huntermahroug.com.lille1campus.view.fragments.EventListFragment_;
-import huntermahroug.com.lille1campus.view.fragments.SearchFragment_;
+import huntermahroug.com.lille1campus.view.fragment.AddEventFragment_;
+import huntermahroug.com.lille1campus.view.fragment.CategoriesFragment_;
+import huntermahroug.com.lille1campus.view.fragment.EventListFragment_;
+import huntermahroug.com.lille1campus.view.fragment.SearchFragment_;
 
 @EActivity
 public class MainActivity extends AppCompatActivity { //implements EventListFragment.OnSearchPerformedListener {
 
-    @ViewById(R.id.listEvents)
+    @ViewById(R.id.list_events)
     RecyclerView listEventsView;
 
     @ViewById(R.id.bottom_nav_layout)

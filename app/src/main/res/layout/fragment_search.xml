@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context="huntermahroug.com.lille1campus.view.fragments.SearchFragment">
+    tools:context="huntermahroug.com.lille1campus.view.fragment.SearchFragment">
 
     <android.widget.SearchView
         android:id="@+id/search_view"
@@ -46,7 +46,7 @@
 
         <include
             android:id="@+id/list_item_layout"
-            layout="@layout/list_item_layout" />
+            layout="@layout/event_item_layout" />
     </FrameLayout>
 
     <Button
@@ -68,6 +68,6 @@
         android:text="TextView"
         tools:layout_editor_absoluteX="79dp"
         tools:layout_editor_absoluteY="118dp" /> -->
-    <!-- app:layout_constraintTop_toBottomOf="@+id/list_item_layout" /> -->
+    <!-- app:layout_constraintTop_toBottomOf="@event_item_layoutyout" /> -->
 
 </android.support.constraint.ConstraintLayout>

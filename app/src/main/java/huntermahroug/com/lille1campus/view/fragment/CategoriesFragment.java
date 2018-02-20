@@ -1,4 +1,4 @@
-package huntermahroug.com.lille1campus.view.fragments;
+package huntermahroug.com.lille1campus.view.fragment;
 
 import android.content.Context;
 import android.net.Uri;
@@ -13,13 +13,13 @@ import huntermahroug.com.lille1campus.R;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link AddEventFragment.OnFragmentInteractionListener} interface
+ * {@link CategoriesFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link AddEventFragment#newInstance} factory method to
+ * Use the {@link CategoriesFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-@EFragment(R.layout.fragment_add_event)
-public class AddEventFragment extends Fragment {
+@EFragment(R.layout.fragment_categories)
+public class CategoriesFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -31,7 +31,7 @@ public class AddEventFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public AddEventFragment() {
+    public CategoriesFragment() {
         // Required empty public constructor
     }
 
@@ -41,11 +41,11 @@ public class AddEventFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment AddEventFragment.
+     * @return A new instance of fragment CategoriesFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static AddEventFragment newInstance(String param1, String param2) {
-        AddEventFragment fragment = new AddEventFragment();
+    public static CategoriesFragment newInstance(String param1, String param2) {
+        CategoriesFragment fragment = new CategoriesFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -66,7 +66,7 @@ public class AddEventFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_event, container, false);
+        return inflater.inflate(R.layout.fragment_categories, container, false);
     }*/
 
     // TODO: Rename method, update argument and hook method into UI event
