@@ -14,10 +14,13 @@
             android:id="@+id/event_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/icon_category"
             android:layout_alignParentTop="true"
             android:layout_toEndOf="@+id/icon_category"
             android:fontFamily="sans-serif"
+            android:gravity="center_vertical"
             android:paddingBottom="2dp"
+            android:paddingStart="2dp"
             android:text="@{event.name}"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="18sp"
@@ -28,10 +31,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/event_date"
-            android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/event_name"
-            android:paddingLeft="4dp"
             android:paddingStart="4dp"
             android:src="@drawable/ic_clock" />
 
@@ -40,9 +41,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/event_name"
-            android:layout_toRightOf="@+id/event_date_img"
             android:layout_toEndOf="@+id/event_date_img"
             android:paddingBottom="2dp"
+            android:paddingStart="2dp"
             android:text="@{event.date}"
             android:textSize="16sp"
             android:textStyle="normal" />
@@ -52,10 +53,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/event_location"
-            android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/event_date"
-            android:paddingLeft="4dp"
             android:paddingStart="4dp"
             android:src="@drawable/ic_location" />
 
@@ -66,7 +65,7 @@
             android:layout_below="@+id/event_date"
             android:layout_marginBottom="10dp"
             android:layout_toEndOf="@+id/event_location_img"
-            android:layout_toRightOf="@+id/event_location_img"
+            android:paddingStart="2dp"
             android:text="@{event.location}"
             android:textSize="16sp"
             android:textStyle="normal" />
@@ -77,9 +76,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_toStartOf="@+id/event_date"
-            android:tint="@color/colorPrimaryDark"
-            android:src="@{event.category}" />
+            android:paddingStart="4dp"
+            android:src="@{event.category}"
+            android:tint="@color/colorPrimaryDark" />
 
     </RelativeLayout>
 </layout>
