@@ -15,9 +15,9 @@ import huntermahroug.com.lille1campus.util.listener.EventItemClickListener;
 import huntermahroug.com.lille1campus.viewmodel.EventLightViewModel;
 
 /**
- * Created by Claire on 22/01/2018.
+ * Adapteur pour la liste des événements dans le RecyclerView.
+ * @author Claire
  */
-
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.BindingHolder> {
 
     /**
@@ -81,39 +81,11 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.BindingHolde
         EventItemLayoutBinding binding = holder.binding;
         binding.setEvent(new EventLightViewModel(events.get(position), position));
 
-        // Sauvegarder les informations dans le holder
-        /*holder.eventLight = item;
-        holder.nameText.setText(item.getName());
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE d MMMM 'à' HH'h'mm");
-        // Ajouter dans le SimpleDateFormat un Locale non obligatoire mais peut être nécessaire si on veut rendre notre appli internationale : , Locale.FRENCH);
-        holder.dateText.setText(item.getDate());
-        holder.locationText.setText(item.getLocation());
-
-        // Associer le nom de la catégorie à l'image
-        switch(item.getCategory()) {
-            case "Culture":
-                holder.categoryImage.setImageResource(R.drawable.ic_category_cultural);
-                break;
-            case "educational":
-                holder.categoryImage.setImageResource(R.drawable.ic_category_educational);
-                break;
-            case "outing":
-                holder.categoryImage.setImageResource(R.drawable.ic_category_outing);
-                break;
-            case "Sport":
-                holder.categoryImage.setImageResource(R.drawable.ic_category_sport);
-        }
-
-        holder.itemView.setTag(item);
-
-        if ((position % 2) == 0) {
-            holder.itemView.setBackgroundResource(R.color.white);
-        } else {
-            holder.itemView.setBackgroundResource(R.color.colorSecondaryLight);
-        }*/
-
     }
 
+    /**
+     * Classe Holder pour fixer la vue à utiliser pour l'affichage d'un événement.
+     */
     public static class BindingHolder extends RecyclerView.ViewHolder {
         private EventItemLayoutBinding binding;
 
@@ -122,46 +94,5 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.BindingHolde
             this.binding = binding;
         }
     }
-
-    /*public static class ViewHolder extends RecyclerView.ViewHolder {
-
-        // Vue texte pour l'affichage du nom de l'événement
-        public TextView nameText;
-
-        // Vue texte pour l'affichage de la date de l'événement
-        public TextView dateText;
-
-        // Vue texte pour l'affichage du lieu de l'événement
-        public TextView locationText;
-
-        // Image pour la catégorie de l'événement
-        public ImageView categoryImage;
-
-        // L'événement dans la liste des événements
-        public EventLight eventLight;
-
-        /**
-         * Constructeur ViewHolder
-         * @param itemView La vue de l'élément
-         */
-        /*public ViewHolder(View itemView) {
-            super(itemView);
-
-            // Définir le listener pour le clic d'un item
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.onItemClick(v, eventLight);
-                }
-            });
-
-            // Lier nameText, dateText et locationText aux trois vues texte
-            nameText = itemView.findViewById(R.id.event_name);
-            dateText = itemView.findViewById(R.id.event_date);
-            locationText = itemView.findViewById(R.id.event_location);
-            categoryImage = itemView.findViewById(R.id.icon_category);
-        }
-
-    }*/
 
 }
