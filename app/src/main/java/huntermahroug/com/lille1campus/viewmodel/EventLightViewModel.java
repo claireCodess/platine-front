@@ -4,6 +4,11 @@ import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import huntermahroug.com.lille1campus.model.EventLight;
 
 /**
@@ -25,9 +30,20 @@ public class EventLightViewModel extends BaseObservable {
         return event.getName();
     }
 
+    /**
+     * Retourne la date de l'événement pour l'affichage
+     * @return String La date formatée
+     */
     @Bindable
     public String getDate() {
-        return event.getDate();
+        try {
+            DateFormat databaseFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            DateFormat presentationFormat = new SimpleDateFormat("EEEE d MMMM yyyy 'à' HH'h'mm");
+            Date date = databaseFormat.parse(event.getDate());
+            return presentationFormat.format(date);
+        } catch (ParseException e) {
+            return event.getDate();
+        }
     }
 
     @Bindable
