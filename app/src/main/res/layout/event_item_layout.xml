@@ -79,7 +79,7 @@
             android:layout_alignParentTop="true"
             android:layout_toStartOf="@+id/event_date"
             android:tint="@color/colorPrimaryDark"
-            android:src="@drawable/ic_view_events" />
+            android:src="@{event.category}" />
 
     </RelativeLayout>
 </layout>

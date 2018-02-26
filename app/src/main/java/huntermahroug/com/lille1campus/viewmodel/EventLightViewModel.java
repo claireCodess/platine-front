@@ -3,12 +3,15 @@ package huntermahroug.com.lille1campus.viewmodel;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.databinding.BindingAdapter;
+import android.widget.ImageView;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import huntermahroug.com.lille1campus.R;
 import huntermahroug.com.lille1campus.model.EventLight;
 
 /**
@@ -51,10 +54,20 @@ public class EventLightViewModel extends BaseObservable {
         return event.getLocation();
     }
 
-    /*@BindingAdapter("android:src")
-    public void setImageCategory(ImageView imageView){
+    @Bindable
+    public String getCategory() {
+        return event.getCategory();
+    }
+
+    /**
+     * Selon la catégorie de l'événement, affiche l'image correspondante.
+     * @param imageView L'ImageView à modifier pour l'affichage
+     * @param category String de la catégorie de l'événement
+     */
+    @BindingAdapter("android:src")
+    public static void setImageResource(ImageView imageView, String category){
         int resource;
-        switch(event.getCategory()) {
+        switch(category) {
             case "Culture":
                 resource = R.drawable.ic_category_cultural;
                 break;
@@ -71,6 +84,6 @@ public class EventLightViewModel extends BaseObservable {
                 resource = R.drawable.ic_view_events;
         }
         imageView.setImageResource(resource);
-    }*/
+    }
 
 }
