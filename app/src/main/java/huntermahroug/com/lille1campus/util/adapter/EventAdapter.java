@@ -79,7 +79,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.BindingHolde
     public void onBindViewHolder(BindingHolder holder, int position) {
 
         EventItemLayoutBinding binding = holder.binding;
-        binding.setEvent(new EventLightViewModel(events.get(position), context));
+        binding.setEvent(new EventLightViewModel(events.get(position), position));
 
         // Sauvegarder les informations dans le holder
         /*holder.eventLight = item;
