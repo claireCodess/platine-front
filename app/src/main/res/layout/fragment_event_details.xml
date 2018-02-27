@@ -1,13 +1,174 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="huntermahroug.com.lille1campus.view.fragment.EventDetailsFragment">
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools">
+    <data>
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    </data>
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/title_add_event" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context="huntermahroug.com.lille1campus.view.fragment.EventDetailsFragment">
 
-</FrameLayout>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/name_event"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Conférence astronomie"
+                    android:textSize="22sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/date_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="vendredi 6 octobre de 11h à 12h"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/date_img"
+                    app:layout_constraintStart_toEndOf="@+id/date_img"
+                    app:layout_constraintTop_toTopOf="@+id/date_img" />
+
+                <TextView
+                    android:id="@+id/location_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="Lilliad, Lille 1, Villeneuve-d'Ascq"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/location_img"
+                    app:layout_constraintStart_toEndOf="@+id/location_img"
+                    app:layout_constraintTop_toTopOf="@+id/location_img" />
+
+                <TextView
+                    android:id="@+id/reservation_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="Sur réservation"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/reservation_img"
+                    app:layout_constraintStart_toEndOf="@+id/reservation_img"
+                    app:layout_constraintTop_toTopOf="@+id/reservation_img" />
+
+                <TextView
+                    android:id="@+id/price_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="Gratuit"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/price_img"
+                    app:layout_constraintStart_toEndOf="@+id/price_img"
+                    app:layout_constraintTop_toTopOf="@+id/price_img" />
+
+                <TextView
+                    android:id="@+id/contact_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="patrick.durand@univ-lille1.fr"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/contact_img"
+                    app:layout_constraintStart_toEndOf="@+id/contact_img"
+                    app:layout_constraintTop_toTopOf="@+id/contact_img" />
+
+                <TextView
+                    android:id="@+id/description_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:maxLines="8"
+                    android:minLines="3"
+                    android:padding="8dp"
+                    android:text="TextView"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toBottomOf="@+id/contact_img"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:text="@string/static_description" />
+
+                <ImageView
+                    android:id="@+id/date_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:srcCompat="@drawable/ic_clock"
+                    tools:layout_editor_absoluteY="53dp" />
+
+                <ImageView
+                    android:id="@+id/location_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/date_img"
+                    app:srcCompat="@drawable/ic_location" />
+
+                <ImageView
+                    android:id="@+id/reservation_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/location_img"
+                    app:srcCompat="@drawable/ic_reservation" />
+
+                <ImageView
+                    android:id="@+id/price_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/reservation_img"
+                    app:srcCompat="@drawable/ic_price" />
+
+                <ImageView
+                    android:id="@+id/contact_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/price_img"
+                    app:srcCompat="@drawable/ic_contact" />
+
+                <!-- <android.support.constraint.Barrier
+                    android:id="@+id/limit_event_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:barrierDirection="end"
+                    app:constraint_referenced_ids="textView2,textView1" /> -->
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="(Places disponibles : 12 / 20)"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/reservation_img"
+                    app:layout_constraintStart_toEndOf="@+id/reservation_text"
+                    app:layout_constraintTop_toTopOf="@+id/reservation_img" />
+
+            </android.support.constraint.ConstraintLayout>
+
+        </ScrollView>
+
+    </FrameLayout>
+</layout>
