@@ -1,6 +1,6 @@
 package huntermahroug.com.lille1campus.util.adapter;
 
-import android.content.Context;
+import android.app.Fragment;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -26,9 +26,9 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.BindingHolde
     private List<EventLight> events;
 
     /**
-     * Le contexte
+     * Le fragment correspondant à cet Adapter
      */
-    Context context;
+    private Fragment fragment;
 
     /**
      * Le listener pour le clic de chaque item
@@ -40,9 +40,9 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.BindingHolde
         this.listener = listener;
     }
 
-    public EventAdapter(List<EventLight> events, Context context) {
+    public EventAdapter(List<EventLight> events, Fragment fragment) {
         this.events = events;
-        this.context = context;
+        this.fragment = fragment;
     }
 
     /**
@@ -79,7 +79,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.BindingHolde
     public void onBindViewHolder(BindingHolder holder, int position) {
 
         EventItemLayoutBinding binding = holder.binding;
-        binding.setEvent(new EventLightViewModel(events.get(position), position));
+        binding.setEvent(new EventLightViewModel(events.get(position), position, fragment));
 
     }
 

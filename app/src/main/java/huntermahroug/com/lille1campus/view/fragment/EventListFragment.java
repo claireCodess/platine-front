@@ -5,7 +5,6 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.view.View;
 
 import org.androidannotations.annotations.BindingObject;
 import org.androidannotations.annotations.DataBound;
@@ -19,7 +18,6 @@ import huntermahroug.com.lille1campus.R;
 import huntermahroug.com.lille1campus.databinding.FragmentEventListBinding;
 import huntermahroug.com.lille1campus.model.EventLight;
 import huntermahroug.com.lille1campus.util.adapter.EventAdapter;
-import huntermahroug.com.lille1campus.util.listener.EventItemClickListener;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -106,17 +104,7 @@ public class EventListFragment extends Fragment {
         /*
          * Afficher cette liste dans le RecyclerView.
          */
-        EventAdapter adapter = new EventAdapter(events, getActivity());
-
-        /*
-         * Définir le listener
-         */
-        adapter.setListener(new EventItemClickListener() {
-            @Override
-            public void onItemClick(View view, EventLight problemLite) {
-                // TODO
-            }
-        });
+        EventAdapter adapter = new EventAdapter(events, this);
 
         binding.listEvents.setAdapter(adapter);
         binding.listEvents.setLayoutManager(new LinearLayoutManager(getActivity()));

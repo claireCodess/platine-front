@@ -1,5 +1,7 @@
 package huntermahroug.com.lille1campus.viewmodel;
 
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.BindingAdapter;
@@ -13,6 +15,7 @@ import java.util.Date;
 
 import huntermahroug.com.lille1campus.R;
 import huntermahroug.com.lille1campus.model.EventLight;
+import huntermahroug.com.lille1campus.view.fragment.EventDetailsFragment_;
 
 /**
  * Created by Claire on 20/02/2018.
@@ -26,13 +29,19 @@ public class EventLightViewModel extends BaseObservable {
     private EventLight event;
 
     /**
+     * Le fragment correspondant à ce ViewModel
+     */
+    private Fragment fragment;
+
+    /**
      * La position de l'événement dans la liste d'événements
      */
     private int position;
 
-    public EventLightViewModel(EventLight event, int position) {
+    public EventLightViewModel(EventLight event, int position, Fragment fragment) {
         this.event = event;
         this.position = position;
+        this.fragment = fragment;
     }
 
     @Bindable
@@ -111,6 +120,13 @@ public class EventLightViewModel extends BaseObservable {
         } else {
             itemView.setBackgroundResource(R.color.colorSecondaryLight);
         }
+    }
+
+    public void onClick() {
+        FragmentTransaction fragmentTransaction = fragment.getFragmentManager().beginTransaction();
+        fragmentTransaction.add(R.id.fragment_placeholder, new EventDetailsFragment_());
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
 }
