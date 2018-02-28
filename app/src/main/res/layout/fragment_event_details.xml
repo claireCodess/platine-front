@@ -18,18 +18,21 @@ xmlns:tools="http://schemas.android.com/tools">
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/name_event"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:text="Conférence astronomie"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="22sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/category_img"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@+id/category_img" />
 
                 <TextView
                     android:id="@+id/date_text"
@@ -90,7 +93,7 @@ xmlns:tools="http://schemas.android.com/tools">
                     android:id="@+id/description_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="6dp"
                     android:maxLines="8"
                     android:minLines="3"
                     android:padding="8dp"
@@ -104,10 +107,9 @@ xmlns:tools="http://schemas.android.com/tools">
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/name_event"
-                    app:srcCompat="@drawable/ic_clock" />
+                    app:srcCompat="@drawable/ic_clock"
+                    app:layout_constraintTop_toBottomOf="@+id/category_img" />
 
                 <ImageView
                     android:id="@+id/location_img"
@@ -160,12 +162,25 @@ xmlns:tools="http://schemas.android.com/tools">
                     android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
                     android:layout_marginStart="8dp"
                     android:text="(Places disponibles : 12 / 20)"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="@+id/reservation_img"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/reservation_text"
                     app:layout_constraintTop_toTopOf="@+id/reservation_img" />
+
+                <ImageView
+                    android:id="@+id/category_img"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/ic_category_cultural"
+                    android:tint="@color/colorPrimaryDark"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </android.support.constraint.ConstraintLayout>
 
