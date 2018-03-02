@@ -22,23 +22,31 @@ xmlns:tools="http://schemas.android.com/tools">
 
                 <TextView
                     android:id="@+id/name_event"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
+                    android:maxLines="2"
                     android:text="Conférence astronomie"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="22sp"
                     android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/category_img"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/category_img"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="@+id/category_img" />
+                    app:layout_constraintTop_toTopOf="@id/category_img" />
+
+                <View
+                    android:id="@+id/name_info_divider"
+                    style="@style/Divider"
+                    android:layout_marginTop="12dp"
+                    app:layout_constraintTop_toBottomOf="@id/name_event" />
 
                 <TextView
                     android:id="@+id/date_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
+                    android:maxLines="1"
                     android:text="vendredi 6 octobre de 11h à 12h"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="@+id/date_img"
@@ -50,6 +58,7 @@ xmlns:tools="http://schemas.android.com/tools">
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
+                    android:maxLines="1"
                     android:text="Lilliad, Lille 1, Villeneuve-d'Ascq"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="@+id/location_img"
@@ -61,6 +70,7 @@ xmlns:tools="http://schemas.android.com/tools">
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
+                    android:maxLines="1"
                     android:text="Sur réservation"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="@+id/reservation_img"
@@ -72,6 +82,7 @@ xmlns:tools="http://schemas.android.com/tools">
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
+                    android:maxLines="1"
                     android:text="Gratuit"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="@+id/price_img"
@@ -83,6 +94,7 @@ xmlns:tools="http://schemas.android.com/tools">
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
+                    android:maxLines="1"
                     android:text="patrick.durand@univ-lille1.fr"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="@+id/contact_img"
@@ -93,23 +105,26 @@ xmlns:tools="http://schemas.android.com/tools">
                     android:id="@+id/description_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:maxLines="8"
-                    android:minLines="3"
-                    android:padding="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:paddingEnd="4dp"
+                    android:paddingStart="8dp"
+                    android:paddingTop="4dp"
                     android:text="@string/static_description"
                     android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/contact_img" />
+                    app:layout_constraintTop_toBottomOf="@id/info_description_divider" />
 
                 <ImageView
                     android:id="@+id/date_img"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:srcCompat="@drawable/ic_clock"
-                    app:layout_constraintTop_toBottomOf="@+id/category_img" />
+                    app:layout_constraintTop_toBottomOf="@+id/name_info_divider"
+                    app:srcCompat="@drawable/ic_clock" />
 
                 <ImageView
                     android:id="@+id/location_img"
@@ -138,7 +153,7 @@ xmlns:tools="http://schemas.android.com/tools">
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/reservation_img"
+                    app:layout_constraintTop_toBottomOf="@+id/places_text"
                     app:srcCompat="@drawable/ic_price" />
 
                 <ImageView
@@ -151,34 +166,31 @@ xmlns:tools="http://schemas.android.com/tools">
                     app:layout_constraintTop_toBottomOf="@+id/price_img"
                     app:srcCompat="@drawable/ic_contact" />
 
-                <!-- <android.support.constraint.Barrier
-                    android:id="@+id/limit_event_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:barrierDirection="end"
-                    app:constraint_referenced_ids="textView2,textView1" /> -->
+                <View
+                    android:id="@+id/info_description_divider"
+                    style="@style/Divider"
+                    android:layout_marginTop="12dp"
+                    app:layout_constraintTop_toBottomOf="@id/contact_text" />
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/places_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
                     android:layout_marginStart="8dp"
+                    android:maxLines="1"
                     android:text="(Places disponibles : 12 / 20)"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/reservation_img"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/reservation_text"
-                    app:layout_constraintTop_toTopOf="@+id/reservation_img" />
+                    app:layout_constraintStart_toEndOf="@+id/reservation_img"
+                    app:layout_constraintTop_toBottomOf="@+id/reservation_text" />
 
                 <ImageView
                     android:id="@+id/category_img"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
                     android:src="@drawable/ic_category_cultural"
                     android:tint="@color/colorPrimaryDark"
+                    app:layout_constraintBottom_toTopOf="@id/name_info_divider"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
