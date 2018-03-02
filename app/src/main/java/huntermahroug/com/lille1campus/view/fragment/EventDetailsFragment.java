@@ -5,19 +5,15 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
+import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.BindingObject;
 import org.androidannotations.annotations.DataBound;
 import org.androidannotations.annotations.EFragment;
 
-import huntermahroug.com.lille1campus.LilleCampusAPI;
-import huntermahroug.com.lille1campus.LilleCampusApplication;
 import huntermahroug.com.lille1campus.R;
 import huntermahroug.com.lille1campus.databinding.FragmentEventDetailsBinding;
 import huntermahroug.com.lille1campus.model.Event;
 import huntermahroug.com.lille1campus.viewmodel.EventViewModel;
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
 
 
 /**
@@ -32,11 +28,9 @@ import retrofit.client.Response;
 @EFragment(R.layout.fragment_event_details)
 public class EventDetailsFragment extends Fragment {
 
-    private LilleCampusAPI lilleCampusAPI;
+    private static final String EVENT_PARAM = "event_param";
 
-    private static final String ID_EVENT = "id_event";
-
-    private int idEvent;
+    private Event event;
 
     private OnFragmentInteractionListener mListener;
 
@@ -48,13 +42,13 @@ public class EventDetailsFragment extends Fragment {
      * Créer une nouvelle instance de ce fragment en utilisant l'ID
      * de l'événement dont on veut afficher les détails.
      *
-     * @param idEvent L'ID de l'événement à consulter
+     * @param event L'événement dont les détails sont à consulter
      * @return Une nouvelle instance du fragment EventDetailsFragment.
      */
-    public static EventDetailsFragment newInstance(int idEvent) {
+    public static EventDetailsFragment newInstance(Event event) {
         EventDetailsFragment_ fragment = new EventDetailsFragment_();
         Bundle args = new Bundle();
-        args.putInt(ID_EVENT, idEvent);
+        args.putParcelable(EVENT_PARAM, event);
         fragment.setArguments(args);
         return fragment;
     }
@@ -63,15 +57,13 @@ public class EventDetailsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            idEvent = getArguments().getInt(ID_EVENT);
+            event = getArguments().getParcelable(EVENT_PARAM);
         }
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        lilleCampusAPI = ((LilleCampusApplication) this.getActivity().getApplication()).getLilleCampusAPI();
-        refreshView();
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -119,26 +111,9 @@ public class EventDetailsFragment extends Fragment {
     /**
      * Rafraîchit la vue avec les données récupérées grâce à l'API.
      */
-    private void refreshView() {
-        lilleCampusAPI.getOneEvent(idEvent, new Callback<Event>() {
-            @Override
-            public void success(Event event, Response response) {
-                System.out.println(event.getName());
-                System.out.println(event.getLocation());
-                System.out.println(event.getCategory());
-                System.out.println(event.getTotalPlaces());
-                System.out.println(event.getAvailablePlaces());
-                System.out.println(event.getPrice());
-                System.out.println(event.getEmail());
-                System.out.println(event.getDescription());
-                binding.setEvent(new EventViewModel(event, EventDetailsFragment.this));
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                System.out.println(error.getMessage());
-            }
-        });
+    @AfterViews
+    void refreshView() {
+        binding.setEvent(new EventViewModel(event, EventDetailsFragment.this));
     }
 
 }

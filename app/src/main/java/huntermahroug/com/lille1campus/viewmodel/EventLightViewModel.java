@@ -13,9 +13,15 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import huntermahroug.com.lille1campus.LilleCampusAPI;
+import huntermahroug.com.lille1campus.LilleCampusApplication;
 import huntermahroug.com.lille1campus.R;
+import huntermahroug.com.lille1campus.model.Event;
 import huntermahroug.com.lille1campus.model.EventLight;
 import huntermahroug.com.lille1campus.view.fragment.EventDetailsFragment_;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * Created by Claire on 20/02/2018.
@@ -123,10 +129,35 @@ public class EventLightViewModel extends BaseObservable {
     }
 
     public void onClick() {
-        FragmentTransaction fragmentTransaction = fragment.getFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.fragment_placeholder, EventDetailsFragment_.newInstance(eventLight.getId()));
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+        LilleCampusAPI lilleCampusAPI = ((LilleCampusApplication) fragment.getActivity().getApplication()).getLilleCampusAPI();
+
+        // Récupérer les données de l'événement grâce à l'API
+        lilleCampusAPI.getOneEvent(eventLight.getId(), new Callback<Event>() {
+            @Override
+            public void success(Event event, Response response) {
+                System.out.println(event.getName());
+                System.out.println(event.getLocation());
+                System.out.println(event.getCategory());
+                System.out.println(event.getTotalPlaces());
+                System.out.println(event.getAvailablePlaces());
+                System.out.println(event.getPrice());
+                System.out.println(event.getEmail());
+                System.out.println(event.getDescription());
+
+                // Une fois les données de l'événement recupérées, effectuer la transition vers le fragment
+                // des détails d'un événement
+                FragmentTransaction fragmentTransaction = fragment.getFragmentManager().beginTransaction();
+                fragmentTransaction.add(R.id.fragment_placeholder, EventDetailsFragment_.newInstance(event));
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                System.out.println(error.getMessage());
+            }
+        });
+
     }
 
 }

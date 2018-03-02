@@ -1,12 +1,19 @@
 package huntermahroug.com.lille1campus.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by Claire on 02/03/2018.
+ * Classe des détails d'un événement.
+ * Implémente l'interface Parcelable afin de passer les données
+ * d'un événement du fragment de la liste des événements au fragment
+ * des détails de l'événement.
  */
 
-public class Event {
+public class Event implements Parcelable {
 
     /**
      * ID de l'événement
@@ -169,4 +176,45 @@ public class Event {
         this.description = description;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeString(this.name);
+        dest.writeString(this.location);
+        dest.writeString(this.category);
+        dest.writeInt(this.totalPlaces);
+        dest.writeInt(this.availablePlaces);
+        dest.writeInt(this.price);
+        dest.writeString(this.email);
+        dest.writeString(this.description);
+    }
+
+    protected Event(Parcel in) {
+        this.id = in.readInt();
+        this.name = in.readString();
+        this.location = in.readString();
+        this.category = in.readString();
+        this.totalPlaces = in.readInt();
+        this.availablePlaces = in.readInt();
+        this.price = in.readInt();
+        this.email = in.readString();
+        this.description = in.readString();
+    }
+
+    public static final Parcelable.Creator<Event> CREATOR = new Parcelable.Creator<Event>() {
+        @Override
+        public Event createFromParcel(Parcel source) {
+            return new Event(source);
+        }
+
+        @Override
+        public Event[] newArray(int size) {
+            return new Event[size];
+        }
+    };
 }
