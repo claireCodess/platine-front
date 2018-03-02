@@ -26,7 +26,7 @@ public class EventLightViewModel extends BaseObservable {
     /**
      * L'objet "model" de l'événement
      */
-    private EventLight event;
+    private EventLight eventLight;
 
     /**
      * Le fragment correspondant à ce ViewModel
@@ -38,15 +38,15 @@ public class EventLightViewModel extends BaseObservable {
      */
     private int position;
 
-    public EventLightViewModel(EventLight event, int position, Fragment fragment) {
-        this.event = event;
+    public EventLightViewModel(EventLight eventLight, int position, Fragment fragment) {
+        this.eventLight = eventLight;
         this.position = position;
         this.fragment = fragment;
     }
 
     @Bindable
     public String getName() {
-        return event.getName();
+        return eventLight.getName();
     }
 
     /**
@@ -58,21 +58,21 @@ public class EventLightViewModel extends BaseObservable {
         try {
             DateFormat databaseFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             DateFormat presentationFormat = new SimpleDateFormat("EEEE d MMMM yyyy 'à' HH'h'mm");
-            Date date = databaseFormat.parse(event.getDate());
+            Date date = databaseFormat.parse(eventLight.getDate());
             return presentationFormat.format(date);
         } catch (ParseException e) {
-            return event.getDate();
+            return eventLight.getDate();
         }
     }
 
     @Bindable
     public String getLocation() {
-        return event.getLocation();
+        return eventLight.getLocation();
     }
 
     @Bindable
     public String getCategory() {
-        return event.getCategory();
+        return eventLight.getCategory();
     }
 
     @Bindable
@@ -124,7 +124,7 @@ public class EventLightViewModel extends BaseObservable {
 
     public void onClick() {
         FragmentTransaction fragmentTransaction = fragment.getFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.fragment_placeholder, new EventDetailsFragment_());
+        fragmentTransaction.add(R.id.fragment_placeholder, EventDetailsFragment_.newInstance(eventLight.getId()));
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }

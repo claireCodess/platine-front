@@ -1,13 +1,19 @@
 package huntermahroug.com.lille1campus.view.fragment;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
 
 import org.androidannotations.annotations.EFragment;
 
+import huntermahroug.com.lille1campus.LilleCampusAPI;
+import huntermahroug.com.lille1campus.LilleCampusApplication;
 import huntermahroug.com.lille1campus.R;
+import huntermahroug.com.lille1campus.model.Event;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 
 /**
@@ -20,35 +26,30 @@ import huntermahroug.com.lille1campus.R;
  */
 @EFragment(R.layout.fragment_event_details)
 public class EventDetailsFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private LilleCampusAPI lilleCampusAPI;
+
+    private static final String ID_EVENT = "id_event";
+
+    private int idEvent;
 
     private OnFragmentInteractionListener mListener;
 
     public EventDetailsFragment() {
-        // Required empty public constructor
+
     }
 
     /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
+     * Créer une nouvelle instance de ce fragment en utilisant l'ID
+     * de l'événement dont on veut afficher les détails.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment EventDetailsFragment.
+     * @param idEvent L'ID de l'événement à consulter
+     * @return Une nouvelle instance du fragment EventDetailsFragment.
      */
-    // TODO: Rename and change types and number of parameters
-    public static EventDetailsFragment newInstance(String param1, String param2) {
+    public static EventDetailsFragment newInstance(int idEvent) {
         EventDetailsFragment fragment = new EventDetailsFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putInt(ID_EVENT, idEvent);
         fragment.setArguments(args);
         return fragment;
     }
@@ -57,8 +58,9 @@ public class EventDetailsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            idEvent = getArguments().getInt(ID_EVENT);
+            lilleCampusAPI = ((LilleCampusApplication) this.getActivity().getApplication()).getLilleCampusAPI();
+            refreshView();
         }
     }
 
@@ -107,4 +109,30 @@ public class EventDetailsFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+    /**
+     * Rafraîchit la vue avec des données pour l'instant statiques (par la suite, de la base de données).
+     */
+    private void refreshView() {
+        lilleCampusAPI.getOneEvent(idEvent, new Callback<Event>() {
+            @Override
+            public void success(Event event, Response response) {
+                System.out.println(event.getName());
+                System.out.println(event.getLocation());
+                System.out.println(event.getCategory());
+                System.out.println(event.getTotalPlaces());
+                System.out.println(event.getAvailablePlaces());
+                System.out.println(event.getPrice());
+                System.out.println(event.getEmail());
+                System.out.println(event.getDescription());
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                System.out.println(error.getMessage());
+            }
+        });
+
+    }
+
 }

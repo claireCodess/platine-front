@@ -2,6 +2,7 @@ package huntermahroug.com.lille1campus;
 
 import java.util.List;
 
+import huntermahroug.com.lille1campus.model.Event;
 import huntermahroug.com.lille1campus.model.EventLight;
 import retrofit.Callback;
 import retrofit.http.GET;
@@ -19,6 +20,6 @@ public interface LilleCampusAPI {
     void getAllEvents(Callback<List<EventLight>> callback);
 
     @GET("/events/{eventid}")
-    void getOneEvent(@Path("eventid") int id, Callback<List<EventLight>> callback);
+    void getOneEvent(@Path("eventid") int id, Callback<Event> callback);
 
 }

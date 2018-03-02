@@ -2,15 +2,15 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-        <variable name="event" type="huntermahroug.com.lille1campus.viewmodel.EventLightViewModel"/>
+        <variable name="eventLight" type="huntermahroug.com.lille1campus.viewmodel.EventLightViewModel"/>
     </data>
 
     <RelativeLayout
         android:id="@+id/list_item_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@{event.position}"
-        android:onClick="@{() -> event.onClick()}">
+        android:background="@{eventLight.position}"
+        android:onClick="@{() -> eventLight.onClick()}">
 
         <TextView
             android:id="@+id/event_name"
@@ -23,7 +23,7 @@
             android:gravity="center_vertical"
             android:paddingBottom="2dp"
             android:paddingStart="2dp"
-            android:text="@{event.name}"
+            android:text="@{eventLight.name}"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -46,7 +46,7 @@
             android:layout_toEndOf="@+id/event_date_img"
             android:paddingBottom="2dp"
             android:paddingStart="2dp"
-            android:text="@{event.date}"
+            android:text="@{eventLight.date}"
             android:textSize="16sp"
             android:textStyle="normal" />
 
@@ -68,7 +68,7 @@
             android:layout_marginBottom="10dp"
             android:layout_toEndOf="@+id/event_location_img"
             android:paddingStart="2dp"
-            android:text="@{event.location}"
+            android:text="@{eventLight.location}"
             android:textSize="16sp"
             android:textStyle="normal" />
 
@@ -79,7 +79,7 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:paddingStart="4dp"
-            android:src="@{event.category}"
+            android:src="@{eventLight.category}"
             android:tint="@color/colorPrimaryDark" />
 
     </RelativeLayout>

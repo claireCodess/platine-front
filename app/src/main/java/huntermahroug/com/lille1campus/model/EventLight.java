@@ -39,7 +39,8 @@ public class EventLight {
     }
 
     /**
-     * Constructeur en définissant les paramètres directement
+     * Constructeur en définissant les paramètres directement, pour un événement avec
+     * le minimum d'informations (pour la liste des événements)
      */
     public EventLight(int id, String name, String date, String location, String category) {
         this.id = id;
@@ -88,4 +89,5 @@ public class EventLight {
     public void setCategory(String category) {
         this.category = category;
     }
+
 }
