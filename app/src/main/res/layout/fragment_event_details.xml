@@ -3,7 +3,7 @@
 xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools">
     <data>
-
+        <variable name="event" type="huntermahroug.com.lille1campus.viewmodel.EventViewModel"/>
     </data>
     <FrameLayout
         android:layout_width="match_parent"
@@ -17,6 +17,7 @@ xmlns:tools="http://schemas.android.com/tools">
             android:layout_height="match_parent">
 
             <android.support.constraint.ConstraintLayout
+                android:id="@+id/event_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -26,7 +27,7 @@ xmlns:tools="http://schemas.android.com/tools">
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:maxLines="2"
-                    android:text="Conférence astronomie"
+                    android:text="@{event.name}"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="22sp"
                     android:textStyle="bold"
@@ -59,7 +60,7 @@ xmlns:tools="http://schemas.android.com/tools">
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:maxLines="1"
-                    android:text="Lilliad, Lille 1, Villeneuve-d'Ascq"
+                    android:text="@{event.location}"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="@+id/location_img"
                     app:layout_constraintStart_toEndOf="@+id/location_img"

@@ -5,12 +5,16 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
+import org.androidannotations.annotations.BindingObject;
+import org.androidannotations.annotations.DataBound;
 import org.androidannotations.annotations.EFragment;
 
 import huntermahroug.com.lille1campus.LilleCampusAPI;
 import huntermahroug.com.lille1campus.LilleCampusApplication;
 import huntermahroug.com.lille1campus.R;
+import huntermahroug.com.lille1campus.databinding.FragmentEventDetailsBinding;
 import huntermahroug.com.lille1campus.model.Event;
+import huntermahroug.com.lille1campus.viewmodel.EventViewModel;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -24,6 +28,7 @@ import retrofit.client.Response;
  * Use the {@link EventDetailsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+@DataBound
 @EFragment(R.layout.fragment_event_details)
 public class EventDetailsFragment extends Fragment {
 
@@ -47,7 +52,7 @@ public class EventDetailsFragment extends Fragment {
      * @return Une nouvelle instance du fragment EventDetailsFragment.
      */
     public static EventDetailsFragment newInstance(int idEvent) {
-        EventDetailsFragment fragment = new EventDetailsFragment();
+        EventDetailsFragment_ fragment = new EventDetailsFragment_();
         Bundle args = new Bundle();
         args.putInt(ID_EVENT, idEvent);
         fragment.setArguments(args);
@@ -59,17 +64,15 @@ public class EventDetailsFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             idEvent = getArguments().getInt(ID_EVENT);
-            lilleCampusAPI = ((LilleCampusApplication) this.getActivity().getApplication()).getLilleCampusAPI();
-            refreshView();
         }
     }
 
-    /*@Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_event_details, container, false);
-    }*/
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        lilleCampusAPI = ((LilleCampusApplication) this.getActivity().getApplication()).getLilleCampusAPI();
+        refreshView();
+    }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -95,6 +98,9 @@ public class EventDetailsFragment extends Fragment {
         mListener = null;
     }
 
+    @BindingObject
+    FragmentEventDetailsBinding binding;
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -111,7 +117,7 @@ public class EventDetailsFragment extends Fragment {
     }
 
     /**
-     * Rafraîchit la vue avec des données pour l'instant statiques (par la suite, de la base de données).
+     * Rafraîchit la vue avec les données récupérées grâce à l'API.
      */
     private void refreshView() {
         lilleCampusAPI.getOneEvent(idEvent, new Callback<Event>() {
@@ -125,6 +131,7 @@ public class EventDetailsFragment extends Fragment {
                 System.out.println(event.getPrice());
                 System.out.println(event.getEmail());
                 System.out.println(event.getDescription());
+                binding.setEvent(new EventViewModel(event, EventDetailsFragment.this));
             }
 
             @Override
@@ -132,7 +139,6 @@ public class EventDetailsFragment extends Fragment {
                 System.out.println(error.getMessage());
             }
         });
-
     }
 
 }

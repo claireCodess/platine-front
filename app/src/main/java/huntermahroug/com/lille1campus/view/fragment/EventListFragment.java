@@ -83,7 +83,7 @@ public class EventListFragment extends Fragment {
     }
 
     /**
-     * Rafraîchit la vue avec des données pour l'instant statiques (par la suite, de la base de données).
+     * Rafraîchit la vue avec les données récupérées grâce à l'API.
      */
     private void refreshView() {
         lilleCampusAPI.getAllEvents(new Callback<List<EventLight>>() {
@@ -97,9 +97,12 @@ public class EventListFragment extends Fragment {
                 System.out.println(error.getMessage());
             }
         });
-
     }
 
+    /**
+     * Afficher les événements récupérés dans la vue.
+     * @param events Les événements à afficher
+     */
     private void showEvents(List<EventLight> events) {
         /*
          * Afficher cette liste dans le RecyclerView.
