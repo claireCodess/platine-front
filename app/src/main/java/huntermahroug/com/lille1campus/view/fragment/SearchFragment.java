@@ -2,26 +2,17 @@ package huntermahroug.com.lille1campus.view.fragment;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.SearchView;
-import android.widget.TextView;
 
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import huntermahroug.com.lille1campus.R;
-import huntermahroug.com.lille1campus.view.MainActivity;
-import huntermahroug.com.lille1campus.model.EventLight;
 
 
 /**
@@ -48,14 +39,14 @@ public class SearchFragment extends Fragment {
     @ViewById(R.id.search_view)
     SearchView searchView;
 
-    @ViewById(R.id.best_result_view)
+    /*@ViewById(R.id.best_result_view)
     TextView bestResultView;
 
     @ViewById(R.id.result_layout)
     FrameLayout resultLayout;
 
     @ViewById(R.id.all_results_view)
-    Button allResultsButton;
+    Button allResultsButton;*/
 
     @ViewById(R.id.list_item_layout)
     View resultContentView;
@@ -123,47 +114,12 @@ public class SearchFragment extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                // Appeler l'activité qui va aller récupérer une liste d'événements
-                MainActivity activity = (MainActivity) getActivity();
-                List<EventLight> list = activity.getAllEvents();
 
-                List<EventLight> filteredResults;
+                FragmentTransaction fragmentTransaction = childFragmentManager.beginTransaction();
+                fragmentTransaction.add(R.id.search_fragment_placeholder, new EventListFragment_());
+                fragmentTransaction.commit();
 
-                // TODO : on affichera le résultat avec la date la plus récente d'abord
-                // En attendant, filtrer la liste
-                // On peut utiliser les streams pour optimiser, mais uniquement si la version
-                // de l'API est au dessus de 24 (seulement ces versions utilisent Java 8)
-                if(Build.VERSION.SDK_INT >= 24) {
-                     filteredResults = list.stream() // Convertir la liste en "stream"
-                            .filter(event -> event.getName().toLowerCase().contains(query.toLowerCase())) // Vérifier que le nom de l'événement contient la requête
-                            .collect(Collectors.toList()); // Convertir le stream en List
-                } else {
-                    filteredResults = new ArrayList<>();
-                    for (EventLight event : list) {
-                        // Vérifier que le nom de l'événement contient la requête
-                        if (event.getName().toLowerCase().contains(query.toLowerCase())) {
-                            filteredResults.add(event);
-                        }
-                    }
-                }
-
-                // Afficher le premier élément de la liste
-                /*FragmentTransaction fragmentTransaction = childFragmentManager.beginTransaction();
-                fragmentTransaction.add(R.id.search_fragment_placeholder, ShowSearchResultsFragment_.newInstance("Soirée rock"));
-                fragmentTransaction.commit();*/
-                bestResultView.setVisibility(View.VISIBLE);
-
-                if(!filteredResults.isEmpty()) {
-                    TextView eventNameText = resultContentView.findViewById(R.id.event_name);
-                    eventNameText.setText(filteredResults.get(1).getName());
-                    resultLayout.setVisibility(View.VISIBLE);
-                }
-
-                allResultsButton.setVisibility(View.VISIBLE);
-
-                // TODO : puis proposer à l'utilisateur d'aller à tous les résultats
-                // TODO : (retour à l'écran de la liste des événements)
-                return false;
+                return true;
             }
 
             @Override
