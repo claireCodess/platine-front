@@ -14,35 +14,48 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <TextView
+                android:id="@+id/name_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Nom"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@id/name_edit"
+                app:layout_constraintEnd_toStartOf="@id/name_edit"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/name_edit" />
+
             <EditText
                 android:id="@+id/name_edit"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:ems="10"
-                android:hint="Nom"
+                android:layout_marginEnd="8dp"
+                android:ems="11"
                 android:inputType="textPersonName"
                 android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <!-- <TextView
+            <TextView
                 android:id="@+id/category_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
                 android:text="Catégorie"
                 android:textSize="18sp"
-                app:layout_constraintBottom_toTopOf="@+id/time_edit"
-                app:layout_constraintEnd_toStartOf="@id/date_edit"
+                app:layout_constraintBottom_toBottomOf="@id/category_choices"
+                app:layout_constraintEnd_toStartOf="@id/category_choices"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/date_edit" /> -->
+                app:layout_constraintTop_toTopOf="@id/category_choices" />
 
             <Spinner
                 android:id="@+id/category_choices"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/name_text"
                 app:layout_constraintTop_toBottomOf="@id/name_edit" />
 
             <TextView
@@ -54,7 +67,7 @@
                 android:layout_marginTop="8dp"
                 android:text="Date"
                 android:textSize="18sp"
-                app:layout_constraintBottom_toTopOf="@+id/time_edit"
+                app:layout_constraintBottom_toBottomOf="@+id/date_edit"
                 app:layout_constraintEnd_toStartOf="@id/date_edit"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/date_edit" />
@@ -64,9 +77,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:ems="10"
+                android:ems="11"
                 android:inputType="date"
                 android:singleLine="true"
+                android:textColorLink="@color/colorPrimary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/category_choices" />
 
@@ -89,56 +103,104 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:ems="10"
+                android:ems="11"
                 android:inputType="time"
                 android:singleLine="true"
+                android:textColorLink="@color/colorPrimary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/date_edit" />
 
+            <TextView
+                android:id="@+id/location_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Lieu"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@id/location_edit"
+                app:layout_constraintEnd_toStartOf="@id/location_edit"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/location_edit" />
+
             <EditText
                 android:id="@+id/location_edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:ems="11"
+                android:singleLine="true"
+                android:textColorLink="@color/colorPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/time_edit" />
+
+            <TextView
+                android:id="@+id/description_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Lieu"
-                android:singleLine="true"
-                app:layout_constraintTop_toBottomOf="@id/time_edit" />
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:text="Description"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/location_edit" />
 
             <EditText
                 android:id="@+id/description_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Description"
-                android:minLines="3"
                 android:maxLines="8"
-                app:layout_constraintTop_toBottomOf="@id/location_edit" />
+                android:minLines="3"
+                android:paddingEnd="8dp"
+                android:paddingStart="8dp"
+                android:textColorLink="@color/colorPrimary"
+                app:layout_constraintTop_toBottomOf="@id/description_text" />
+
+            <TextView
+                android:id="@+id/email_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Votre e-mail"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@id/email_edit"
+                app:layout_constraintEnd_toStartOf="@id/email_edit"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/email_edit" />
 
             <EditText
                 android:id="@+id/email_edit"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="Votre e-mail"
+                android:layout_marginEnd="8dp"
+                android:ems="11"
+                android:inputType="textEmailAddress"
                 android:singleLine="true"
+                android:textColorLink="@color/colorPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/description_edit" />
 
             <TextView
                 android:id="@+id/price_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Prix par personne"
+                android:layout_marginStart="8dp"
+                android:text="Prix par personne (euros)"
                 android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/price_edit"
                 app:layout_constraintEnd_toStartOf="@id/price_edit"
-                app:layout_constraintTop_toTopOf="@id/price_edit"
-                app:layout_constraintBottom_toBottomOf="@id/price_edit" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/price_edit" />
 
             <EditText
                 android:id="@+id/price_edit"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:ems="4"
-                android:inputType="number"
+                android:ems="3"
+                android:inputType="numberDecimal"
                 android:singleLine="true"
+                android:textColorLink="@color/colorPrimary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/email_edit" />
 
@@ -146,22 +208,24 @@
                 android:id="@+id/places_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:text="Nombre de places"
                 android:textSize="18sp"
-                app:layout_constraintTop_toBottomOf="@id/price_text"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/places_edit"
                 app:layout_constraintEnd_toStartOf="@id/places_edit"
-                app:layout_constraintTop_toTopOf="@id/places_edit"
-                app:layout_constraintBottom_toBottomOf="@id/places_edit" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/price_text"
+                app:layout_constraintTop_toTopOf="@id/places_edit" />
 
             <EditText
                 android:id="@+id/places_edit"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:ems="4"
+                android:ems="3"
                 android:inputType="number"
                 android:singleLine="true"
+                android:textColorLink="@color/colorPrimary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/price_edit" />
 
@@ -170,7 +234,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="8dp"
+                android:backgroundTint="@color/colorPrimary"
                 android:text="Valider"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/places_edit" />
