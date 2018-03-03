@@ -23,6 +23,7 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FocusChange;
 import org.androidannotations.annotations.ViewById;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import huntermahroug.com.lille1campus.R;
@@ -192,11 +193,9 @@ public class AddEventFragment extends Fragment {
 
     public static class DatePickerFragment extends DialogFragment
             implements DatePickerDialog.OnDateSetListener {
-
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
-            // Utiliser la date courante en tant que date par défaut quand
-            // on sélectionne la date
+            // Utiliser la date courante en tant que date par défaut
             final Calendar c = Calendar.getInstance();
             int year = c.get(Calendar.YEAR);
             int month = c.get(Calendar.MONTH);
@@ -207,17 +206,25 @@ public class AddEventFragment extends Fragment {
         }
 
         public void onDateSet(DatePicker view, int year, int month, int day) {
-            // TODO
+            // Construire la date choisie
+            final Calendar cal = Calendar.getInstance();
+            cal.set(year, month, day);
+
+            // Préparer la date à être mise en texte
+            java.text.DateFormat dateFormat = new SimpleDateFormat("EEEE d MMMM yyyy");
+            String dateStr = dateFormat.format(cal.getTime());
+
+            // Enfin, mettre le texte dans le bon format dans le EditText
+            EditText dateEdit = getActivity().findViewById(R.id.date_edit);
+            dateEdit.setText(dateStr);
         }
     }
 
     public static class TimePickerFragment extends DialogFragment
             implements TimePickerDialog.OnTimeSetListener {
-
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
-            // Utiliser l'heure courante en tant qu'heure par défaut quand
-            // on sélectionne l'heure
+            // Utiliser l'heure courante en tant qu'heure par défaut
             final Calendar c = Calendar.getInstance();
             int hour = c.get(Calendar.HOUR_OF_DAY);
             int minute = c.get(Calendar.MINUTE);
@@ -228,7 +235,17 @@ public class AddEventFragment extends Fragment {
         }
 
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            // TODO
+            // Construire l'heure choisie
+            final Calendar cal = Calendar.getInstance();
+            cal.set(0, 0, 0, hourOfDay, minute);
+
+            // Préparer la date à être mise en texte
+            java.text.DateFormat timeFormat = new SimpleDateFormat("HH':'mm");
+            String dateStr = timeFormat.format(cal.getTime());
+
+            // Enfin, mettre le texte dans le bon format dans le EditText
+            EditText timeEdit = getActivity().findViewById(R.id.time_edit);
+            timeEdit.setText(dateStr);
         }
     }
 
