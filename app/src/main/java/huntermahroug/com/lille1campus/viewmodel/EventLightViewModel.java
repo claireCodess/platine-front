@@ -1,6 +1,7 @@
 package huntermahroug.com.lille1campus.viewmodel;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
@@ -135,18 +136,10 @@ public class EventLightViewModel extends BaseObservable {
         lilleCampusAPI.getOneEvent(eventLight.getId(), new Callback<Event>() {
             @Override
             public void success(Event event, Response response) {
-                System.out.println(event.getName());
-                System.out.println(event.getLocation());
-                System.out.println(event.getCategory());
-                System.out.println(event.getTotalPlaces());
-                System.out.println(event.getAvailablePlaces());
-                System.out.println(event.getPrice());
-                System.out.println(event.getEmail());
-                System.out.println(event.getDescription());
-
                 // Une fois les données de l'événement recupérées, effectuer la transition vers le fragment
                 // des détails d'un événement
-                FragmentTransaction fragmentTransaction = fragment.getFragmentManager().beginTransaction();
+                FragmentManager fragmentManager = fragment.getActivity().getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.add(R.id.fragment_placeholder, EventDetailsFragment_.newInstance(event));
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();

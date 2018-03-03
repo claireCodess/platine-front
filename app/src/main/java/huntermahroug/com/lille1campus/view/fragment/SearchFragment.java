@@ -115,8 +115,10 @@ public class SearchFragment extends Fragment {
             @Override
             public boolean onQueryTextSubmit(String query) {
 
+                // TODO: Appeler méthode API de recherche ici
+
                 FragmentTransaction fragmentTransaction = childFragmentManager.beginTransaction();
-                fragmentTransaction.add(R.id.search_fragment_placeholder, new EventListFragment_());
+                fragmentTransaction.add(R.id.search_fragment_placeholder, EventListFragment_.newInstance(true));
                 fragmentTransaction.commit();
 
                 return true;

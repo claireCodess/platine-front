@@ -26,17 +26,49 @@ import retrofit.client.Response;
 @EFragment(R.layout.fragment_event_list)
 public class EventListFragment extends Fragment {
 
+    public static String INSEARCHFRAG_PARAM = "insearchfrag_param";
+
     private LilleCampusAPI lilleCampusAPI;
 
     private OnFragmentInteractionListener mListener;
+
+    private boolean inSearchFragment;
 
     public EventListFragment() {
         // Required empty public constructor
     }
 
+    /**
+     * Créer une nouvelle instance de ce fragment en utilisant un booléen
+     * pour indiquer si ce fragment se trouve dans le fragment de recherche.
+     *
+     * @param inSearchFragment Booléen à true si ce fragment est créé dans le
+     *                         fragment de recherche, false s'il est crée
+     *                         directement dans le MainActivity.
+     * @return Une nouvelle instance du fragment EventListFragment.
+     */
+    public static EventListFragment newInstance(boolean inSearchFragment) {
+        EventListFragment_ fragment = new EventListFragment_();
+        Bundle args = new Bundle();
+        args.putBoolean(INSEARCHFRAG_PARAM, inSearchFragment);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    public boolean isInSearchFragment() {
+        return inSearchFragment;
+    }
+
+    public void setInSearchFragment(boolean inSearchFragment) {
+        this.inSearchFragment = inSearchFragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            inSearchFragment = getArguments().getBoolean(INSEARCHFRAG_PARAM);
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
