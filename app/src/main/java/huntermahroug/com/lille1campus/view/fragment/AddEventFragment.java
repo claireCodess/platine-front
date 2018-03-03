@@ -18,7 +18,9 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.BindingObject;
 import org.androidannotations.annotations.Click;
+import org.androidannotations.annotations.DataBound;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FocusChange;
 import org.androidannotations.annotations.ViewById;
@@ -27,6 +29,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import huntermahroug.com.lille1campus.R;
+import huntermahroug.com.lille1campus.databinding.FragmentAddEventBinding;
+import huntermahroug.com.lille1campus.viewmodel.AddEventViewModel;
 
 
 /**
@@ -37,6 +41,7 @@ import huntermahroug.com.lille1campus.R;
  * Use the {@link AddEventFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+@DataBound
 @EFragment(R.layout.fragment_add_event)
 public class AddEventFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -149,6 +154,14 @@ public class AddEventFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    @BindingObject
+    FragmentAddEventBinding binding;
+
+    @AfterViews
+    void refreshView() {
+        binding.setEvent(new AddEventViewModel(this));
     }
 
     // TODO: fonction à déplacer dans le ModelView correspondant
