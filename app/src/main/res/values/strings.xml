@@ -10,4 +10,10 @@
     <string name="best_result">Meilleur résultat</string>
     <string name="all_results">Voir tous les résultats</string>
 
+    <string-array name="category_choices_array">
+        <item>Culturel</item>
+        <item>Educatif</item>
+        <item>Sortie</item>
+        <item>Sportif</item>
+    </string-array>
 </resources>
