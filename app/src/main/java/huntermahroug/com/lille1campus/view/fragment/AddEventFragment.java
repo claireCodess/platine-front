@@ -1,14 +1,29 @@
 package huntermahroug.com.lille1campus.view.fragment;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.app.Fragment;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.InputType;
+import android.text.format.DateFormat;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TimePicker;
 
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.FocusChange;
 import org.androidannotations.annotations.ViewById;
+
+import java.util.Calendar;
 
 import huntermahroug.com.lille1campus.R;
 
@@ -29,7 +44,13 @@ public class AddEventFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     @ViewById(R.id.category_choices)
-    Spinner spinner;
+    Spinner categorySpinner;
+
+    @ViewById(R.id.time_edit)
+    EditText timeEdit;
+
+    @ViewById(R.id.date_edit)
+    EditText dateEdit;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -66,7 +87,12 @@ public class AddEventFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+    }
 
+    @AfterViews
+    public void setInputNullTimeAndDate() {
+        dateEdit.setInputType(InputType.TYPE_NULL);
+        timeEdit.setInputType(InputType.TYPE_NULL);
     }
 
     /*@Override
@@ -100,7 +126,7 @@ public class AddEventFragment extends Fragment {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getActivity(),
                 R.array.category_choices_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        categorySpinner.setAdapter(adapter);
     }
 
     @Override
@@ -123,4 +149,87 @@ public class AddEventFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+    // TODO: fonction à déplacer dans le ModelView correspondant
+    @Click(R.id.date_edit)
+    public void onDateEditClick() {
+        showDateDialog();
+    }
+
+    // TODO: fonction à déplacer dans le ModelView correspondant
+    @Click(R.id.time_edit)
+    public void onTimeEditClick() {
+        showTimeDialog();
+    }
+
+    // TODO: fonction à déplacer dans le ModelView correspondant
+    @FocusChange(R.id.date_edit)
+    public void onDateEditFocusChange(View v, boolean hasFocus) {
+        if (hasFocus) {
+            showDateDialog();
+        }
+    }
+
+    // TODO: fonction à déplacer dans le ModelView correspondant
+    @FocusChange(R.id.time_edit)
+    public void onTimeEditFocusChange(View v, boolean hasFocus) {
+        if (hasFocus) {
+            showTimeDialog();
+        }
+    }
+
+    // TODO: fonction à déplacer dans le ModelView correspondant
+    public void showDateDialog() {
+        DialogFragment newFragment = new DatePickerFragment();
+        newFragment.show(getFragmentManager(), "datePicker");
+    }
+
+    // TODO: fonction à déplacer dans le ModelView correspondant
+    public void showTimeDialog() {
+        DialogFragment newFragment = new TimePickerFragment();
+        newFragment.show(getFragmentManager(), "timePicker");
+    }
+
+    public static class DatePickerFragment extends DialogFragment
+            implements DatePickerDialog.OnDateSetListener {
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            // Utiliser la date courante en tant que date par défaut quand
+            // on sélectionne la date
+            final Calendar c = Calendar.getInstance();
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            int day = c.get(Calendar.DAY_OF_MONTH);
+
+            // Créer une nouvelle instance de DatePickerDialog et la retourner
+            return new DatePickerDialog(getActivity(), this, year, month, day);
+        }
+
+        public void onDateSet(DatePicker view, int year, int month, int day) {
+            // TODO
+        }
+    }
+
+    public static class TimePickerFragment extends DialogFragment
+            implements TimePickerDialog.OnTimeSetListener {
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            // Utiliser l'heure courante en tant qu'heure par défaut quand
+            // on sélectionne l'heure
+            final Calendar c = Calendar.getInstance();
+            int hour = c.get(Calendar.HOUR_OF_DAY);
+            int minute = c.get(Calendar.MINUTE);
+
+            // Créer une nouvelle instance de TimePickerDialog et la retourner
+            return new TimePickerDialog(getActivity(), this, hour, minute,
+                    DateFormat.is24HourFormat(getActivity()));
+        }
+
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+            // TODO
+        }
+    }
+
 }
