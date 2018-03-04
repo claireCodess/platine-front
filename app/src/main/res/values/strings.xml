@@ -11,6 +11,7 @@
     <string name="all_results">Voir tous les résultats</string>
 
     <string-array name="category_choices_array">
+        <item>Catégorie</item>
         <item>Culturel</item>
         <item>Educatif</item>
         <item>Sortie</item>

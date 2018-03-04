@@ -7,252 +7,210 @@
         <variable name="event" type="huntermahroug.com.lille1campus.viewmodel.AddEventViewModel"/>
     </data>
 
-    <FrameLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
         tools:context="huntermahroug.com.lille1campus.view.fragment.AddEventFragment">
 
-        <ScrollView
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <android.support.constraint.ConstraintLayout
+            <EditText
+                android:id="@+id/name_edit"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:background="@android:color/transparent"
+                android:ems="11"
+                android:hint="Nom"
+                android:inputType="textPersonName"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"
+                android:text="@{event.name}"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/name_text"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="Nom"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="@id/name_edit"
-                    app:layout_constraintEnd_toStartOf="@id/name_edit"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/name_edit" />
+            <!-- <TextView
+                android:id="@+id/category_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"
+                android:text="Catégorie"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/name_edit" /> -->
 
-                <EditText
-                    android:id="@+id/name_edit"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:ems="11"
-                    android:inputType="textPersonName"
-                    android:text="@{event.name}"
-                    android:textSize="18sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <Spinner
+                android:id="@+id/category_choices"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/name_edit" />
 
-                <TextView
-                    android:id="@+id/category_text"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="Catégorie"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="@id/category_choices"
-                    app:layout_constraintEnd_toStartOf="@id/category_choices"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/category_choices" />
+            <EditText
+                android:id="@+id/date_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:background="@android:color/transparent"
+                android:ems="11"
+                android:hint="Date"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"
+                android:singleLine="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/category_choices" />
 
-                <Spinner
-                    android:id="@+id/category_choices"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/name_text"
-                    app:layout_constraintTop_toBottomOf="@id/name_edit" />
+            <EditText
+                android:id="@+id/time_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:background="@android:color/transparent"
+                android:ems="11"
+                android:hint="Heure"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"
+                android:singleLine="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/date_edit" />
 
-                <TextView
-                    android:id="@+id/date_text"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:text="Date"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/date_edit"
-                    app:layout_constraintEnd_toStartOf="@id/date_edit"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/date_edit" />
+            <EditText
+                android:id="@+id/location_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:background="@android:color/transparent"
+                android:ems="11"
+                android:hint="Lieu"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"
+                android:singleLine="true"
+                android:textColorLink="@color/colorPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/time_edit" />
 
-                <EditText
-                    android:id="@+id/date_edit"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:ems="11"
-                    android:singleLine="true"
-                    android:textColorLink="@color/colorPrimary"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/category_choices" />
+            <EditText
+                android:id="@+id/description_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:background="@android:color/transparent"
+                android:hint="Description"
+                android:maxLines="5"
+                android:minLines="1"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"
+                android:textColorLink="@color/colorPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/location_edit" />
 
-                <TextView
-                    android:id="@+id/time_text"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginStart="8dp"
-                    android:text="Heure"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/time_edit"
-                    app:layout_constraintEnd_toStartOf="@id/time_edit"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/date_text"
-                    app:layout_constraintTop_toTopOf="@id/time_edit" />
+            <EditText
+                android:id="@+id/email_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:background="@android:color/transparent"
+                android:ems="11"
+                android:hint="Votre e-mail"
+                android:inputType="textEmailAddress"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"
+                android:singleLine="true"
+                android:textColorLink="@color/colorPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/description_edit" />
 
-                <EditText
-                    android:id="@+id/time_edit"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:ems="11"
-                    android:singleLine="true"
-                    android:textColorLink="@color/colorPrimary"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/date_edit" />
+            <TextView
+                android:id="@+id/price_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Prix par personne (€)"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@id/price_edit"
+                app:layout_constraintEnd_toStartOf="@id/price_edit"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/price_edit" />
 
-                <TextView
-                    android:id="@+id/location_text"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="Lieu"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="@id/location_edit"
-                    app:layout_constraintEnd_toStartOf="@id/location_edit"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/location_edit" />
+            <EditText
+                android:id="@+id/price_edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:ems="3"
+                android:inputType="numberDecimal"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"
+                android:singleLine="true"
+                android:textColorLink="@color/colorPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/email_edit" />
 
-                <EditText
-                    android:id="@+id/location_edit"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:ems="11"
-                    android:singleLine="true"
-                    android:textColorLink="@color/colorPrimary"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/time_edit" />
+            <TextView
+                android:id="@+id/places_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Nombre de places"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@id/places_edit"
+                app:layout_constraintEnd_toStartOf="@id/places_edit"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/price_text"
+                app:layout_constraintTop_toTopOf="@id/places_edit" />
 
-                <TextView
-                    android:id="@+id/description_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginStart="8dp"
-                    android:text="Description"
-                    android:textSize="18sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/location_edit" />
+            <EditText
+                android:id="@+id/places_edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:ems="3"
+                android:inputType="number"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"
+                android:singleLine="true"
+                android:textColorLink="@color/colorPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/price_edit" />
 
-                <EditText
-                    android:id="@+id/description_edit"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:maxLines="8"
-                    android:minLines="3"
-                    android:paddingEnd="8dp"
-                    android:paddingStart="8dp"
-                    android:textColorLink="@color/colorPrimary"
-                    app:layout_constraintTop_toBottomOf="@id/description_text" />
+            <Button
+                android:id="@+id/submit_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="8dp"
+                android:backgroundTint="@color/colorPrimary"
+                android:onClick="@{() -> event.onSubmitForm()}"
+                android:text="Valider"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/places_edit" />
 
-                <TextView
-                    android:id="@+id/email_text"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="Votre e-mail"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="@id/email_edit"
-                    app:layout_constraintEnd_toStartOf="@id/email_edit"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/email_edit" />
+        </android.support.constraint.ConstraintLayout>
 
-                <EditText
-                    android:id="@+id/email_edit"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:ems="11"
-                    android:inputType="textEmailAddress"
-                    android:singleLine="true"
-                    android:textColorLink="@color/colorPrimary"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/description_edit" />
+    </ScrollView>
 
-                <TextView
-                    android:id="@+id/price_text"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="Prix par personne (euros)"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="@id/price_edit"
-                    app:layout_constraintEnd_toStartOf="@id/price_edit"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/price_edit" />
-
-                <EditText
-                    android:id="@+id/price_edit"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:ems="3"
-                    android:inputType="numberDecimal"
-                    android:singleLine="true"
-                    android:textColorLink="@color/colorPrimary"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/email_edit" />
-
-                <TextView
-                    android:id="@+id/places_text"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="Nombre de places"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="@id/places_edit"
-                    app:layout_constraintEnd_toStartOf="@id/places_edit"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/price_text"
-                    app:layout_constraintTop_toTopOf="@id/places_edit" />
-
-                <EditText
-                    android:id="@+id/places_edit"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:ems="3"
-                    android:inputType="number"
-                    android:singleLine="true"
-                    android:textColorLink="@color/colorPrimary"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/price_edit" />
-
-                <Button
-                    android:id="@+id/submit_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginTop="8dp"
-                    android:onClick="@{() -> event.onSubmitForm()}"
-                    android:backgroundTint="@color/colorPrimary"
-                    android:text="Valider"
-                    android:textColor="@color/white"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/places_edit" />
-
-            </android.support.constraint.ConstraintLayout>
-
-        </ScrollView>
-
-    </FrameLayout>
 </layout>
