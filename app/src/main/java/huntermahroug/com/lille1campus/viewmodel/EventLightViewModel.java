@@ -17,6 +17,7 @@ import java.util.Date;
 import huntermahroug.com.lille1campus.LilleCampusAPI;
 import huntermahroug.com.lille1campus.LilleCampusApplication;
 import huntermahroug.com.lille1campus.R;
+import huntermahroug.com.lille1campus.model.Category;
 import huntermahroug.com.lille1campus.model.Event;
 import huntermahroug.com.lille1campus.model.EventLight;
 import huntermahroug.com.lille1campus.view.fragment.EventDetailsFragment_;
@@ -63,7 +64,7 @@ public class EventLightViewModel extends BaseObservable {
     @Bindable
     public String getDate() {
         try {
-            DateFormat databaseFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            DateFormat databaseFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZZZZ");
             DateFormat presentationFormat = new SimpleDateFormat("EEEE d MMMM yyyy 'à' HH'h'mm");
             Date date = databaseFormat.parse(eventLight.getDate());
             return presentationFormat.format(date);
@@ -78,7 +79,7 @@ public class EventLightViewModel extends BaseObservable {
     }
 
     @Bindable
-    public String getCategory() {
+    public Category getCategory() {
         return eventLight.getCategory();
     }
 
@@ -92,21 +93,20 @@ public class EventLightViewModel extends BaseObservable {
      * @param imageView L'ImageView à modifier pour l'affichage
      * @param category String de la catégorie de l'événement
      */
-    // TODO: à changer pour prendre en paramètre une Category au lieu d'un String
     @BindingAdapter("android:src")
-    public static void setImageResource(ImageView imageView, String category){
+    public static void setImageResource(ImageView imageView, Category category){
         int resource;
-        switch(category) {
-            case "Culture":
+        switch(category.getName()) {
+            case "Culturel":
                 resource = R.drawable.ic_category_cultural;
                 break;
-            case "educational":
+            case "Educatif":
                 resource = R.drawable.ic_category_educational;
                 break;
-            case "outing":
+            case "Sortie":
                 resource = R.drawable.ic_category_outing;
                 break;
-            case "Sport":
+            case "Sportif":
                 resource = R.drawable.ic_category_sport;
                 break;
             default:

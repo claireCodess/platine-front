@@ -5,7 +5,6 @@ import java.util.List;
 import huntermahroug.com.lille1campus.model.Event;
 import huntermahroug.com.lille1campus.model.EventLight;
 import huntermahroug.com.lille1campus.model.EventTest;
-import huntermahroug.com.lille1campus.model.EventToAdd;
 import retrofit.Callback;
 import retrofit.http.Body;
 import retrofit.http.GET;

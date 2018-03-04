@@ -29,7 +29,7 @@ public class EventLight {
     /**
      * Catégorie de l'événement
      */
-    private String category;
+    private Category category;
 
     /**
      * Constructeur vide
@@ -42,7 +42,7 @@ public class EventLight {
      * Constructeur en définissant les paramètres directement, pour un événement avec
      * le minimum d'informations (pour la liste des événements)
      */
-    public EventLight(int id, String name, String date, String location, String category) {
+    public EventLight(int id, String name, String date, String location, Category category) {
         this.id = id;
         this.name = name;
         this.date = date;
@@ -82,11 +82,11 @@ public class EventLight {
         this.location = location;
     }
 
-    public String getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 
