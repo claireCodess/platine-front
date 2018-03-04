@@ -1,13 +1,23 @@
 package huntermahroug.com.lille1campus.view.fragment;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 
+import org.androidannotations.annotations.BindingObject;
+import org.androidannotations.annotations.DataBound;
 import org.androidannotations.annotations.EFragment;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import huntermahroug.com.lille1campus.LilleCampusApplication_;
 import huntermahroug.com.lille1campus.R;
+import huntermahroug.com.lille1campus.databinding.FragmentCategoriesBinding;
+import huntermahroug.com.lille1campus.model.Category;
+import huntermahroug.com.lille1campus.util.adapter.CategoryAdapter;
 
 
 /**
@@ -18,6 +28,7 @@ import huntermahroug.com.lille1campus.R;
  * Use the {@link CategoriesFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+@DataBound
 @EFragment(R.layout.fragment_categories)
 public class CategoriesFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -88,6 +99,12 @@ public class CategoriesFragment extends Fragment {
     }
 
     @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        showCategories();
+    }
+
+    @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
@@ -106,5 +123,27 @@ public class CategoriesFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    @BindingObject
+    FragmentCategoriesBinding binding;
+
+    /**
+     * Afficher les catégories dans la vue.
+     */
+    private void showCategories() {
+
+        // Récupérer la liste des catégories
+        List<Category> categoriesList = new ArrayList<>();
+        categoriesList.add(new Category(LilleCampusApplication_.CULTURAL, R.drawable.ic_category_cultural));
+        categoriesList.add(new Category(LilleCampusApplication_.EDUCATIONAL, R.drawable.ic_category_educational));
+        categoriesList.add(new Category(LilleCampusApplication_.OUTING, R.drawable.ic_category_outing));
+        categoriesList.add(new Category(LilleCampusApplication_.SPORT, R.drawable.ic_category_sport));
+
+        // Afficher cette liste dans le RecyclerView
+        CategoryAdapter adapter = new CategoryAdapter(categoriesList, this);
+
+        binding.listCategories.setAdapter(adapter);
+        binding.listCategories.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 }

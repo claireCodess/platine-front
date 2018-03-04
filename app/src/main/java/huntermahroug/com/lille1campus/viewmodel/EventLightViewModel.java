@@ -92,6 +92,7 @@ public class EventLightViewModel extends BaseObservable {
      * @param imageView L'ImageView à modifier pour l'affichage
      * @param category String de la catégorie de l'événement
      */
+    // TODO: à changer pour prendre en paramètre une Category au lieu d'un String
     @BindingAdapter("android:src")
     public static void setImageResource(ImageView imageView, String category){
         int resource;
