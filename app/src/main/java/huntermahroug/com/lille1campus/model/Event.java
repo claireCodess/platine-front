@@ -28,8 +28,7 @@ public class Event implements Parcelable {
     /**
      * Date de l'événement
      */
-    // En commentaire pour le moment en attendant que l'API soit corrigé !
-    // private String date;
+    private String date;
 
     /**
      * Lieu de l'événement
@@ -39,7 +38,7 @@ public class Event implements Parcelable {
     /**
      * Catégorie de l'événement
      */
-    private String category;
+    private Category category;
 
     /**
      * Nombre de places au total pour l'événement
@@ -82,11 +81,11 @@ public class Event implements Parcelable {
      * Constructeur en définissant les paramètres directement, pour un événement avec
      * toutes les informations (pour la vue des détails d'un événement)
      */
-    public Event(int id, String name, String date, String location, String category,
+    public Event(int id, String name, String date, String location, Category category,
                       int totalPlaces, int availablePlaces, int price, String email, String description) {
         this.id = id;
         this.name = name;
-        // this.date = date;
+        this.date = date;
         this.location = location;
         this.category = category;
         this.totalPlaces = totalPlaces;
@@ -112,13 +111,13 @@ public class Event implements Parcelable {
         this.name = name;
     }
 
-    /* public String getDate() {
+    public String getDate() {
         return date;
     }
 
     public void setDate(String date) {
         this.date = date;
-    } */
+    }
 
     public String getLocation() {
         return location;
@@ -128,11 +127,11 @@ public class Event implements Parcelable {
         this.location = location;
     }
 
-    public String getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 
@@ -185,8 +184,9 @@ public class Event implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.id);
         dest.writeString(this.name);
+        dest.writeString(this.date);
         dest.writeString(this.location);
-        dest.writeString(this.category);
+        dest.writeParcelable(this.category, flags);
         dest.writeInt(this.totalPlaces);
         dest.writeInt(this.availablePlaces);
         dest.writeInt(this.price);
@@ -197,8 +197,9 @@ public class Event implements Parcelable {
     protected Event(Parcel in) {
         this.id = in.readInt();
         this.name = in.readString();
+        this.date = in.readString();
         this.location = in.readString();
-        this.category = in.readString();
+        this.category = in.readParcelable(Category.class.getClassLoader());
         this.totalPlaces = in.readInt();
         this.availablePlaces = in.readInt();
         this.price = in.readInt();

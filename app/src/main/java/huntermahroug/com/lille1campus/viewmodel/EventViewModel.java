@@ -3,10 +3,18 @@ package huntermahroug.com.lille1campus.viewmodel;
 import android.app.Fragment;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.databinding.BindingAdapter;
+import android.widget.ImageView;
 
+import java.text.DateFormat;
 import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
+import huntermahroug.com.lille1campus.R;
+import huntermahroug.com.lille1campus.model.Category;
 import huntermahroug.com.lille1campus.model.Event;
 
 import static android.view.View.GONE;
@@ -42,27 +50,27 @@ public class EventViewModel extends BaseObservable {
      * Retourne la date de l'événement pour l'affichage
      * @return String La date formatée
      */
-    /* @Bindable
+    @Bindable
     public String getDate() {
         try {
-            DateFormat databaseFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            DateFormat databaseFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZZZZ");
             DateFormat presentationFormat = new SimpleDateFormat("EEEE d MMMM yyyy 'à' HH'h'mm");
             Date date = databaseFormat.parse(event.getDate());
             return presentationFormat.format(date);
         } catch (ParseException e) {
             return event.getDate();
         }
-    } */
+    }
 
     @Bindable
     public String getLocation() {
         return event.getLocation();
     }
 
-    /* @Bindable
-    public String getCategory() {
+    @Bindable
+    public Category getCategory() {
         return event.getCategory();
-    } */
+    }
 
     @Bindable
     public String getNeedsResrvation() {
@@ -129,6 +137,33 @@ public class EventViewModel extends BaseObservable {
     @Bindable
     public String getDescription() {
         return event.getDescription();
+    }
+
+    /**
+     * Selon la catégorie de l'événement, affiche l'image correspondante.
+     * @param imageView L'ImageView à modifier pour l'affichage
+     * @param category String de la catégorie de l'événement
+     */
+    @BindingAdapter("android:src")
+    public static void setImageResource(ImageView imageView, Category category){
+        int resource;
+        switch(category.getName()) {
+            case "Culturel":
+                resource = R.drawable.ic_category_cultural;
+                break;
+            case "Educatif":
+                resource = R.drawable.ic_category_educational;
+                break;
+            case "Sortie":
+                resource = R.drawable.ic_category_outing;
+                break;
+            case "Sportif":
+                resource = R.drawable.ic_category_sport;
+                break;
+            default:
+                resource = R.drawable.ic_view_events;
+        }
+        imageView.setImageResource(resource);
     }
 
 }
