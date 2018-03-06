@@ -1,5 +1,6 @@
 package huntermahroug.com.lille1campus.model;
 
+import huntermahroug.com.lille1campus.viewmodel.TwoWayBoundDouble;
 import huntermahroug.com.lille1campus.viewmodel.TwoWayBoundInteger;
 import huntermahroug.com.lille1campus.viewmodel.TwoWayBoundString;
 
@@ -16,13 +17,18 @@ public class EventToAdd {
     private TwoWayBoundString location;
     private TwoWayBoundString description;
     private TwoWayBoundString email;
-    private TwoWayBoundInteger price;
+    private TwoWayBoundDouble price;
     private TwoWayBoundInteger nbPlaces;
 
     public EventToAdd() {
-        name = new TwoWayBoundString();
-        email = new TwoWayBoundString();
-        price = new TwoWayBoundInteger();
+        this.name = new TwoWayBoundString();
+        this.date = new TwoWayBoundString();
+        this.time = new TwoWayBoundString();
+        this.location = new TwoWayBoundString();
+        this.description = new TwoWayBoundString();
+        this.email = new TwoWayBoundString();
+        this.price = new TwoWayBoundDouble();
+        this.nbPlaces = new TwoWayBoundInteger();
     }
 
     public TwoWayBoundString getName() {
@@ -81,11 +87,11 @@ public class EventToAdd {
         this.email = email;
     }
 
-    public TwoWayBoundInteger getPrice() {
+    public TwoWayBoundDouble getPrice() {
         return price;
     }
 
-    public void setPrice(TwoWayBoundInteger price) {
+    public void setPrice(TwoWayBoundDouble price) {
         this.price = price;
     }
 

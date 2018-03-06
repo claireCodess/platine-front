@@ -29,6 +29,7 @@
                 android:inputType="textPersonName"
                 android:paddingBottom="8dp"
                 android:paddingTop="8dp"
+                android:text="@{event.name}"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -68,6 +69,7 @@
                 android:paddingBottom="8dp"
                 android:paddingTop="8dp"
                 android:singleLine="true"
+                android:text="@{event.date}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/category_choices" />
@@ -84,6 +86,7 @@
                 android:paddingBottom="8dp"
                 android:paddingTop="8dp"
                 android:singleLine="true"
+                android:text="@{event.time}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/date_edit" />
@@ -100,6 +103,7 @@
                 android:paddingBottom="8dp"
                 android:paddingTop="8dp"
                 android:singleLine="true"
+                android:text="@{event.location}"
                 android:textColorLink="@color/colorPrimary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -118,6 +122,7 @@
                 android:paddingBottom="8dp"
                 android:paddingTop="8dp"
                 android:textColorLink="@color/colorPrimary"
+                android:text="@{event.description}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/location_edit" />
@@ -135,6 +140,7 @@
                 android:paddingBottom="8dp"
                 android:paddingTop="8dp"
                 android:singleLine="true"
+                android:text="@{event.email}"
                 android:textColorLink="@color/colorPrimary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -162,6 +168,7 @@
                 android:paddingBottom="8dp"
                 android:paddingTop="8dp"
                 android:singleLine="true"
+                android:text="@{event.price}"
                 android:textColorLink="@color/colorPrimary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/email_edit" />
@@ -189,6 +196,7 @@
                 android:paddingBottom="8dp"
                 android:paddingTop="8dp"
                 android:singleLine="true"
+                android:text="@{event.nbPlaces}"
                 android:textColorLink="@color/colorPrimary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/price_edit" />

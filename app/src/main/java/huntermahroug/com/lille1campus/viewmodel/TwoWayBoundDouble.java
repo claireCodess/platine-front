@@ -12,18 +12,18 @@ import java.io.Serializable;
 import huntermahroug.com.lille1campus.R;
 
 /**
- * Created by Claire on 04/03/2018.
+ * Created by Claire on 06/03/2018.
  */
 
-public class TwoWayBoundInteger extends BaseObservable implements Serializable {
+public class TwoWayBoundDouble extends BaseObservable implements Serializable {
     static final long serialVersionUID = 1L;
-    private Integer mValue;
+    private Double mValue;
 
     /**
      * Creates an empty observable object
      */
-    public TwoWayBoundInteger() {
-        mValue = 0;
+    public TwoWayBoundDouble() {
+        mValue = 0.0;
     }
 
     /**
@@ -31,21 +31,21 @@ public class TwoWayBoundInteger extends BaseObservable implements Serializable {
      *
      * @param value The value to be wrapped as an observable.
      */
-    public TwoWayBoundInteger(Integer value) {
+    public TwoWayBoundDouble(Double value) {
         mValue = value;
     }
 
     /**
      * @return the stored value.
      */
-    public Integer get() {
+    public Double get() {
         return mValue;
     }
 
     /**
      * Set the stored value.
      */
-    public void set(Integer value) {
+    public void set(Double value) {
         if (value == null && mValue == null) return;
         if ((value == null && mValue != null) || !value.equals(mValue)) {
             mValue = value;
@@ -56,12 +56,12 @@ public class TwoWayBoundInteger extends BaseObservable implements Serializable {
     /**
      * Set the stored value without notifying of change.
      */
-    public void setSilently(Integer value) {
+    public void setSilently(Double value) {
         mValue = value;
     }
 
     @BindingAdapter("android:text")
-    public static void bindEditText(EditText view, final TwoWayBoundInteger twoWayBoundInteger) {
+    public static void bindEditText(EditText view, final TwoWayBoundDouble twoWayBoundDouble) {
         if (view.getTag(R.id.textBound) == null) {
             // Hook up change listeners upon first initialization
             view.setTag(R.id.textBound, true);
@@ -76,14 +76,14 @@ public class TwoWayBoundInteger extends BaseObservable implements Serializable {
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    twoWayBoundInteger.set(Integer.parseInt(s.toString()));
+                    twoWayBoundDouble.set(Double.parseDouble(s.toString()));
                 }
             });
         }
-        Integer newValue = twoWayBoundInteger.get();
-        Integer currentValue = 0;
+        Double newValue = twoWayBoundDouble.get();
+        Double currentValue = 0.0;
         if(!view.getText().toString().equals("")) {
-            currentValue = Integer.parseInt(view.getText().toString());
+            currentValue = Double.parseDouble(view.getText().toString());
         }
         if (!currentValue.equals(newValue)) {
             view.setText(newValue.toString());
@@ -92,7 +92,7 @@ public class TwoWayBoundInteger extends BaseObservable implements Serializable {
 
     // Fallback one-way binding for non-text String attributes, like "android:hint"
     @BindingConversion
-    public static Integer observableIntegerToInteger(TwoWayBoundInteger integer) {
+    public static Double observableDoubleToDouble(TwoWayBoundDouble integer) {
         return integer.get();
     }
 }
