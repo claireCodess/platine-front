@@ -9,7 +9,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import huntermahroug.com.lille1campus.LilleCampusAPI;
+import huntermahroug.com.lille1campus.LilleCampusApplication;
+import huntermahroug.com.lille1campus.model.EventTest;
 import huntermahroug.com.lille1campus.model.EventToAdd;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * Created by Claire on 03/03/2018.
@@ -95,19 +101,20 @@ public class AddEventViewModel extends BaseObservable {
     }
 
     public void onSubmitForm() {
-        System.out.println("name = " + event.getName().get());
+        /*System.out.println("name = " + event.getName().get());
+        System.out.println("category = " + event.getCategoryId().get());
         System.out.println("date and time = " + convertDateAndTimeToAPIFormat());
         System.out.println("location = " + event.getLocation().get());
         System.out.println("description = " + event.getDescription().get());
         System.out.println("e-mail = " + event.getEmail().get());
         System.out.println("price = " + convertPriceToAPIFormat());
-        System.out.println("nb places = " + event.getNbPlaces().get());
+        System.out.println("nb places = " + event.getNbPlaces().get());*/
 
-        //LilleCampusAPI lilleCampusAPI = ((LilleCampusApplication) fragment.getActivity().getApplication()).getLilleCampusAPI();
+        LilleCampusAPI lilleCampusAPI = ((LilleCampusApplication) fragment.getActivity().getApplication()).getLilleCampusAPI();
 
         //EventTest eventTest = new EventTest(event.getName().get(), event.getPrice().get(), event.getEmail().get());
 
-        /*EventTest eventTest = new EventTest("Nouvel evenement", 5, "claire@bidon.com");
+        EventTest eventTest = new EventTest("Test sortie", 4, "2018-03-07T19:30:00+00:00", 5, "description test 3","claire@bidon.com", "Villeneuve d'Ascq", 50);
 
         lilleCampusAPI.postEvent(eventTest, new Callback<EventTest>() {
             @Override
@@ -119,7 +126,7 @@ public class AddEventViewModel extends BaseObservable {
             public void failure(RetrofitError error) {
                 System.out.println(error.getMessage());
             }
-        });*/
+        });
 
     }
 
