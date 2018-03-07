@@ -142,16 +142,20 @@ public class EventViewModel extends BaseObservable {
     /**
      * Selon la catégorie de l'événement, affiche l'image correspondante.
      * @param imageView L'ImageView à modifier pour l'affichage
-     * @param category String de la catégorie de l'événement
+     * @param category La catégorie de l'événement
      */
     @BindingAdapter("android:src")
     public static void setImageResource(ImageView imageView, Category category){
+        /*
+         * Obligé de faire de cette façon, car sinon on a un NullPointerException
+         * sur category
+         */
         int resource;
         switch(category.getName()) {
             case "Culturel":
                 resource = R.drawable.ic_category_cultural;
                 break;
-            case "Educatif":
+            case "Éducatif":
                 resource = R.drawable.ic_category_educational;
                 break;
             case "Sortie":
@@ -161,7 +165,7 @@ public class EventViewModel extends BaseObservable {
                 resource = R.drawable.ic_category_sport;
                 break;
             default:
-                resource = R.drawable.ic_view_events;
+                resource = R.drawable.ic_event;
         }
         imageView.setImageResource(resource);
     }

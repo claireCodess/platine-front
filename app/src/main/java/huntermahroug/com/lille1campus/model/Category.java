@@ -16,7 +16,12 @@ public class Category implements Parcelable {
     @SerializedName("value")
     private String name;
 
-    private int imgResourceId;
+    /**
+     * Variable marquée "transient" pour éviter sa désérialisation
+     * lors de la lecture du JSON (car un champ avec ce nom n'existe
+     * pas dans le JSON renvoyé par l'API)
+     */
+    private transient int imgResourceId;
 
     public Category(String name, int imgResourceId) {
         this.name = name;

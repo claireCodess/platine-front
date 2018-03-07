@@ -13,6 +13,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import huntermahroug.com.lille1campus.LilleCampusAPI;
 import huntermahroug.com.lille1campus.LilleCampusApplication;
@@ -46,10 +47,16 @@ public class EventLightViewModel extends BaseObservable {
      */
     private int position;
 
+    /**
+     * La liste des catégories récupérée de l'application
+     */
+    private static List<Category> categoriesList;
+
     public EventLightViewModel(EventLight eventLight, int position, Fragment fragment) {
         this.eventLight = eventLight;
         this.position = position;
         this.fragment = fragment;
+        categoriesList = ((LilleCampusApplication) fragment.getActivity().getApplication()).getCategoriesList();
     }
 
     @Bindable
@@ -91,28 +98,11 @@ public class EventLightViewModel extends BaseObservable {
     /**
      * Selon la catégorie de l'événement, affiche l'image correspondante.
      * @param imageView L'ImageView à modifier pour l'affichage
-     * @param category String de la catégorie de l'événement
+     * @param category La catégorie de l'événement
      */
     @BindingAdapter("android:src")
     public static void setImageResource(ImageView imageView, Category category){
-        int resource;
-        switch(category.getName()) {
-            case "Culturel":
-                resource = R.drawable.ic_category_cultural;
-                break;
-            case "Educatif":
-                resource = R.drawable.ic_category_educational;
-                break;
-            case "Sortie":
-                resource = R.drawable.ic_category_outing;
-                break;
-            case "Sportif":
-                resource = R.drawable.ic_category_sport;
-                break;
-            default:
-                resource = R.drawable.ic_view_events;
-        }
-        imageView.setImageResource(resource);
+        imageView.setImageResource(categoriesList.get(category.getId()-1).getImgResourceId());
     }
 
     /**

@@ -18,9 +18,9 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import huntermahroug.com.lille1campus.util.helper.BottomNavigationViewHelper;
 import huntermahroug.com.lille1campus.R;
 import huntermahroug.com.lille1campus.model.EventLight;
+import huntermahroug.com.lille1campus.util.helper.BottomNavigationViewHelper;
 import huntermahroug.com.lille1campus.view.fragment.AddEventFragment_;
 import huntermahroug.com.lille1campus.view.fragment.CategoriesFragment_;
 import huntermahroug.com.lille1campus.view.fragment.EventListFragment_;

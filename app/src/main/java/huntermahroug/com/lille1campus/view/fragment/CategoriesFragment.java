@@ -10,10 +10,9 @@ import org.androidannotations.annotations.BindingObject;
 import org.androidannotations.annotations.DataBound;
 import org.androidannotations.annotations.EFragment;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import huntermahroug.com.lille1campus.LilleCampusApplication_;
+import huntermahroug.com.lille1campus.LilleCampusApplication;
 import huntermahroug.com.lille1campus.R;
 import huntermahroug.com.lille1campus.databinding.FragmentCategoriesBinding;
 import huntermahroug.com.lille1campus.model.Category;
@@ -134,11 +133,7 @@ public class CategoriesFragment extends Fragment {
     private void showCategories() {
 
         // Récupérer la liste des catégories
-        List<Category> categoriesList = new ArrayList<>();
-        categoriesList.add(new Category(LilleCampusApplication_.CULTURAL, R.drawable.ic_category_cultural));
-        categoriesList.add(new Category(LilleCampusApplication_.EDUCATIONAL, R.drawable.ic_category_educational));
-        categoriesList.add(new Category(LilleCampusApplication_.OUTING, R.drawable.ic_category_outing));
-        categoriesList.add(new Category(LilleCampusApplication_.SPORT, R.drawable.ic_category_sport));
+        List<Category> categoriesList = ((LilleCampusApplication) this.getActivity().getApplication()).getCategoriesList();
 
         // Afficher cette liste dans le RecyclerView
         CategoryAdapter adapter = new CategoryAdapter(categoriesList, this);

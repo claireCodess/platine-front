@@ -2,6 +2,7 @@ package huntermahroug.com.lille1campus;
 
 import java.util.List;
 
+import huntermahroug.com.lille1campus.model.Category;
 import huntermahroug.com.lille1campus.model.Event;
 import huntermahroug.com.lille1campus.model.EventLight;
 import huntermahroug.com.lille1campus.model.EventTest;
@@ -27,5 +28,8 @@ public interface LilleCampusAPI {
 
     @POST("/events")
     void postEvent(@Body EventTest event, Callback<EventTest> callback);
+
+    @GET("/categories")
+    void getAllCategories(Callback<List<Category>> callback);
 
 }

@@ -8,6 +8,7 @@ import org.androidannotations.annotations.EApplication;
 import java.util.List;
 
 import huntermahroug.com.lille1campus.model.Category;
+import retrofit.Callback;
 import retrofit.ErrorHandler;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
@@ -25,18 +26,11 @@ public class LilleCampusApplication extends Application {
 
     private LilleCampusAPI lilleCampusAPI;
 
-    /**
-     * Liste des catégories statique. Si la liste des catégories
-     * côté back est amenée à être modifiée, alors ça deviendra
-     * dynamique et disparaîtra de cette classe.
+    /*
+     * Liste des catégories, dynamique, récupérée à partir d'une
+     * requête au démarrage de l'appli
      */
     private List<Category> categoriesList;
-
-    // Noms des 4 catégories statiques.
-    public static String CULTURAL = "Culturel";
-    public static String EDUCATIONAL = "Educatif";
-    public static String OUTING = "Sortie";
-    public static String SPORT = "Sportif";
 
     public LilleCampusAPI getLilleCampusAPI() {
         return lilleCampusAPI;
@@ -71,11 +65,46 @@ public class LilleCampusApplication extends Application {
                 }
             })
             .build().create(LilleCampusAPI.class);
-        /*categoriesList = new ArrayList<>();
-        categoriesList.add(new Category(CULTURAL, R.drawable.ic_category_cultural));
-        categoriesList.add(new Category(EDUCATIONAL, R.drawable.ic_category_educational));
-        categoriesList.add(new Category(OUTING, R.drawable.ic_category_outing));
-        categoriesList.add(new Category(SPORT, R.drawable.ic_category_sport));*/
+
+        lilleCampusAPI.getAllCategories(new Callback<List<Category>>() {
+            @Override
+            public void success(List<Category> categories, Response response) {
+                /*
+                 * Dans cette liste de catégories récupérée, on attribue à chaque
+                 * catégorie une icône déjà stockée dans l'appli (ce qui fait que
+                 * la liste des catégories est finalement mi-dynamique, mi-statique).
+                 */
+                for(Category category : categories) {
+                    switch (category.getName()) {
+                        case "Culturel":
+                            category.setImgResourceId(R.drawable.ic_category_cultural);
+                            break;
+                        case "Éducatif":
+                            category.setImgResourceId(R.drawable.ic_category_educational);
+                            break;
+                        case "Sortie":
+                            category.setImgResourceId(R.drawable.ic_category_outing);
+                            break;
+                        case "Sportif":
+                            category.setImgResourceId(R.drawable.ic_category_sport);
+                            break;
+                        /*
+                         * En cas de problème avec le nom d'une catégorie,
+                         * on met une icône par défaut.
+                         */
+                        default:
+                            category.setImgResourceId(R.drawable.ic_event);
+                    }
+                }
+                setCategoriesList(categories);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                System.out.println(error.getMessage());
+            }
+        });
+
     }
 
 }
