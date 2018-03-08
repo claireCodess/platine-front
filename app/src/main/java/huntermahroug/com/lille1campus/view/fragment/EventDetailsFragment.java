@@ -13,6 +13,7 @@ import org.androidannotations.annotations.EFragment;
 import huntermahroug.com.lille1campus.R;
 import huntermahroug.com.lille1campus.databinding.FragmentEventDetailsBinding;
 import huntermahroug.com.lille1campus.model.Event;
+import huntermahroug.com.lille1campus.view.MainActivity_;
 import huntermahroug.com.lille1campus.viewmodel.EventViewModel;
 
 
@@ -64,6 +65,7 @@ public class EventDetailsFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        ((MainActivity_)this.getActivity()).hideProgressBar();
     }
 
     // TODO: Rename method, update argument and hook method into UI event

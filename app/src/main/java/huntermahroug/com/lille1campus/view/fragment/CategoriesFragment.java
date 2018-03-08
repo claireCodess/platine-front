@@ -17,6 +17,7 @@ import huntermahroug.com.lille1campus.R;
 import huntermahroug.com.lille1campus.databinding.FragmentCategoriesBinding;
 import huntermahroug.com.lille1campus.model.Category;
 import huntermahroug.com.lille1campus.util.adapter.CategoryAdapter;
+import huntermahroug.com.lille1campus.view.MainActivity_;
 
 
 /**
@@ -131,6 +132,7 @@ public class CategoriesFragment extends Fragment {
      * Afficher les catégories dans la vue.
      */
     private void showCategories() {
+        ((MainActivity_)this.getActivity()).hideProgressBar();
 
         // Récupérer la liste des catégories
         List<Category> categoriesList = ((LilleCampusApplication) this.getActivity().getApplication()).getCategoriesList();

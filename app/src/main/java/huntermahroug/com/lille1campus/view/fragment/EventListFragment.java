@@ -18,6 +18,7 @@ import huntermahroug.com.lille1campus.R;
 import huntermahroug.com.lille1campus.databinding.FragmentEventListBinding;
 import huntermahroug.com.lille1campus.model.EventLight;
 import huntermahroug.com.lille1campus.util.adapter.EventAdapter;
+import huntermahroug.com.lille1campus.view.MainActivity_;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -93,6 +94,7 @@ public class EventListFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         lilleCampusAPI = ((LilleCampusApplication) this.getActivity().getApplication()).getLilleCampusAPI();
+        ((MainActivity_)this.getActivity()).showProgressBar();
         refreshView();
     }
 
@@ -179,6 +181,7 @@ public class EventListFragment extends Fragment {
      * @param events Les événements à afficher
      */
     private void showEvents(List<EventLight> events) {
+        ((MainActivity_)this.getActivity()).hideProgressBar();
         /*
          * Afficher cette liste dans le RecyclerView.
          */

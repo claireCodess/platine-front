@@ -21,6 +21,7 @@ import huntermahroug.com.lille1campus.R;
 import huntermahroug.com.lille1campus.model.Category;
 import huntermahroug.com.lille1campus.model.Event;
 import huntermahroug.com.lille1campus.model.EventLight;
+import huntermahroug.com.lille1campus.view.MainActivity_;
 import huntermahroug.com.lille1campus.view.fragment.EventDetailsFragment_;
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -129,6 +130,7 @@ public class EventLightViewModel extends BaseObservable {
 
     public void onClick() {
         LilleCampusAPI lilleCampusAPI = ((LilleCampusApplication) fragment.getActivity().getApplication()).getLilleCampusAPI();
+        ((MainActivity_)this.fragment.getActivity()).showProgressBar();
 
         // Récupérer les données de l'événement grâce à l'API
         lilleCampusAPI.getOneEvent(eventLight.getId(), new Callback<Event>() {

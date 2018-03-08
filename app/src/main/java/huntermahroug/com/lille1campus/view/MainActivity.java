@@ -9,17 +9,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.List;
-
 import huntermahroug.com.lille1campus.R;
-import huntermahroug.com.lille1campus.model.EventLight;
 import huntermahroug.com.lille1campus.util.helper.BottomNavigationViewHelper;
 import huntermahroug.com.lille1campus.view.fragment.AddEventFragment_;
 import huntermahroug.com.lille1campus.view.fragment.CategoriesFragment_;
@@ -37,6 +34,12 @@ public class MainActivity extends AppCompatActivity { //implements EventListFrag
 
     @ViewById(R.id.titleBar)
     Toolbar toolBar;
+
+    @ViewById(R.id.progress_bar)
+    ProgressBar progressBar;
+
+    @ViewById(R.id.fragment_placeholder)
+    FrameLayout fragmentPlaceholder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,38 +88,14 @@ public class MainActivity extends AppCompatActivity { //implements EventListFrag
 
     }
 
-    /**
-     * Récupère les données pour l'instant statiques (par la suite, de la base de données).
-     */
-    public List<EventLight> getAllEvents() {
-        List<EventLight> items = new ArrayList<>();
-        Calendar calendar = new GregorianCalendar();
+    public void hideProgressBar() {
+        progressBar.setVisibility(View.GONE);
+        fragmentPlaceholder.setVisibility(View.VISIBLE);
+    }
 
-        /*calendar.set(2018, 1, 2, 19, 30);
-        items.add(new EventLight(1, "Soirée bowling", calendar.getTime(), "Bowling Van Gogh, Villeneuve-d'Ascq", "outing"));
-
-        calendar.set(2018, 1, 3, 11, 0);
-        items.add(new EventLight(2, "Conférence astronomie", calendar.getTime(), "Lilliad, Lille 1", "educational"));
-
-        calendar.set(2018, 1, 5, 20, 0);
-        items.add(new EventLight(3, "Course hivernale", calendar.getTime(), "Halle Vallin, Lille 1", "sport"));
-
-        calendar.set(2018, 1, 6, 10, 0);
-        items.add(new EventLight(4, "Forum métiers de l'avenir", calendar.getTime(), "Lilliad, Lille 1", "educational"));
-
-        calendar.set(2018, 1, 6, 12, 30);
-        items.add(new EventLight(5, "Déjeuner technologique", calendar.getTime(), "Amphi Bacchus, M5, Lille 1", "educational"));
-
-        calendar.set(2018, 1, 6, 18, 30);
-        items.add(new EventLight(6, "Atelier langues", calendar.getTime(), "Maison des langues, Lille 1", "educational"));
-
-        calendar.set(2018, 1, 7, 14, 0);
-        items.add(new EventLight(7, "Concours sciences", calendar.getTime(), "Lilliad, Lille 1", "educational"));
-
-        calendar.set(2018, 1, 8, 20, 30);
-        items.add(new EventLight(8, "Soirée rock", calendar.getTime(), "MDE, Lille 1", "cultural"));*/
-
-        return items;
+    public void showProgressBar() {
+        progressBar.setVisibility(View.VISIBLE);
+        fragmentPlaceholder.setVisibility(View.INVISIBLE);
     }
 
 }
