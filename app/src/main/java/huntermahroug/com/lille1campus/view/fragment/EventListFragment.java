@@ -27,14 +27,18 @@ import retrofit.client.Response;
 public class EventListFragment extends Fragment {
 
     public static String INSEARCHFRAG_PARAM = "insearchfrag_param";
-    public static String INSEARCHNAME_PARAM = "name";
+    public static String INCATEGORIESFRAG_PARAM = "incategoriesfrag_param";
+    public static String SEARCHQUERY_PARAM = "searchquery_param";
+    public static String CATEGORYID_PARAM = "categoryid_param";
 
     private LilleCampusAPI lilleCampusAPI;
 
     private OnFragmentInteractionListener mListener;
 
     private boolean inSearchFragment;
-    private String inSearchName;
+    private boolean inCategoriesFragment;
+    private String searchQuery;
+    private int categoryId;
 
     public EventListFragment() {
         // Required empty public constructor
@@ -47,15 +51,17 @@ public class EventListFragment extends Fragment {
      * @param inSearchFragment Booléen à true si ce fragment est créé dans le
      *                         fragment de recherche, false s'il est crée
      *                         directement dans le MainActivity.
-     * @param inSearchName    Boolean
+     * @param searchQuery    Boolean
      *
      * @return Une nouvelle instance du fragment EventListFragment.
      */
-    public static EventListFragment newInstance(boolean inSearchFragment, String inSearchName) {
+    public static EventListFragment newInstance(boolean inSearchFragment, boolean inCategoriesFragment, String searchQuery, int categoryId) {
         EventListFragment_ fragment = new EventListFragment_();
         Bundle args = new Bundle();
         args.putBoolean(INSEARCHFRAG_PARAM, inSearchFragment);
-        args.putString(INSEARCHNAME_PARAM,inSearchName);
+        args.putBoolean(INCATEGORIESFRAG_PARAM, inCategoriesFragment);
+        args.putString(SEARCHQUERY_PARAM, searchQuery);
+        args.putInt(CATEGORYID_PARAM, categoryId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -65,7 +71,9 @@ public class EventListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             inSearchFragment = getArguments().getBoolean(INSEARCHFRAG_PARAM);
-            inSearchName = getArguments().getString(INSEARCHNAME_PARAM);
+            inCategoriesFragment = getArguments().getBoolean(INCATEGORIESFRAG_PARAM);
+            searchQuery = getArguments().getString(SEARCHQUERY_PARAM);
+            categoryId = getArguments().getInt(CATEGORYID_PARAM);
         }
     }
 
@@ -117,7 +125,7 @@ public class EventListFragment extends Fragment {
      */
     private void refreshView() {
 
-        if(!inSearchFragment)
+        if(!inSearchFragment && !inCategoriesFragment)
         {
             lilleCampusAPI.getAllEvents(new Callback<List<EventLight>>() {
                 @Override
@@ -131,9 +139,9 @@ public class EventListFragment extends Fragment {
                 }
             });
         }
-        else
+        else if(inSearchFragment && !inCategoriesFragment)
         {
-            lilleCampusAPI.getEventsbyname(inSearchName,new Callback<List<EventLight>>() {
+            lilleCampusAPI.getEventsbyname(searchQuery, new Callback<List<EventLight>>() {
                 @Override
                 public void success(List<EventLight> events, Response response) {
                     showEvents(events);
@@ -144,9 +152,25 @@ public class EventListFragment extends Fragment {
                     System.out.println(error.getMessage());
                 }
             });
-
         }
+        else if(!inSearchFragment && inCategoriesFragment)
+        {
+            lilleCampusAPI.getEventsbycatid(categoryId, new Callback<List<EventLight>>() {
+                @Override
+                public void success(List<EventLight> events, Response response) {
+                    showEvents(events);
+                }
 
+                @Override
+                public void failure(RetrofitError error) {
+                    System.out.println(error.getMessage());
+                }
+            });
+        }
+        else
+        {
+            // Erreur !
+        }
 
     }
 

@@ -157,7 +157,7 @@ public class AddEventViewModel extends BaseObservable {
                 System.out.println("Successsssssssss !!!!!!!!!!!!");
                 // On est redirigé vers le fragment de la liste des événements
                 FragmentTransaction fragmentTransaction = fragment.getFragmentManager().beginTransaction();
-                fragmentTransaction.add(R.id.fragment_placeholder, EventListFragment_.newInstance(false, ""));
+                fragmentTransaction.add(R.id.fragment_placeholder, EventListFragment_.newInstance(false, false, "", -1));
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }

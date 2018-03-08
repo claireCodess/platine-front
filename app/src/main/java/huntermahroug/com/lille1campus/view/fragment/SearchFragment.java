@@ -120,7 +120,7 @@ public class SearchFragment extends Fragment {
 
 
                 FragmentTransaction fragmentTransaction = childFragmentManager.beginTransaction();
-                fragmentTransaction.add(R.id.search_fragment_placeholder, EventListFragment_.newInstance(true , query));
+                fragmentTransaction.add(R.id.search_fragment_placeholder, EventListFragment_.newInstance(true, false, query, -1));
                 fragmentTransaction.commit();
 
                 return true;

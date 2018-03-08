@@ -1,14 +1,19 @@
 package huntermahroug.com.lille1campus.viewmodel;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.BindingAdapter;
 import android.view.View;
 import android.widget.ImageView;
 
+import huntermahroug.com.lille1campus.LilleCampusAPI;
+import huntermahroug.com.lille1campus.LilleCampusApplication;
 import huntermahroug.com.lille1campus.R;
 import huntermahroug.com.lille1campus.model.Category;
+import huntermahroug.com.lille1campus.view.fragment.EventListFragment_;
 
 /**
  * Created by Claire on 04/03/2018.
@@ -64,6 +69,18 @@ public class CategoryViewModel extends BaseObservable {
     @BindingAdapter("android:src")
     public static void setImageResource(ImageView imageView, int imgResourceId){
         imageView.setImageResource(imgResourceId);
+    }
+
+    public void onClick() {
+        LilleCampusAPI lilleCampusAPI = ((LilleCampusApplication) fragment.getActivity().getApplication()).getLilleCampusAPI();
+
+        // Effectuer la transition vers le fragment de tous les événements avec le paramètre "category"
+        FragmentManager fragmentManager = fragment.getActivity().getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.fragment_placeholder, EventListFragment_.newInstance(false, true, "", category.getId()));
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+
     }
 
 }

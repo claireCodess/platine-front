@@ -9,8 +9,8 @@
         android:id="@+id/category_item_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@{category.position}">
-        <!-- android:onClick="@{() -> category.onClick()}"> -->
+        android:background="@{category.position}"
+        android:onClick="@{() -> category.onClick()}">
 
         <ImageView
             android:id="@+id/category_icon"
