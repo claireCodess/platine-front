@@ -61,7 +61,14 @@ public class EventLightViewModel extends BaseObservable {
 
     @Bindable
     public String getName() {
-        return eventLight.getName();
+        String shownName;
+        if(eventLight.getName().length() < 30) {
+            shownName = eventLight.getName();
+        } else {
+            shownName = eventLight.getName().substring(0, 30);
+            shownName += " ...";
+        }
+        return shownName;
     }
 
     /**
