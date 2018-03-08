@@ -26,13 +26,16 @@ import org.androidannotations.annotations.DataBound;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FocusChange;
 import org.androidannotations.annotations.ViewById;
-import org.androidannotations.annotations.res.StringArrayRes;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
+import huntermahroug.com.lille1campus.LilleCampusApplication;
 import huntermahroug.com.lille1campus.R;
 import huntermahroug.com.lille1campus.databinding.FragmentAddEventBinding;
+import huntermahroug.com.lille1campus.model.Category;
 import huntermahroug.com.lille1campus.viewmodel.AddEventViewModel;
 
 
@@ -60,9 +63,6 @@ public class AddEventFragment extends Fragment {
 
     @ViewById(R.id.date_edit)
     EditText dateEdit;
-
-    @StringArrayRes(R.array.category_choices_array)
-    String[] categoryChoicesList;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -136,10 +136,17 @@ public class AddEventFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        List<Category> categoryChoicesList = new ArrayList<>();
+        // Ci-dessous ce n'est pas une vraie catégorie, juste un "placeholder" pour le Spinner
+        // qui est visible tant que l'utilisateur n'a pas sélectionné une catégorie
+        categoryChoicesList.add(new Category("Catégories", -1));
+        List<Category> categoriesList = ((LilleCampusApplication) this.getActivity().getApplication()).getCategoriesList();
+        categoryChoicesList.addAll(categoriesList);
+
         // TODO: construction du Spinner à déplacer dans une classe séparée
         // Construire un Spinner en utilisant un ArrayAdapter customisé qui met en texte gris la première entrée (Catégorie) et la cache
         // dès qu'on appuie sur le Spinner
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, categoryChoicesList) {
+        ArrayAdapter<Category> adapter = new ArrayAdapter<Category>(this.getActivity(), android.R.layout.simple_spinner_item, categoryChoicesList) {
 
             // Méthode servant à mettre en texte gris la première entrée
             @Override
@@ -151,8 +158,9 @@ public class AddEventFragment extends Fragment {
                     tv.setTextColor(0xffa8a8a8); // Même couleur que le "hint" d'un EditText
                 }
 
-                // Dans tous les cas, également définir la taille du texte de la vue à 18sp
-                // (pareil que les autres champs)
+                // Dans tous les cas, également définir le contenu du texte et la
+                // taille du texte de la vue à 18sp (pareil que les autres champs)
+                tv.setText(categoryChoicesList.get(position).getName());
                 tv.setTextSize(18);
 
                 v = tv;
@@ -175,6 +183,9 @@ public class AddEventFragment extends Fragment {
                     // Mettre le paramètre convertView à null pour empêcher
                     // la réutilisation de vues particulières
                     v = super.getDropDownView(position, null, parent);
+                    // Egalement définir le contenu du texte
+                    TextView tv = (TextView)v;
+                    tv.setText(categoryChoicesList.get(position).getName());
                 }
 
                 // Cacher le scroll bar car il apparaît parfois inutilement ; il n'empêche pas le scroll

@@ -24,6 +24,9 @@ public class Category implements Parcelable {
     private transient int imgResourceId;
 
     public Category(String name, int imgResourceId) {
+        // En construisant "à la main" une catégorie, on met un ID égal à -1
+        // pour dire que cette catégorie n'est pas liée à la BDD.
+        this.id = -1;
         this.name = name;
         this.imgResourceId = imgResourceId;
     }

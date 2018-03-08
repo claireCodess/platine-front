@@ -3,6 +3,12 @@ package huntermahroug.com.lille1campus.viewmodel;
 import android.app.Fragment;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.databinding.BindingAdapter;
+import android.databinding.InverseBindingAdapter;
+import android.databinding.InverseBindingListener;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Spinner;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -11,6 +17,7 @@ import java.util.Date;
 
 import huntermahroug.com.lille1campus.LilleCampusAPI;
 import huntermahroug.com.lille1campus.LilleCampusApplication;
+import huntermahroug.com.lille1campus.model.Category;
 import huntermahroug.com.lille1campus.model.EventTest;
 import huntermahroug.com.lille1campus.model.EventToAdd;
 import retrofit.Callback;
@@ -43,10 +50,14 @@ public class AddEventViewModel extends BaseObservable {
         return event.getName();
     }
 
-    /*@Bindable
-    public TwoWayBoundInteger getCategory() {
-        return event.getCategoryId();
-    }*/
+    @Bindable
+    public int getCategory() {
+        return event.getCategoryId().get();
+    }
+
+    public void setCategory(int categoryId) {
+        event.getCategoryId().set(categoryId);
+    }
 
     @Bindable
     public TwoWayBoundString getDate() {
@@ -89,32 +100,53 @@ public class AddEventViewModel extends BaseObservable {
         }
     }
 
-    public String convertTimeToAPIFormat() {
-        try {
-            DateFormat databaseFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZZZZ");
-            DateFormat presentationFormat = new SimpleDateFormat("HH:mm");
-            Date date = presentationFormat.parse(event.getDate().get());
-            return databaseFormat.format(date);
-        } catch (ParseException e) {
-            return event.getDate().get();
+    @BindingAdapter(value = "selectedValueAttrChanged")
+    public static void setListener(Spinner spinner, final InverseBindingListener listener) {
+        if (listener != null) {
+            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    listener.onChange();
+
+                    System.out.println("hello world");
+                    System.out.println("Categorie selectionnee : " + ((Category)parent.getItemAtPosition(position)).getId());
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+                    //Nothing
+                }
+            });
         }
     }
 
+    @BindingAdapter("selectedValue")
+    public static void setSelectedValue(Spinner view, int newValue) {
+        int oldValue = ((Category)view.getSelectedItem()).getId();
+        if(oldValue != newValue) {
+            view.setSelection(view.getSelectedItemPosition());
+        }
+    }
+
+    @InverseBindingAdapter(attribute = "selectedValue")
+    public static int getSelectedValue(AdapterView view) {
+        return ((Category) view.getSelectedItem()).getId();
+    }
+
     public void onSubmitForm() {
-        /*System.out.println("name = " + event.getName().get());
+        System.out.println("name = " + event.getName().get());
         System.out.println("category = " + event.getCategoryId().get());
         System.out.println("date and time = " + convertDateAndTimeToAPIFormat());
         System.out.println("location = " + event.getLocation().get());
         System.out.println("description = " + event.getDescription().get());
         System.out.println("e-mail = " + event.getEmail().get());
         System.out.println("price = " + convertPriceToAPIFormat());
-        System.out.println("nb places = " + event.getNbPlaces().get());*/
+        System.out.println("nb places = " + event.getNbPlaces().get());
 
         LilleCampusAPI lilleCampusAPI = ((LilleCampusApplication) fragment.getActivity().getApplication()).getLilleCampusAPI();
 
-        //EventTest eventTest = new EventTest(event.getName().get(), event.getPrice().get(), event.getEmail().get());
-
-        EventTest eventTest = new EventTest("Test sortie", 4, "2018-03-07T19:30:00+00:00", 5, "description test 3","claire@bidon.com", "Villeneuve d'Ascq", 50);
+        EventTest eventTest = new EventTest(event.getName().get(), event.getCategoryId().get(), convertDateAndTimeToAPIFormat(), convertPriceToAPIFormat(),
+                event.getDescription().get(), event.getEmail().get(), event.getLocation().get(), event.getNbPlaces().get());
 
         lilleCampusAPI.postEvent(eventTest, new Callback<EventTest>() {
             @Override

@@ -22,6 +22,7 @@ public class EventToAdd {
 
     public EventToAdd() {
         this.name = new TwoWayBoundString();
+        this.categoryId = new TwoWayBoundInteger();
         this.date = new TwoWayBoundString();
         this.time = new TwoWayBoundString();
         this.location = new TwoWayBoundString();
