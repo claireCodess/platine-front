@@ -78,7 +78,7 @@ public class EventLightViewModel extends BaseObservable {
     @Bindable
     public String getDate() {
         try {
-            DateFormat databaseFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZZZZ");
+            DateFormat databaseFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
             DateFormat presentationFormat = new SimpleDateFormat("EEEE d MMMM yyyy 'à' HH'h'mm");
             Date date = databaseFormat.parse(eventLight.getDate());
             return presentationFormat.format(date);
