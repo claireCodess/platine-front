@@ -113,12 +113,14 @@ public class SearchFragment extends Fragment {
         final FragmentManager childFragmentManager = getChildFragmentManager();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public boolean onQueryTextSubmit(String query) {
+            public boolean onQueryTextSubmit(String query) { // quand on clique sur la loupe avec param : query
 
                 // TODO: Appeler méthode API de recherche ici
 
+
+
                 FragmentTransaction fragmentTransaction = childFragmentManager.beginTransaction();
-                fragmentTransaction.add(R.id.search_fragment_placeholder, EventListFragment_.newInstance(true));
+                fragmentTransaction.add(R.id.search_fragment_placeholder, EventListFragment_.newInstance(true , query));
                 fragmentTransaction.commit();
 
                 return true;

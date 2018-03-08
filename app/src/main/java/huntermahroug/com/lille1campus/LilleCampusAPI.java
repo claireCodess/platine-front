@@ -32,4 +32,10 @@ public interface LilleCampusAPI {
     @GET("/categories")
     void getAllCategories(Callback<List<Category>> callback);
 
+    @GET("/eventsbyname/{name}")
+    void getEventsbyname(@Path("name") String name, Callback<List<EventLight>> callback);
+
+    @GET("/eventsbycat/{catid}")
+    void getEventsbycatid(@Path("catid") int catid, Callback<List<EventLight>> callback);
+
 }

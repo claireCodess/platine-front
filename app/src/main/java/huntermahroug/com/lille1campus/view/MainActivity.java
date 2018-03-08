@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity { //implements EventListFrag
                         // TODO : si on a appuyé sur un élément du menu et qu'on réappuie dessus ça ne fait rien
                         case R.id.nav_view:
                             // TODO : migrer l'appel API getAll ici
-                            fragmentTransaction.add(R.id.fragment_placeholder, EventListFragment_.newInstance(false));
+                            fragmentTransaction.add(R.id.fragment_placeholder, EventListFragment_.newInstance(false, "tou"));
                             break;
 
                         case R.id.nav_search:
