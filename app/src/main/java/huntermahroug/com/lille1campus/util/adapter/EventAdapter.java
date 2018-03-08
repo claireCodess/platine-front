@@ -54,7 +54,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.BindingHolde
     public BindingHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         // Récupérer l'inflater et récupérer la vue par l'ID ressource eventLayout
-        EventItemLayoutBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.event_item_layout, parent, false);
+        EventItemLayoutBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.event_item_layout, parent,false);
 
         // Retourner le ViewHolder avec la vue
         return new BindingHolder(binding);

@@ -5,11 +5,15 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.View;
+import android.widget.TextView;
 
 import org.androidannotations.annotations.BindingObject;
 import org.androidannotations.annotations.DataBound;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.ViewById;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import huntermahroug.com.lille1campus.LilleCampusAPI;
@@ -26,6 +30,9 @@ import retrofit.client.Response;
 @DataBound
 @EFragment(R.layout.fragment_event_list)
 public class EventListFragment extends Fragment {
+
+    @ViewById(R.id.no_event_view)
+    TextView noEventView;
 
     public static String INSEARCHFRAG_PARAM = "insearchfrag_param";
     public static String INCATEGORIESFRAG_PARAM = "incategoriesfrag_param";
@@ -151,7 +158,6 @@ public class EventListFragment extends Fragment {
 
                 @Override
                 public void failure(RetrofitError error) {
-                    System.out.println(error.getMessage());
                 }
             });
         }
@@ -165,7 +171,15 @@ public class EventListFragment extends Fragment {
 
                 @Override
                 public void failure(RetrofitError error) {
-                    System.out.println(error.getMessage());
+                    if(error.getResponse().getStatus() == 404) {
+                        // Si le code d'erreur est 404, alors cela veut dire
+                        // qu'il n'y a aucun événement dans cette catégorie/
+                        // On appelle showEvents avec une liste vide, qui va
+                        // faire le travail.
+                        showEvents(new ArrayList<>());
+                    } else {
+                        // C'est une autre erreur, non gérée pour le moment...
+                    }
                 }
             });
         }
@@ -182,13 +196,18 @@ public class EventListFragment extends Fragment {
      */
     private void showEvents(List<EventLight> events) {
         ((MainActivity_)this.getActivity()).hideProgressBar();
-        /*
-         * Afficher cette liste dans le RecyclerView.
-         */
-        EventAdapter adapter = new EventAdapter(events, this);
 
-        binding.listEvents.setAdapter(adapter);
-        binding.listEvents.setLayoutManager(new LinearLayoutManager(getActivity()));
+        if(!events.isEmpty()) {
+            // Afficher cette liste dans le RecyclerView.
+            EventAdapter adapter = new EventAdapter(events, this);
+
+            binding.listEvents.setAdapter(adapter);
+            binding.listEvents.setLayoutManager(new LinearLayoutManager(getActivity()));
+        } else {
+            // Si la liste est vide, alors c'est qu'il n'y a aucun événement !
+            // (Après une recherche, dans une catégorie, ou aucun événement tout court...)
+            noEventView.setVisibility(View.VISIBLE);
+        }
     }
 
 }

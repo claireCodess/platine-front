@@ -9,6 +9,7 @@
     <string name="title_add_event">Proposer</string>
     <string name="best_result">Meilleur résultat</string>
     <string name="all_results">Voir tous les résultats</string>
+    <string name="no_events_msg">Aucun événement</string>
 
     <string-array name="category_choices_array">
         <item>Catégorie</item>
