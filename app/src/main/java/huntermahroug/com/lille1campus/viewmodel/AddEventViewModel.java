@@ -10,6 +10,7 @@ import android.databinding.InverseBindingListener;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -148,26 +149,39 @@ public class AddEventViewModel extends BaseObservable {
 
         LilleCampusAPI lilleCampusAPI = ((LilleCampusApplication) fragment.getActivity().getApplication()).getLilleCampusAPI();
 
-        EventTest eventTest = new EventTest(event.getName().get(), event.getCategoryId().get(), convertDateAndTimeToAPIFormat(), convertPriceToAPIFormat(),
-                event.getDescription().get(), event.getEmail().get(), event.getLocation().get(), event.getNbPlaces().get());
+        if(champsValides()) {
+            EventTest eventTest = new EventTest(event.getName().get(), event.getCategoryId().get(), convertDateAndTimeToAPIFormat(), convertPriceToAPIFormat(),
+                    event.getDescription().get(), event.getEmail().get(), event.getLocation().get(), event.getNbPlaces().get());
 
-        lilleCampusAPI.postEvent(eventTest, new Callback<EventTest>() {
-            @Override
-            public void success(EventTest event, Response response) {
-                System.out.println("Successsssssssss !!!!!!!!!!!!");
-                // On est redirigé vers le fragment de la liste des événements
-                FragmentTransaction fragmentTransaction = fragment.getFragmentManager().beginTransaction();
-                fragmentTransaction.add(R.id.fragment_placeholder, EventListFragment_.newInstance(false, false, "", -1));
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-            }
+            lilleCampusAPI.postEvent(eventTest, new Callback<EventTest>() {
+                @Override
+                public void success(EventTest event, Response response) {
+                    System.out.println("Successsssssssss !!!!!!!!!!!!");
+                    // On est redirigé vers le fragment de la liste des événements
+                    FragmentTransaction fragmentTransaction = fragment.getFragmentManager().beginTransaction();
+                    fragmentTransaction.add(R.id.fragment_placeholder, EventListFragment_.newInstance(false, false, "", -1));
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+                }
 
-            @Override
-            public void failure(RetrofitError error) {
-                System.out.println(error.getMessage());
-            }
-        });
+                @Override
+                public void failure(RetrofitError error) {
+                    System.out.println(error.getMessage());
+                }
+            });
+        } else {
+            Toast.makeText(this.fragment.getActivity(), "Tous les champs sont obligatoires", Toast.LENGTH_SHORT).show();
+        }
 
+    }
+
+    private boolean champsValides() {
+        if(event.getName().get().equals("") || event.getCategoryId().get() == -1 || event.getDate().get().equals("")
+                || event.getTime().get().equals("") || event.getLocation().get().equals("") || event.getDescription().get().equals("")
+                || event.getEmail().get().equals("") || event.getPrice().get() == -1 || event.getNbPlaces().get() == -1) {
+            return false;
+        }
+        return true;
     }
 
 }

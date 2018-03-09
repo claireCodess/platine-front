@@ -23,7 +23,7 @@ public class TwoWayBoundDouble extends BaseObservable implements Serializable {
      * Creates an empty observable object
      */
     public TwoWayBoundDouble() {
-        mValue = 0.0;
+        mValue = -1.0;
     }
 
     /**
@@ -76,12 +76,18 @@ public class TwoWayBoundDouble extends BaseObservable implements Serializable {
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    twoWayBoundDouble.set(Double.parseDouble(s.toString()));
+                    double doubleInText;
+                    try {
+                        doubleInText = Double.parseDouble(s.toString());
+                        twoWayBoundDouble.set(doubleInText);
+                    } catch(NumberFormatException e) {
+                        twoWayBoundDouble.set(-1.0);
+                    }
                 }
             });
         }
         Double newValue = twoWayBoundDouble.get();
-        Double currentValue = 0.0;
+        Double currentValue = -1.0;
         if(!view.getText().toString().equals("")) {
             currentValue = Double.parseDouble(view.getText().toString());
         }

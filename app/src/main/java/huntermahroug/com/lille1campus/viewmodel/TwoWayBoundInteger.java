@@ -23,7 +23,7 @@ public class TwoWayBoundInteger extends BaseObservable implements Serializable {
      * Creates an empty observable object
      */
     public TwoWayBoundInteger() {
-        mValue = 0;
+        mValue = -1;
     }
 
     /**
@@ -76,12 +76,18 @@ public class TwoWayBoundInteger extends BaseObservable implements Serializable {
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    twoWayBoundInteger.set(Integer.parseInt(s.toString()));
+                    int integerInText;
+                    try {
+                        integerInText = Integer.parseInt(s.toString());
+                        twoWayBoundInteger.set(integerInText);
+                    } catch(NumberFormatException e) {
+                        twoWayBoundInteger.set(-1);
+                    }
                 }
             });
         }
         Integer newValue = twoWayBoundInteger.get();
-        Integer currentValue = 0;
+        Integer currentValue = -1;
         if(!view.getText().toString().equals("")) {
             currentValue = Integer.parseInt(view.getText().toString());
         }
