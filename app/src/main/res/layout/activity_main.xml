@@ -49,8 +49,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="start"
         app:itemBackground="@color/colorPrimaryDark"
-        app:itemIconTint="@color/white"
-        app:itemTextColor="@color/white"
+        app:itemIconTint="@color/bottom_navigation_color_selector"
+        app:itemTextColor="@color/bottom_navigation_color_selector"
         app:menu="@menu/activity_main_bottom_nav" />
 
     <!-- </android.support.design.widget.AppBarLayout> -->

@@ -2,6 +2,7 @@ package huntermahroug.com.lille1campus.view;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -15,6 +16,7 @@ import android.widget.ProgressBar;
 
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.res.ColorStateListRes;
 
 import huntermahroug.com.lille1campus.R;
 import huntermahroug.com.lille1campus.util.helper.BottomNavigationViewHelper;
@@ -41,6 +43,15 @@ public class MainActivity extends AppCompatActivity { //implements EventListFrag
     @ViewById(R.id.fragment_placeholder)
     FrameLayout fragmentPlaceholder;
 
+    @ColorStateListRes(R.color.bottom_navigation_color_selector)
+    ColorStateList colorStateList;
+
+    /**
+     * Désigne l'onglet courant, donc à désactiver lors de l'appui
+     * sur un autre onglet.
+     */
+    MenuItem currentItem;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +65,13 @@ public class MainActivity extends AppCompatActivity { //implements EventListFrag
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    if(currentItem == null) {
+                        currentItem = bottomNavigationView.getMenu().findItem(R.id.nav_view);
+                    }
+                    currentItem.setEnabled(true);
+                    item.setEnabled(false);
+                    currentItem = item;
+
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     switch (item.getItemId()) {
                         // TODO : si on a appuyé sur un élément du menu et qu'on réappuie dessus ça ne fait rien
