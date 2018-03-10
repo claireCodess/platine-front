@@ -1,5 +1,6 @@
 package huntermahroug.com.lille1campus.viewmodel;
 
+import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.databinding.BaseObservable;
@@ -23,7 +24,9 @@ import huntermahroug.com.lille1campus.R;
 import huntermahroug.com.lille1campus.model.Category;
 import huntermahroug.com.lille1campus.model.EventTest;
 import huntermahroug.com.lille1campus.model.EventToAdd;
+import huntermahroug.com.lille1campus.view.fragment.DatePickerFragment;
 import huntermahroug.com.lille1campus.view.fragment.EventListFragment_;
+import huntermahroug.com.lille1campus.view.fragment.TimePickerFragment;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -48,6 +51,24 @@ public class AddEventViewModel extends BaseObservable {
         this.event = new EventToAdd();
         this.fragment = fragment;
     }
+
+    private View.OnFocusChangeListener onDateEditFocusChange = new View.OnFocusChangeListener() {
+        @Override
+        public void onFocusChange(View v, boolean hasFocus) {
+            if (hasFocus) {
+                showDateDialog(event.getDate().get());
+            }
+        }
+    };
+
+    private View.OnFocusChangeListener onTimeEditFocusChange = new View.OnFocusChangeListener() {
+        @Override
+        public void onFocusChange(View v, boolean hasFocus) {
+            if (hasFocus) {
+                showTimeDialog(event.getDate().get());
+            }
+        }
+    };
 
     @Bindable
     public TwoWayBoundString getName() {
@@ -182,6 +203,55 @@ public class AddEventViewModel extends BaseObservable {
             return false;
         }
         return true;
+    }
+
+    //@Click(R.id.date_edit)
+    public void onDateEditClick() {
+        showDateDialog(event.getDate().get());
+    }
+
+    //@Click(R.id.time_edit)
+    public void onTimeEditClick() {
+        showTimeDialog(event.getTime().get());
+    }
+
+    /*@FocusChange(R.id.date_edit)
+    public void onDateEditFocusChange(View v, boolean hasFocus) {
+        if (hasFocus) {
+            showDateDialog(event.getDate().get());
+        }
+    }
+
+    @FocusChange(R.id.time_edit)
+    public void onTimeEditFocusChange(View v, boolean hasFocus) {
+        if (hasFocus) {
+            showTimeDialog(event.getTime().get());
+        }
+    }*/
+
+    @Bindable
+    public View.OnFocusChangeListener getOnDateEditFocusChange() {
+        return onDateEditFocusChange;
+    }
+
+    @Bindable
+    public View.OnFocusChangeListener getOnTimeEditFocusChange() {
+        return onTimeEditFocusChange;
+    }
+
+    @BindingAdapter("onFocusChange")
+    public static void setOnFocusChange(View view, View.OnFocusChangeListener focusChangeListener) {
+        view.setOnFocusChangeListener(focusChangeListener);
+    }
+
+    private void showDateDialog(String existingDate) {
+        DialogFragment newFragment = DatePickerFragment.newInstance(existingDate);
+        newFragment.show(fragment.getFragmentManager(), null);
+    }
+
+    private void showTimeDialog(String existingTime) {
+        DialogFragment newFragment = TimePickerFragment.newInstance(existingTime);
+        newFragment.show(fragment.getFragmentManager(), null);
     }
 
 }

@@ -1,35 +1,24 @@
 package huntermahroug.com.lille1campus.view.fragment;
 
-import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.app.DialogFragment;
 import android.app.Fragment;
-import android.app.TimePickerDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.InputType;
-import android.text.format.DateFormat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.BindingObject;
-import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.DataBound;
 import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.FocusChange;
 import org.androidannotations.annotations.ViewById;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import huntermahroug.com.lille1campus.LilleCampusApplication;
@@ -225,104 +214,6 @@ public class AddEventFragment extends Fragment {
     @AfterViews
     void refreshView() {
         binding.setEvent(new AddEventViewModel(this));
-    }
-
-    // TODO: fonction à déplacer dans le ModelView correspondant
-    @Click(R.id.date_edit)
-    public void onDateEditClick() {
-        showDateDialog();
-    }
-
-    // TODO: fonction à déplacer dans le ModelView correspondant
-    @Click(R.id.time_edit)
-    public void onTimeEditClick() {
-        showTimeDialog();
-    }
-
-    // TODO: fonction à déplacer dans le ModelView correspondant
-    @FocusChange(R.id.date_edit)
-    public void onDateEditFocusChange(View v, boolean hasFocus) {
-        if (hasFocus) {
-            showDateDialog();
-        }
-    }
-
-    // TODO: fonction à déplacer dans le ModelView correspondant
-    @FocusChange(R.id.time_edit)
-    public void onTimeEditFocusChange(View v, boolean hasFocus) {
-        if (hasFocus) {
-            showTimeDialog();
-        }
-    }
-
-    // TODO: fonction à déplacer dans le ModelView correspondant
-    public void showDateDialog() {
-        DialogFragment newFragment = new DatePickerFragment();
-        newFragment.show(getFragmentManager(), "datePicker");
-    }
-
-    // TODO: fonction à déplacer dans le ModelView correspondant
-    public void showTimeDialog() {
-        DialogFragment newFragment = new TimePickerFragment();
-        newFragment.show(getFragmentManager(), "timePicker");
-    }
-
-    public static class DatePickerFragment extends DialogFragment
-            implements DatePickerDialog.OnDateSetListener {
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            // Utiliser la date courante en tant que date par défaut
-            final Calendar c = Calendar.getInstance();
-            int year = c.get(Calendar.YEAR);
-            int month = c.get(Calendar.MONTH);
-            int day = c.get(Calendar.DAY_OF_MONTH);
-
-            // Créer une nouvelle instance de DatePickerDialog et la retourner
-            return new DatePickerDialog(getActivity(), this, year, month, day);
-        }
-
-        public void onDateSet(DatePicker view, int year, int month, int day) {
-            // Construire la date choisie
-            final Calendar cal = Calendar.getInstance();
-            cal.set(year, month, day);
-
-            // Préparer la date à être mise en texte
-            java.text.DateFormat dateFormat = new SimpleDateFormat("EEEE d MMMM yyyy");
-            String dateStr = dateFormat.format(cal.getTime());
-
-            // Enfin, mettre le texte dans le bon format dans le EditText
-            EditText dateEdit = getActivity().findViewById(R.id.date_edit);
-            dateEdit.setText(dateStr);
-        }
-    }
-
-    public static class TimePickerFragment extends DialogFragment
-            implements TimePickerDialog.OnTimeSetListener {
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            // Utiliser l'heure courante en tant qu'heure par défaut
-            final Calendar c = Calendar.getInstance();
-            int hour = c.get(Calendar.HOUR_OF_DAY);
-            int minute = c.get(Calendar.MINUTE);
-
-            // Créer une nouvelle instance de TimePickerDialog et la retourner
-            return new TimePickerDialog(getActivity(), this, hour, minute,
-                    DateFormat.is24HourFormat(getActivity()));
-        }
-
-        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            // Construire l'heure choisie
-            final Calendar cal = Calendar.getInstance();
-            cal.set(0, 0, 0, hourOfDay, minute);
-
-            // Préparer la date à être mise en texte
-            java.text.DateFormat timeFormat = new SimpleDateFormat("HH':'mm");
-            String dateStr = timeFormat.format(cal.getTime());
-
-            // Enfin, mettre le texte dans le bon format dans le EditText
-            EditText timeEdit = getActivity().findViewById(R.id.time_edit);
-            timeEdit.setText(dateStr);
-        }
     }
 
 }

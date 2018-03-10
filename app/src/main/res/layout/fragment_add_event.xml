@@ -74,6 +74,8 @@
                 android:paddingTop="8dp"
                 android:singleLine="true"
                 android:text="@{event.date}"
+                android:onClick="@{() -> event.onDateEditClick()}"
+                app:onFocusChange="@{event.onDateEditFocusChange}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/category_choices" />
@@ -91,6 +93,8 @@
                 android:paddingTop="8dp"
                 android:singleLine="true"
                 android:text="@{event.time}"
+                android:onClick="@{() -> event.onTimeEditClick()}"
+                app:onFocusChange="@{event.onTimeEditFocusChange}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/date_edit" />
