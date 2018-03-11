@@ -68,8 +68,8 @@ public class MainActivity extends AppCompatActivity { //implements EventListFrag
                     if(currentItem == null) {
                         currentItem = bottomNavigationView.getMenu().findItem(R.id.nav_view);
                     }
-                    currentItem.setEnabled(true);
-                    item.setEnabled(false);
+                    currentItem.setChecked(false);
+                    item.setChecked(true);
                     currentItem = item;
 
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
