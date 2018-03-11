@@ -13,6 +13,13 @@ import android.widget.AdapterView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.maps.android.SphericalUtil;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,6 +31,7 @@ import huntermahroug.com.lille1campus.R;
 import huntermahroug.com.lille1campus.model.Category;
 import huntermahroug.com.lille1campus.model.EventTest;
 import huntermahroug.com.lille1campus.model.EventToAdd;
+import huntermahroug.com.lille1campus.view.fragment.AddEventFragment_;
 import huntermahroug.com.lille1campus.view.fragment.DatePickerFragment;
 import huntermahroug.com.lille1campus.view.fragment.EventListFragment_;
 import huntermahroug.com.lille1campus.view.fragment.TimePickerFragment;
@@ -95,7 +103,11 @@ public class AddEventViewModel extends BaseObservable {
     }
 
     @Bindable
-    public TwoWayBoundString getLocation() { return event.getLocation(); }
+    public String getLocation() { return event.getLocation().get(); }
+
+    public void setLocation(String location) {
+        event.getLocation().set(location);
+    }
 
     @Bindable
     public TwoWayBoundString getDescription() { return event.getDescription(); }
@@ -126,7 +138,7 @@ public class AddEventViewModel extends BaseObservable {
     }
 
     @BindingAdapter(value = "selectedValueAttrChanged")
-    public static void setListener(Spinner spinner, final InverseBindingListener listener) {
+    public static void setSpinnerListener(Spinner spinner, final InverseBindingListener listener) {
         if (listener != null) {
             spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
@@ -157,6 +169,64 @@ public class AddEventViewModel extends BaseObservable {
     public static int getSelectedValue(AdapterView view) {
         return ((Category) view.getSelectedItem()).getId();
     }
+
+    /*@BindingAdapter(value = "locationTextAttrChanged")
+    public static void setLocationListener(EditText editText, final InverseBindingListener listener) {
+        if (listener != null) {
+            editText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onChange();
+                    // On veut ouvrir l'appli Google Maps avec la carte centrée sur Lille
+                    // Intent searchAddress = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:50.6227391,3.0538202?z=13"));
+                    PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+                    try {
+                        fragment.startActivityForResult(builder.build(fragment.getActivity()), AddEventFragment_.PLACE_PICKER_REQUEST);
+                    } catch (GooglePlayServicesRepairableException e) {
+                        e.printStackTrace();
+                    } catch (GooglePlayServicesNotAvailableException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
+    }*/
+
+    public LatLngBounds toBounds(LatLng center, double radiusInMeters) {
+        double distanceFromCenterToCorner = radiusInMeters * Math.sqrt(2.0);
+        LatLng southwestCorner =
+                SphericalUtil.computeOffset(center, distanceFromCenterToCorner, 225.0);
+        LatLng northeastCorner =
+                SphericalUtil.computeOffset(center, distanceFromCenterToCorner, 45.0);
+        return new LatLngBounds(southwestCorner, northeastCorner);
+    }
+
+    public void getLocationFromGooglePlaces() {
+        // On veut ouvrir l'appli Google Places avec la carte centrée sur Lille 1,
+        // avec un rayon autour de 3km.
+        PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+        builder.setLatLngBounds(toBounds(new LatLng(50.607871, 3.1309819), 3000));
+        try {
+            fragment.startActivityForResult(builder.build(fragment.getActivity()), AddEventFragment_.PLACE_PICKER_REQUEST);
+        } catch (GooglePlayServicesRepairableException e) {
+            e.printStackTrace();
+        } catch (GooglePlayServicesNotAvailableException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*@BindingAdapter("locationText")
+    public static void setLocationText(EditText view, String newValue) {
+        String oldValue = view.getText().toString();
+        if(!oldValue.equals(newValue)) {
+            view.setText(newValue);
+        }
+    }
+
+    @InverseBindingAdapter(attribute = "locationText")
+    public static String getLocationText(EditText view) {
+        return view.getText().toString();
+    }*/
 
     public void onSubmitForm() {
         System.out.println("name = " + event.getName().get());

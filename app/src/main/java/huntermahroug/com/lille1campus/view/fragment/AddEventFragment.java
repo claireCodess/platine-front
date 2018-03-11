@@ -2,6 +2,7 @@ package huntermahroug.com.lille1campus.view.fragment;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.InputType;
@@ -11,6 +12,9 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.BindingObject;
@@ -26,6 +30,8 @@ import huntermahroug.com.lille1campus.R;
 import huntermahroug.com.lille1campus.databinding.FragmentAddEventBinding;
 import huntermahroug.com.lille1campus.model.Category;
 import huntermahroug.com.lille1campus.viewmodel.AddEventViewModel;
+
+import static android.app.Activity.RESULT_OK;
 
 
 /**
@@ -53,11 +59,18 @@ public class AddEventFragment extends Fragment {
     @ViewById(R.id.date_edit)
     EditText dateEdit;
 
+    @ViewById(R.id.location_edit)
+    EditText locationEdit;
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    private AddEventViewModel addEventViewModel;
+
+    public static int PLACE_PICKER_REQUEST = 1;
 
     public AddEventFragment() {
         // Required empty public constructor
@@ -91,9 +104,10 @@ public class AddEventFragment extends Fragment {
     }
 
     @AfterViews
-    public void setInputNullTimeAndDate() {
+    public void setInputNull() {
         dateEdit.setInputType(InputType.TYPE_NULL);
         timeEdit.setInputType(InputType.TYPE_NULL);
+        locationEdit.setInputType(InputType.TYPE_NULL);
     }
 
     /*@Override
@@ -188,6 +202,16 @@ public class AddEventFragment extends Fragment {
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == PLACE_PICKER_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                Place place = PlacePicker.getPlace(this.getActivity(), data);
+                locationEdit.setText(place.getName());
+            }
+        }
+    }
+
+    @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
@@ -213,7 +237,8 @@ public class AddEventFragment extends Fragment {
 
     @AfterViews
     void refreshView() {
-        binding.setEvent(new AddEventViewModel(this));
+        addEventViewModel = new AddEventViewModel(this);
+        binding.setEvent(addEventViewModel);
     }
 
 }
