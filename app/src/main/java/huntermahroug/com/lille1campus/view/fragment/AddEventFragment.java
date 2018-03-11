@@ -142,7 +142,7 @@ public class AddEventFragment extends Fragment {
         List<Category> categoryChoicesList = new ArrayList<>();
         // Ci-dessous ce n'est pas une vraie catégorie, juste un "placeholder" pour le Spinner
         // qui est visible tant que l'utilisateur n'a pas sélectionné une catégorie
-        categoryChoicesList.add(new Category("Catégories", -1));
+        categoryChoicesList.add(new Category("Catégorie", -1));
         List<Category> categoriesList = ((LilleCampusApplication) this.getActivity().getApplication()).getCategoriesList();
         categoryChoicesList.addAll(categoriesList);
 

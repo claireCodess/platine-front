@@ -11,7 +11,7 @@ import huntermahroug.com.lille1campus.viewmodel.TwoWayBoundString;
 public class EventToAdd {
 
     private TwoWayBoundString name;
-    private TwoWayBoundInteger categoryId;
+    private int categoryId;
     private TwoWayBoundString date;
     private TwoWayBoundString time;
     private TwoWayBoundString location;
@@ -22,7 +22,7 @@ public class EventToAdd {
 
     public EventToAdd() {
         this.name = new TwoWayBoundString();
-        this.categoryId = new TwoWayBoundInteger();
+        this.categoryId = -1;
         this.date = new TwoWayBoundString();
         this.time = new TwoWayBoundString();
         this.location = new TwoWayBoundString();
@@ -40,11 +40,11 @@ public class EventToAdd {
         this.name = name;
     }
 
-    public TwoWayBoundInteger getCategoryId() {
+    public int getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(TwoWayBoundInteger categoryId) {
+    public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
     }
 

@@ -5,6 +5,7 @@ import android.databinding.BindingAdapter;
 import android.databinding.BindingConversion;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.EditText;
 
 import java.io.Serializable;
@@ -23,7 +24,7 @@ public class TwoWayBoundInteger extends BaseObservable implements Serializable {
      * Creates an empty observable object
      */
     public TwoWayBoundInteger() {
-        mValue = -1;
+        mValue = 0;
     }
 
     /**
@@ -47,7 +48,7 @@ public class TwoWayBoundInteger extends BaseObservable implements Serializable {
      */
     public void set(Integer value) {
         if (value == null && mValue == null) return;
-        if ((value == null && mValue != null) || !value.equals(mValue)) {
+        if (value == null || !value.equals(mValue)) {
             mValue = value;
             notifyChange();
         }
@@ -65,6 +66,7 @@ public class TwoWayBoundInteger extends BaseObservable implements Serializable {
         if (view.getTag(R.id.textBound) == null) {
             // Hook up change listeners upon first initialization
             view.setTag(R.id.textBound, true);
+            view.setText("0");
             view.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void afterTextChanged(Editable s) {
@@ -81,14 +83,23 @@ public class TwoWayBoundInteger extends BaseObservable implements Serializable {
                         integerInText = Integer.parseInt(s.toString());
                         twoWayBoundInteger.set(integerInText);
                     } catch(NumberFormatException e) {
-                        twoWayBoundInteger.set(-1);
+                        twoWayBoundInteger.set(0);
+                    }
+                }
+            });
+            view.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    EditText editText = ((EditText)v);
+                    if(editText.getText().toString().isEmpty()) {
+                        editText.setText("0");
                     }
                 }
             });
         }
         Integer newValue = twoWayBoundInteger.get();
-        Integer currentValue = -1;
-        if(!view.getText().toString().equals("")) {
+        Integer currentValue = 0;
+        if(!view.getText().toString().isEmpty()) {
             currentValue = Integer.parseInt(view.getText().toString());
         }
         if (!currentValue.equals(newValue)) {

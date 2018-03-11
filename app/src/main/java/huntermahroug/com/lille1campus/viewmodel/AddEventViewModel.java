@@ -2,7 +2,6 @@ package huntermahroug.com.lille1campus.viewmodel;
 
 import android.app.DialogFragment;
 import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.BindingAdapter;
@@ -27,17 +26,12 @@ import java.util.Date;
 
 import huntermahroug.com.lille1campus.LilleCampusAPI;
 import huntermahroug.com.lille1campus.LilleCampusApplication;
-import huntermahroug.com.lille1campus.R;
 import huntermahroug.com.lille1campus.model.Category;
 import huntermahroug.com.lille1campus.model.EventTest;
 import huntermahroug.com.lille1campus.model.EventToAdd;
 import huntermahroug.com.lille1campus.view.fragment.AddEventFragment_;
 import huntermahroug.com.lille1campus.view.fragment.DatePickerFragment;
-import huntermahroug.com.lille1campus.view.fragment.EventListFragment_;
 import huntermahroug.com.lille1campus.view.fragment.TimePickerFragment;
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
 
 /**
  * Created by Claire on 03/03/2018.
@@ -85,11 +79,11 @@ public class AddEventViewModel extends BaseObservable {
 
     @Bindable
     public int getCategory() {
-        return event.getCategoryId().get();
+        return event.getCategoryId();
     }
 
     public void setCategory(int categoryId) {
-        event.getCategoryId().set(categoryId);
+        event.setCategoryId(categoryId);
     }
 
     @Bindable
@@ -230,7 +224,7 @@ public class AddEventViewModel extends BaseObservable {
 
     public void onSubmitForm() {
         System.out.println("name = " + event.getName().get());
-        System.out.println("category = " + event.getCategoryId().get());
+        System.out.println("category = " + event.getCategoryId());
         System.out.println("date and time = " + convertDateAndTimeToAPIFormat());
         System.out.println("location = " + event.getLocation().get());
         System.out.println("description = " + event.getDescription().get());
@@ -241,10 +235,10 @@ public class AddEventViewModel extends BaseObservable {
         LilleCampusAPI lilleCampusAPI = ((LilleCampusApplication) fragment.getActivity().getApplication()).getLilleCampusAPI();
 
         if(champsValides()) {
-            EventTest eventTest = new EventTest(event.getName().get(), event.getCategoryId().get(), convertDateAndTimeToAPIFormat(), convertPriceToAPIFormat(),
+            EventTest eventTest = new EventTest(event.getName().get(), event.getCategoryId(), convertDateAndTimeToAPIFormat(), convertPriceToAPIFormat(),
                     event.getDescription().get(), event.getEmail().get(), event.getLocation().get(), event.getNbPlaces().get());
 
-            lilleCampusAPI.postEvent(eventTest, new Callback<EventTest>() {
+            /*lilleCampusAPI.postEvent(eventTest, new Callback<EventTest>() {
                 @Override
                 public void success(EventTest event, Response response) {
                     System.out.println("Successsssssssss !!!!!!!!!!!!");
@@ -259,7 +253,7 @@ public class AddEventViewModel extends BaseObservable {
                 public void failure(RetrofitError error) {
                     System.out.println(error.getMessage());
                 }
-            });
+            });*/
         } else {
             Toast.makeText(this.fragment.getActivity(), "Tous les champs sont obligatoires", Toast.LENGTH_SHORT).show();
         }
@@ -267,9 +261,9 @@ public class AddEventViewModel extends BaseObservable {
     }
 
     private boolean champsValides() {
-        if(event.getName().get().equals("") || event.getCategoryId().get() == -1 || event.getDate().get().equals("")
+        if(event.getName().get().equals("") || event.getCategoryId() == -1 || event.getDate().get().equals("")
                 || event.getTime().get().equals("") || event.getLocation().get().equals("") || event.getDescription().get().equals("")
-                || event.getEmail().get().equals("") || event.getPrice().get() == -1 || event.getNbPlaces().get() == -1) {
+                || event.getEmail().get().equals("")) {
             return false;
         }
         return true;
