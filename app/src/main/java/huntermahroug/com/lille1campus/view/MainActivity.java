@@ -82,27 +82,26 @@ public class MainActivity extends AppCompatActivity { //implements EventListFrag
                         // TODO : si on a appuyé sur un élément du menu et qu'on réappuie dessus ça ne fait rien
                         case R.id.nav_view:
                             // TODO : migrer l'appel API getAll ici
-                            fragmentTransaction.add(R.id.fragment_placeholder, EventListFragment_.newInstance(false, false, "", -1));
+                            fragmentTransaction.replace(R.id.fragment_placeholder, EventListFragment_.newInstance(false, false, "", -1));
                             break;
 
                         case R.id.nav_search:
-                            fragmentTransaction.add(R.id.fragment_placeholder, new SearchFragment_());
+                            fragmentTransaction.replace(R.id.fragment_placeholder, new SearchFragment_());
                             break;
 
                         case R.id.nav_categories:
-                            fragmentTransaction.add(R.id.fragment_placeholder, new CategoriesFragment_());
+                            fragmentTransaction.replace(R.id.fragment_placeholder, new CategoriesFragment_());
                             break;
 
                         case R.id.nav_add:
                             ((LilleCampusApplication)MainActivity.this.getApplication()).getCategoriesFromSharedPrefOrAPI();
                             List<Category> categoriesList = ((LilleCampusApplication) MainActivity.this.getApplication()).getCategoriesList();
                             if(categoriesList != null) {
-                                fragmentTransaction.add(R.id.fragment_placeholder, new AddEventFragment_());
+                                fragmentTransaction.replace(R.id.fragment_placeholder, new AddEventFragment_());
                             } else {
                                 Toast.makeText(MainActivity.this, R.string.internet_connection_error_msg, Toast.LENGTH_LONG).show();
                             }
                     }
-                    fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
                     return true;
                 }

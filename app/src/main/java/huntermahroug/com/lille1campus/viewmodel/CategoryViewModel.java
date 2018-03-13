@@ -77,8 +77,7 @@ public class CategoryViewModel extends BaseObservable {
         // Effectuer la transition vers le fragment de tous les événements avec le paramètre "category"
         FragmentManager fragmentManager = fragment.getActivity().getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.fragment_placeholder, EventListFragment_.newInstance(false, true, "", category.getId()));
-        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.replace(R.id.fragment_placeholder, EventListFragment_.newInstance(false, true, "", category.getId()));
         fragmentTransaction.commit();
 
     }

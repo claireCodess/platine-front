@@ -143,8 +143,7 @@ public class EventLightViewModel extends BaseObservable {
                     // des détails d'un événement
                     FragmentManager fragmentManager = fragment.getActivity().getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.add(R.id.fragment_placeholder, EventDetailsFragment_.newInstance(event));
-                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.replace(R.id.fragment_placeholder, EventDetailsFragment_.newInstance(event));
                     fragmentTransaction.commit();
                 }
 
