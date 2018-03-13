@@ -12,6 +12,7 @@ import org.androidannotations.annotations.BindingObject;
 import org.androidannotations.annotations.DataBound;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.res.StringRes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,7 @@ import huntermahroug.com.lille1campus.LilleCampusApplication;
 import huntermahroug.com.lille1campus.R;
 import huntermahroug.com.lille1campus.databinding.FragmentEventListBinding;
 import huntermahroug.com.lille1campus.model.EventLight;
+import huntermahroug.com.lille1campus.util.Util;
 import huntermahroug.com.lille1campus.util.adapter.EventAdapter;
 import huntermahroug.com.lille1campus.view.MainActivity_;
 import retrofit.Callback;
@@ -31,14 +33,18 @@ import retrofit.client.Response;
 @EFragment(R.layout.fragment_event_list)
 public class EventListFragment extends Fragment {
 
-    @ViewById(R.id.no_event_view)
-    TextView noEventView;
+    @ViewById(R.id.error_view)
+    TextView errorView;
+
+    @StringRes(R.string.internet_connection_error_msg)
+    String internetConnectionErrorMsg;
 
     public static String INSEARCHFRAG_PARAM = "insearchfrag_param";
     public static String INCATEGORIESFRAG_PARAM = "incategoriesfrag_param";
     public static String SEARCHQUERY_PARAM = "searchquery_param";
     public static String CATEGORYID_PARAM = "categoryid_param";
 
+    private LilleCampusApplication lilleCampusApplication;
     private LilleCampusAPI lilleCampusAPI;
 
     private OnFragmentInteractionListener mListener;
@@ -100,7 +106,8 @@ public class EventListFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        lilleCampusAPI = ((LilleCampusApplication) this.getActivity().getApplication()).getLilleCampusAPI();
+        lilleCampusApplication = ((LilleCampusApplication) this.getActivity().getApplication());
+        lilleCampusAPI = lilleCampusApplication.getLilleCampusAPI();
         ((MainActivity_)this.getActivity()).showProgressBar();
         refreshView();
     }
@@ -134,58 +141,58 @@ public class EventListFragment extends Fragment {
      */
     private void refreshView() {
 
-        if(!inSearchFragment && !inCategoriesFragment)
-        {
-            lilleCampusAPI.getAllEvents(new Callback<List<EventLight>>() {
-                @Override
-                public void success(List<EventLight> events, Response response) {
-                    showEvents(events);
-                }
-
-                @Override
-                public void failure(RetrofitError error) {
-                    System.out.println(error.getMessage());
-                }
-            });
-        }
-        else if(inSearchFragment && !inCategoriesFragment)
-        {
-            lilleCampusAPI.getEventsbyname(searchQuery, new Callback<List<EventLight>>() {
-                @Override
-                public void success(List<EventLight> events, Response response) {
-                    showEvents(events);
-                }
-
-                @Override
-                public void failure(RetrofitError error) {
-                }
-            });
-        }
-        else if(!inSearchFragment && inCategoriesFragment)
-        {
-            lilleCampusAPI.getEventsbycatid(categoryId, new Callback<List<EventLight>>() {
-                @Override
-                public void success(List<EventLight> events, Response response) {
-                    showEvents(events);
-                }
-
-                @Override
-                public void failure(RetrofitError error) {
-                    if(error.getResponse().getStatus() == 404) {
-                        // Si le code d'erreur est 404, alors cela veut dire
-                        // qu'il n'y a aucun événement dans cette catégorie/
-                        // On appelle showEvents avec une liste vide, qui va
-                        // faire le travail.
-                        showEvents(new ArrayList<>());
-                    } else {
-                        // C'est une autre erreur, non gérée pour le moment...
+        if(Util.isConnected(getActivity())) {
+            if(lilleCampusApplication.getCategoriesList() == null) {
+                lilleCampusApplication.getCategoriesFromSharedPrefOrAPI();
+            }
+            if (!inSearchFragment && !inCategoriesFragment) {
+                lilleCampusAPI.getAllEvents(new Callback<List<EventLight>>() {
+                    @Override
+                    public void success(List<EventLight> events, Response response) {
+                        showEvents(events);
                     }
-                }
-            });
-        }
-        else
-        {
-            // Erreur !
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        System.out.println(error.getMessage());
+                    }
+                });
+            } else if (inSearchFragment && !inCategoriesFragment) {
+                lilleCampusAPI.getEventsbyname(searchQuery, new Callback<List<EventLight>>() {
+                    @Override
+                    public void success(List<EventLight> events, Response response) {
+                        showEvents(events);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                    }
+                });
+            } else if (!inSearchFragment) {
+                lilleCampusAPI.getEventsbycatid(categoryId, new Callback<List<EventLight>>() {
+                    @Override
+                    public void success(List<EventLight> events, Response response) {
+                        showEvents(events);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        if (error.getResponse().getStatus() == 404) {
+                            // Si le code d'erreur est 404, alors cela veut dire
+                            // qu'il n'y a aucun événement dans cette catégorie/
+                            // On appelle showEvents avec une liste vide, qui va
+                            // faire le travail.
+                            showEvents(new ArrayList<>());
+                        } else {
+                            // C'est une autre erreur, non gérée pour le moment...
+                        }
+                    }
+                });
+            }
+        } else {
+            ((MainActivity_)this.getActivity()).hideProgressBar();
+            errorView.setText(internetConnectionErrorMsg);
+            errorView.setVisibility(View.VISIBLE);
         }
 
     }
@@ -206,7 +213,7 @@ public class EventListFragment extends Fragment {
         } else {
             // Si la liste est vide, alors c'est qu'il n'y a aucun événement !
             // (Après une recherche, dans une catégorie, ou aucun événement tout court...)
-            noEventView.setVisibility(View.VISIBLE);
+            errorView.setVisibility(View.VISIBLE);
         }
     }
 

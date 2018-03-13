@@ -13,12 +13,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.res.ColorStateListRes;
 
+import java.util.List;
+
+import huntermahroug.com.lille1campus.LilleCampusApplication;
 import huntermahroug.com.lille1campus.R;
+import huntermahroug.com.lille1campus.model.Category;
 import huntermahroug.com.lille1campus.util.helper.BottomNavigationViewHelper;
 import huntermahroug.com.lille1campus.view.fragment.AddEventFragment_;
 import huntermahroug.com.lille1campus.view.fragment.CategoriesFragment_;
@@ -89,8 +94,13 @@ public class MainActivity extends AppCompatActivity { //implements EventListFrag
                             break;
 
                         case R.id.nav_add:
-                            fragmentTransaction.add(R.id.fragment_placeholder, new AddEventFragment_());
-
+                            ((LilleCampusApplication)MainActivity.this.getApplication()).getCategoriesFromSharedPrefOrAPI();
+                            List<Category> categoriesList = ((LilleCampusApplication) MainActivity.this.getApplication()).getCategoriesList();
+                            if(categoriesList != null) {
+                                fragmentTransaction.add(R.id.fragment_placeholder, new AddEventFragment_());
+                            } else {
+                                Toast.makeText(MainActivity.this, R.string.internet_connection_error_msg, Toast.LENGTH_LONG).show();
+                            }
                     }
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();

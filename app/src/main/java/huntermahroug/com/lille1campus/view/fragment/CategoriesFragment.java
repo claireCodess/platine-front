@@ -5,10 +5,14 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.View;
+import android.widget.TextView;
 
 import org.androidannotations.annotations.BindingObject;
 import org.androidannotations.annotations.DataBound;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.res.StringRes;
 
 import java.util.List;
 
@@ -31,6 +35,13 @@ import huntermahroug.com.lille1campus.view.MainActivity_;
 @DataBound
 @EFragment(R.layout.fragment_categories)
 public class CategoriesFragment extends Fragment {
+
+    @ViewById(R.id.error_view)
+    TextView errorView;
+
+    @StringRes(R.string.internet_connection_error_msg)
+    String internetConnectionErrorMsg;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -101,7 +112,16 @@ public class CategoriesFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        showCategories();
+
+        ((LilleCampusApplication)this.getActivity().getApplication()).getCategoriesFromSharedPrefOrAPI();
+        List<Category> categoriesList = ((LilleCampusApplication) this.getActivity().getApplication()).getCategoriesList();
+        if(categoriesList != null) {
+            showCategories(categoriesList);
+        } else {
+            ((MainActivity_)this.getActivity()).hideProgressBar();
+            errorView.setText(internetConnectionErrorMsg);
+            errorView.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -131,16 +151,14 @@ public class CategoriesFragment extends Fragment {
     /**
      * Afficher les catégories dans la vue.
      */
-    private void showCategories() {
+    private void showCategories(List<Category> categoriesList) {
         ((MainActivity_)this.getActivity()).hideProgressBar();
-
-        // Récupérer la liste des catégories
-        List<Category> categoriesList = ((LilleCampusApplication) this.getActivity().getApplication()).getCategoriesList();
 
         // Afficher cette liste dans le RecyclerView
         CategoryAdapter adapter = new CategoryAdapter(categoriesList, this);
 
         binding.listCategories.setAdapter(adapter);
         binding.listCategories.setLayoutManager(new LinearLayoutManager(getActivity()));
+
     }
 }

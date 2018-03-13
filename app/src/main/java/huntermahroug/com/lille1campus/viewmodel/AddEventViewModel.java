@@ -2,6 +2,7 @@ package huntermahroug.com.lille1campus.viewmodel;
 
 import android.app.DialogFragment;
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.BindingAdapter;
@@ -26,12 +27,18 @@ import java.util.Date;
 
 import huntermahroug.com.lille1campus.LilleCampusAPI;
 import huntermahroug.com.lille1campus.LilleCampusApplication;
+import huntermahroug.com.lille1campus.R;
 import huntermahroug.com.lille1campus.model.Category;
 import huntermahroug.com.lille1campus.model.EventTest;
 import huntermahroug.com.lille1campus.model.EventToAdd;
+import huntermahroug.com.lille1campus.util.Util;
 import huntermahroug.com.lille1campus.view.fragment.AddEventFragment_;
 import huntermahroug.com.lille1campus.view.fragment.DatePickerFragment;
+import huntermahroug.com.lille1campus.view.fragment.EventListFragment_;
 import huntermahroug.com.lille1campus.view.fragment.TimePickerFragment;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * Created by Claire on 03/03/2018.
@@ -238,22 +245,26 @@ public class AddEventViewModel extends BaseObservable {
             EventTest eventTest = new EventTest(event.getName().get(), event.getCategoryId(), convertDateAndTimeToAPIFormat(), convertPriceToAPIFormat(),
                     event.getDescription().get(), event.getEmail().get(), event.getLocation().get(), event.getNbPlaces().get());
 
-            /*lilleCampusAPI.postEvent(eventTest, new Callback<EventTest>() {
-                @Override
-                public void success(EventTest event, Response response) {
-                    System.out.println("Successsssssssss !!!!!!!!!!!!");
-                    // On est redirigé vers le fragment de la liste des événements
-                    FragmentTransaction fragmentTransaction = fragment.getFragmentManager().beginTransaction();
-                    fragmentTransaction.add(R.id.fragment_placeholder, EventListFragment_.newInstance(false, false, "", -1));
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.commit();
-                }
+            if(Util.isConnected(fragment.getActivity())) {
+                lilleCampusAPI.postEvent(eventTest, new Callback<EventTest>() {
+                    @Override
+                    public void success(EventTest event, Response response) {
+                        System.out.println("Successsssssssss !!!!!!!!!!!!");
+                        // On est redirigé vers le fragment de la liste des événements
+                        FragmentTransaction fragmentTransaction = fragment.getFragmentManager().beginTransaction();
+                        fragmentTransaction.add(R.id.fragment_placeholder, EventListFragment_.newInstance(false, false, "", -1));
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
+                    }
 
-                @Override
-                public void failure(RetrofitError error) {
-                    System.out.println(error.getMessage());
-                }
-            });*/
+                    @Override
+                    public void failure(RetrofitError error) {
+                        System.out.println(error.getMessage());
+                    }
+                });
+            } else {
+                Toast.makeText(fragment.getActivity(), R.string.internet_connection_error_msg, Toast.LENGTH_LONG).show();
+            }
         } else {
             Toast.makeText(this.fragment.getActivity(), "Tous les champs sont obligatoires", Toast.LENGTH_SHORT).show();
         }

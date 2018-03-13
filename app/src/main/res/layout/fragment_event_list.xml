@@ -11,10 +11,13 @@
         tools:context="huntermahroug.com.lille1campus.view.fragment.EventListFragment">
 
         <TextView
-            android:id="@+id/no_event_view"
+            android:id="@+id/error_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:layout_marginEnd="24dp"
+            android:layout_marginStart="24dp"
+            android:gravity="center"
             android:text="@string/no_events_msg"
             android:textSize="20sp"
             android:visibility="gone" />

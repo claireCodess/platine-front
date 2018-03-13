@@ -8,6 +8,7 @@ import android.databinding.Bindable;
 import android.databinding.BindingAdapter;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -21,6 +22,7 @@ import huntermahroug.com.lille1campus.R;
 import huntermahroug.com.lille1campus.model.Category;
 import huntermahroug.com.lille1campus.model.Event;
 import huntermahroug.com.lille1campus.model.EventLight;
+import huntermahroug.com.lille1campus.util.Util;
 import huntermahroug.com.lille1campus.view.MainActivity_;
 import huntermahroug.com.lille1campus.view.fragment.EventDetailsFragment_;
 import retrofit.Callback;
@@ -130,26 +132,30 @@ public class EventLightViewModel extends BaseObservable {
 
     public void onClick() {
         LilleCampusAPI lilleCampusAPI = ((LilleCampusApplication) fragment.getActivity().getApplication()).getLilleCampusAPI();
-        ((MainActivity_)this.fragment.getActivity()).showProgressBar();
 
-        // Récupérer les données de l'événement grâce à l'API
-        lilleCampusAPI.getOneEvent(eventLight.getId(), new Callback<Event>() {
-            @Override
-            public void success(Event event, Response response) {
-                // Une fois les données de l'événement recupérées, effectuer la transition vers le fragment
-                // des détails d'un événement
-                FragmentManager fragmentManager = fragment.getActivity().getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.add(R.id.fragment_placeholder, EventDetailsFragment_.newInstance(event));
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-            }
+        if(Util.isConnected(fragment.getActivity())) {
+            ((MainActivity_)this.fragment.getActivity()).showProgressBar();
+            // Récupérer les données de l'événement grâce à l'API
+            lilleCampusAPI.getOneEvent(eventLight.getId(), new Callback<Event>() {
+                @Override
+                public void success(Event event, Response response) {
+                    // Une fois les données de l'événement recupérées, effectuer la transition vers le fragment
+                    // des détails d'un événement
+                    FragmentManager fragmentManager = fragment.getActivity().getFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.add(R.id.fragment_placeholder, EventDetailsFragment_.newInstance(event));
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+                }
 
-            @Override
-            public void failure(RetrofitError error) {
-                System.out.println(error.getMessage());
-            }
-        });
+                @Override
+                public void failure(RetrofitError error) {
+                    System.out.println(error.getMessage());
+                }
+            });
+        } else {
+            Toast.makeText(fragment.getActivity(), R.string.internet_connection_error_msg, Toast.LENGTH_LONG).show();
+        }
 
     }
 
