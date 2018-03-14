@@ -62,6 +62,7 @@ xmlns:tools="http://schemas.android.com/tools">
                     android:maxLines="1"
                     android:text="@{event.location}"
                     android:textSize="18sp"
+                    android:onClick="@{() -> event.onLocationClick()}"
                     app:layout_constraintBottom_toBottomOf="@+id/location_img"
                     app:layout_constraintStart_toEndOf="@+id/location_img"
                     app:layout_constraintTop_toTopOf="@+id/location_img" />

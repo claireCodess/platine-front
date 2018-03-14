@@ -1,10 +1,13 @@
 package huntermahroug.com.lille1campus.viewmodel;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.BindingAdapter;
+import android.net.Uri;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.NumberFormat;
@@ -25,6 +28,9 @@ import static android.view.View.VISIBLE;
  */
 
 public class EventViewModel extends BaseObservable {
+
+    private static double latCentreCampus = 50.6086026;
+    private static double lngCentreCampus = 3.136856;
 
     /**
      * L'objet "model" de l'événement
@@ -168,6 +174,17 @@ public class EventViewModel extends BaseObservable {
                 resource = R.drawable.ic_event;
         }
         imageView.setImageResource(resource);
+    }
+
+    public void onLocationClick() {
+        String encodedLocationStr = Uri.encode(event.getLocation());
+        Uri gmmIntentUri = Uri.parse("geo:" + latCentreCampus + "," + lngCentreCampus + "?q=" + encodedLocationStr);
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        if (mapIntent.resolveActivity(fragment.getActivity().getPackageManager()) != null) {
+            fragment.startActivity(mapIntent);
+        } else {
+            Toast.makeText(fragment.getActivity(), "Veuillez installer Google Maps pour localiser l'événement sur une carte.", Toast.LENGTH_LONG).show();
+        }
     }
 
 }
