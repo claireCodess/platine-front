@@ -6,12 +6,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.InputType;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
@@ -29,6 +25,7 @@ import huntermahroug.com.lille1campus.LilleCampusApplication;
 import huntermahroug.com.lille1campus.R;
 import huntermahroug.com.lille1campus.databinding.FragmentAddEventBinding;
 import huntermahroug.com.lille1campus.model.Category;
+import huntermahroug.com.lille1campus.util.adapter.CategorySpinnerArrayAdapter;
 import huntermahroug.com.lille1campus.viewmodel.AddEventViewModel;
 
 import static android.app.Activity.RESULT_OK;
@@ -146,58 +143,9 @@ public class AddEventFragment extends Fragment {
         List<Category> categoriesList = ((LilleCampusApplication) this.getActivity().getApplication()).getCategoriesList();
         categoryChoicesList.addAll(categoriesList);
 
-        // TODO: construction du Spinner à déplacer dans une classe séparée
-        // Construire un Spinner en utilisant un ArrayAdapter customisé qui met en texte gris la première entrée (Catégorie) et la cache
-        // dès qu'on appuie sur le Spinner
-        ArrayAdapter<Category> adapter = new ArrayAdapter<Category>(this.getActivity(), android.R.layout.simple_spinner_item, categoryChoicesList) {
-
-            // Méthode servant à mettre en texte gris la première entrée
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-                View v = super.getView(position, null, parent);
-                TextView tv = (TextView)v;
-
-                if(position == 0) {
-                    tv.setTextColor(0xffa8a8a8); // Même couleur que le "hint" d'un EditText
-                }
-
-                // Dans tous les cas, également définir le contenu du texte et la
-                // taille du texte de la vue à 18sp (pareil que les autres champs)
-                tv.setText(categoryChoicesList.get(position).getName());
-                tv.setTextSize(18);
-
-                v = tv;
-                return v;
-            }
-
-            // Méthode servant à cacher la première entrée dès qu'on appuie sur le Spinner
-            @Override
-            public View getDropDownView(int position, View convertView, ViewGroup parent)
-            {
-                View v;
-
-                if(position == 0) {
-                    // Cacher la première entrée du Spinner dès sa sélection
-                    TextView tv = new TextView(getContext());
-                    tv.setHeight(0);
-                    tv.setVisibility(View.GONE);
-                    v = tv;
-                } else {
-                    // Mettre le paramètre convertView à null pour empêcher
-                    // la réutilisation de vues particulières
-                    v = super.getDropDownView(position, null, parent);
-                    // Egalement définir le contenu du texte
-                    TextView tv = (TextView)v;
-                    tv.setText(categoryChoicesList.get(position).getName());
-                }
-
-                // Cacher le scroll bar car il apparaît parfois inutilement ; il n'empêche pas le scroll
-                parent.setVerticalScrollBarEnabled(false);
-                return v;
-            }
-        };
-
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Construire un Spinner en utilisant un ArrayAdapter customisé
+        CategorySpinnerArrayAdapter adapter = new CategorySpinnerArrayAdapter(this.getActivity(), R.layout.category_item_spinner_layout, R.id.name_category_spinner, R.id.icon_category_spinner, categoryChoicesList);
+        adapter.setDropDownViewResource(R.layout.category_item_spinner_layout);
         categorySpinner.setAdapter(adapter);
     }
 
