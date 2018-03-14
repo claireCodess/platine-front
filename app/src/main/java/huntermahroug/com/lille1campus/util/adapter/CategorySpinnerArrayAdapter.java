@@ -60,6 +60,11 @@ public class CategorySpinnerArrayAdapter extends ArrayAdapter<Category> {
         if(position == 0) {
             textView.setTextColor(0xffa8a8a8); // Même couleur que le "hint" d'un EditText
             textView.setPadding(16, 0, 0, 0);
+            if (textView.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
+                ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) textView.getLayoutParams();
+                marginLayoutParams.setMargins(0, 0, 0, 0);
+                textView.requestLayout();
+            }
         } else {
             imageView.setImageResource(categoryChoicesList.get(position).getImgResourceId());
             imageView.setPadding(8, 0, 0, 0);
