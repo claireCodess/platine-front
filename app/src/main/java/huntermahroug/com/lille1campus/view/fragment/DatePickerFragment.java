@@ -66,7 +66,9 @@ public class DatePickerFragment extends DialogFragment
         }
 
         // Créer une nouvelle instance de DatePickerDialog et la retourner
-        return new DatePickerDialog(getActivity(), this, year, month, day);
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), this, year, month, day);
+        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+        return datePickerDialog;
     }
 
     public void onDateSet(DatePicker view, int year, int month, int day) {
@@ -79,6 +81,7 @@ public class DatePickerFragment extends DialogFragment
         String dateStr = dateFormat.format(cal.getTime());
 
         // Enfin, mettre le texte dans le bon format dans le EditText
+
         EditText dateEdit = getActivity().findViewById(R.id.date_edit);
         dateEdit.setText(dateStr);
     }
