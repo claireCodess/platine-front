@@ -3,6 +3,7 @@ package huntermahroug.com.lille1campus.view;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.res.ColorStateList;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -11,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -48,8 +50,13 @@ public class MainActivity extends AppCompatActivity { //implements EventListFrag
     @ViewById(R.id.fragment_placeholder)
     FrameLayout fragmentPlaceholder;
 
+    @ViewById(android.R.id.content)
+    View contentView;
+
     @ColorStateListRes(R.color.bottom_navigation_color_selector)
     ColorStateList colorStateList;
+
+    private boolean mKeyboardVisible = false;
 
     /**
      * Désigne l'onglet courant, donc à désactiver lors de l'appui
@@ -123,6 +130,51 @@ public class MainActivity extends AppCompatActivity { //implements EventListFrag
     public void showProgressBar() {
         progressBar.setVisibility(View.VISIBLE);
         fragmentPlaceholder.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        contentView.getViewTreeObserver()
+                .addOnGlobalLayoutListener(mLayoutKeyboardVisibilityListener);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        contentView.getViewTreeObserver()
+                .removeOnGlobalLayoutListener(mLayoutKeyboardVisibilityListener);
+    }
+
+    private final ViewTreeObserver.OnGlobalLayoutListener mLayoutKeyboardVisibilityListener =
+            () -> {
+                final Rect rectangle = new Rect();
+                contentView.getWindowVisibleDisplayFrame(rectangle);
+                int screenHeight = contentView.getRootView().getHeight();
+
+                // r.bottom is the position above soft keypad or device button.
+                // If keypad is shown, the rectangle.bottom is smaller than that before.
+                int keypadHeight = screenHeight - rectangle.bottom;
+                // 0.15 ratio is perhaps enough to determine keypad height.
+                boolean isKeyboardNowVisible = keypadHeight > screenHeight * 0.15;
+
+                if (mKeyboardVisible != isKeyboardNowVisible) {
+                    if (isKeyboardNowVisible) {
+                        onKeyboardShown();
+                    } else {
+                        onKeyboardHidden();
+                    }
+                }
+
+                mKeyboardVisible = isKeyboardNowVisible;
+            };
+
+    private void onKeyboardShown() {
+        bottomNavigationView.setVisibility(View.GONE);
+    }
+
+    private void onKeyboardHidden() {
+        bottomNavigationView.setVisibility(View.VISIBLE);
     }
 
 }
