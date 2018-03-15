@@ -101,6 +101,10 @@ public class TwoWayBoundDouble extends BaseObservable implements Serializable {
         Double currentValue = 0.0;
         if(!view.getText().toString().isEmpty()) {
             currentValue = Double.parseDouble(view.getText().toString());
+            newValue = Math.round(newValue * 100.0) / 100.0;
+            if(newValue >= 10000) {
+                newValue = 9999.99;
+            }
         }
         if (!currentValue.equals(newValue)) {
             view.setText(newValue.toString());
