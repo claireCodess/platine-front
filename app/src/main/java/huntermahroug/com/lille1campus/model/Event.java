@@ -78,7 +78,7 @@ public class Event implements Parcelable {
      * toutes les informations (pour la vue des détails d'un événement)
      */
     public Event(int id, String name, String date, String location, Category category,
-                      int totalPlaces, int availablePlaces, int price, String email, String description) {
+                      int totalPlaces, int price, String email, String description) {
         this.id = id;
         this.name = name;
         this.date = date;
