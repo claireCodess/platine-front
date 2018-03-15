@@ -30,7 +30,7 @@ import huntermahroug.com.lille1campus.LilleCampusApplication;
 import huntermahroug.com.lille1campus.R;
 import huntermahroug.com.lille1campus.model.Category;
 import huntermahroug.com.lille1campus.model.Event;
-import huntermahroug.com.lille1campus.model.EventTest;
+import huntermahroug.com.lille1campus.model.EventPost;
 import huntermahroug.com.lille1campus.model.EventToAdd;
 import huntermahroug.com.lille1campus.util.Util;
 import huntermahroug.com.lille1campus.view.fragment.AddEventFragment_;
@@ -96,6 +96,10 @@ public class AddEventViewModel extends BaseObservable {
         }
     };
 
+    public EventToAdd getEvent() {
+        return event;
+    }
+
     @Bindable
     public TwoWayBoundString getName() {
         return event.getName();
@@ -146,7 +150,7 @@ public class AddEventViewModel extends BaseObservable {
 
     public String convertDateAndTimeToAPIFormat() {
         try {
-            DateFormat databaseFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZZZZ");
+            DateFormat databaseFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
             DateFormat presentationFormat = new SimpleDateFormat("EEEE d MMMM yyyy HH:mm");
             Date date = presentationFormat.parse(event.getDate().get() + " " + event.getTime().get());
             return databaseFormat.format(date);
@@ -246,6 +250,11 @@ public class AddEventViewModel extends BaseObservable {
         return view.getText().toString();
     }*/
 
+    public EventPost createEventPost() {
+        return new EventPost(event.getName().get(), event.getCategoryId(), convertDateAndTimeToAPIFormat(), convertPriceToAPIFormat(),
+                event.getDescription().get(), event.getEmail().get(), event.getLocation().get(), event.getNbPlaces().get());
+    }
+
     public void onSubmitForm() {
         System.out.println("name = " + event.getName().get());
         System.out.println("category = " + event.getCategoryId());
@@ -259,13 +268,12 @@ public class AddEventViewModel extends BaseObservable {
         LilleCampusAPI lilleCampusAPI = ((LilleCampusApplication) fragment.getActivity().getApplication()).getLilleCampusAPI();
 
         if(champsValides()) {
-            EventTest eventTest = new EventTest(event.getName().get(), event.getCategoryId(), convertDateAndTimeToAPIFormat(), convertPriceToAPIFormat(),
-                    event.getDescription().get(), event.getEmail().get(), event.getLocation().get(), event.getNbPlaces().get());
+            EventPost eventPost = createEventPost();
 
             if(Util.isConnected(fragment.getActivity())) {
-                lilleCampusAPI.postEvent(eventTest, new Callback<EventTest>() {
+                lilleCampusAPI.postEvent(eventPost, new Callback<EventPost>() {
                     @Override
-                    public void success(EventTest event, Response response) {
+                    public void success(EventPost event, Response response) {
                         System.out.println("Successsssssssss !!!!!!!!!!!!");
                         // On est redirigé vers le fragment de la liste des événements
                         FragmentTransaction fragmentTransaction = fragment.getFragmentManager().beginTransaction();

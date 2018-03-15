@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by Claire on 04/03/2018.
  */
 
-public class EventTest {
+public class EventPost {
 
     private String name;
 
@@ -26,7 +26,7 @@ public class EventTest {
     @SerializedName("totalplaces")
     private int totalPlaces;
 
-    public EventTest(String name, int categoryId, String date, int price, String description, String email, String location, int totalPlaces) {
+    public EventPost(String name, int categoryId, String date, int price, String description, String email, String location, int totalPlaces) {
         this.name = name;
         this.categoryId = categoryId;
         this.date = date;
