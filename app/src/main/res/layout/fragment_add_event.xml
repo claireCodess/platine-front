@@ -237,7 +237,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:maxLines="2"
-                android:text="(Indiquez 0 pour un événement sans réservation obligatoire)"
+                android:text="(Indiquez 0 pour un nombre de places non défini)"
                 app:layout_constraintEnd_toStartOf="@+id/places_edit"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/places_text" />

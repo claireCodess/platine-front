@@ -51,13 +51,6 @@ public class Event implements Parcelable {
     private int totalPlaces;
 
     /**
-     * Nombre de places disponibles pour l'événement
-     * (si événement avec réservation)
-     */
-    @SerializedName("availableplaces")
-    private int availablePlaces;
-
-    /**
      * Prix de l'événement
      */
     private int price;
@@ -92,7 +85,6 @@ public class Event implements Parcelable {
         this.location = location;
         this.category = category;
         this.totalPlaces = totalPlaces;
-        this.availablePlaces = availablePlaces;
         this.price = price;
         this.email = email;
         this.description = description;
@@ -146,14 +138,6 @@ public class Event implements Parcelable {
         this.totalPlaces = totalPlaces;
     }
 
-    public int getAvailablePlaces() {
-        return availablePlaces;
-    }
-
-    public void setAvailablePlaces(int availablePlaces) {
-        this.availablePlaces = availablePlaces;
-    }
-
     public int getPrice() {
         return price;
     }
@@ -191,7 +175,6 @@ public class Event implements Parcelable {
         dest.writeString(this.location);
         dest.writeParcelable(this.category, flags);
         dest.writeInt(this.totalPlaces);
-        dest.writeInt(this.availablePlaces);
         dest.writeInt(this.price);
         dest.writeString(this.email);
         dest.writeString(this.description);
@@ -204,7 +187,6 @@ public class Event implements Parcelable {
         this.location = in.readString();
         this.category = in.readParcelable(Category.class.getClassLoader());
         this.totalPlaces = in.readInt();
-        this.availablePlaces = in.readInt();
         this.price = in.readInt();
         this.email = in.readString();
         this.description = in.readString();

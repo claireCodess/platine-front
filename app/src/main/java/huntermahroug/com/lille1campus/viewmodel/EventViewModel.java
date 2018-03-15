@@ -20,9 +20,6 @@ import huntermahroug.com.lille1campus.R;
 import huntermahroug.com.lille1campus.model.Category;
 import huntermahroug.com.lille1campus.model.Event;
 
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
-
 /**
  * Created by Claire on 02/03/2018.
  */
@@ -76,44 +73,16 @@ public class EventViewModel extends BaseObservable {
     }
 
     @Bindable
-    public String getNeedsResrvation() {
-        // Si le nombre de places est non nul, alors cet événement
-        // a besoin d'une réservation. On affiche alors "Sur réservation"
-        if(event.getTotalPlaces() != 0) {
-            return "Sur réservation";
-        } else {
-            // Sinon, on affiche "Sans réservation"
-            return "Sans réservation";
-        }
-    }
-
-    @Bindable
-    public int getShowReservation() {
-        // Si le nombre de places est non nul, alors cet événement
-        // a besoin d'une réservation et on affiche alors
-        // le texte pour indiquer le nombre de places restantes.
-        if(event.getTotalPlaces() != 0) {
-            return VISIBLE;
-        }
-        // Sinon, on n'affiche pas le texte
-        else {
-            return GONE;
-        }
-    }
-
-    @Bindable
     public String getPlaces() {
-        // Si le nombre de places est non nul, alors cet événement
-        // a besoin d'une réservation et le texte contiendra le nombre
-        // de places restantes sur le nombre de places au total.
+        // Si le nombre de places est non nul, le texte contiendra le
+        // nombre de places au total.
         int totalPlaces = event.getTotalPlaces();
         if(totalPlaces != 0) {
-            return "(Places disponibles : " + event.getAvailablePlaces()
-                    + " / " + totalPlaces + ")";
+            return "Nombre de places : " + event.getTotalPlaces();
         }
-        // Sinon, le texte n'est pas affiché
+        // Sinon, il indiquera que le nombre de places est non spécifié.
         else {
-            return "N/A";
+            return "Nombre de places non spécifié";
         }
     }
 

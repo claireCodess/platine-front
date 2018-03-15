@@ -73,11 +73,11 @@ xmlns:tools="http://schemas.android.com/tools">
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:maxLines="1"
-                    android:text="@{event.needsResrvation}"
+                    android:text="@{event.places}"
                     android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/reservation_img"
-                    app:layout_constraintStart_toEndOf="@+id/reservation_img"
-                    app:layout_constraintTop_toTopOf="@+id/reservation_img" />
+                    app:layout_constraintBottom_toBottomOf="@+id/nb_places_img"
+                    app:layout_constraintStart_toEndOf="@+id/nb_places_img"
+                    app:layout_constraintTop_toTopOf="@+id/nb_places_img" />
 
                 <TextView
                     android:id="@+id/price_text"
@@ -139,7 +139,7 @@ xmlns:tools="http://schemas.android.com/tools">
                     app:srcCompat="@drawable/ic_location" />
 
                 <ImageView
-                    android:id="@+id/reservation_img"
+                    android:id="@+id/nb_places_img"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -155,7 +155,7 @@ xmlns:tools="http://schemas.android.com/tools">
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/places_text"
+                    app:layout_constraintTop_toBottomOf="@+id/nb_places_img"
                     app:srcCompat="@drawable/ic_price" />
 
                 <ImageView
@@ -173,18 +173,6 @@ xmlns:tools="http://schemas.android.com/tools">
                     style="@style/Divider"
                     android:layout_marginTop="12dp"
                     app:layout_constraintTop_toBottomOf="@id/contact_text" />
-
-                <TextView
-                    android:id="@+id/places_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:maxLines="1"
-                    android:text="@{event.places}"
-                    android:textSize="16sp"
-                    android:visibility="@{event.showReservation}"
-                    app:layout_constraintStart_toEndOf="@+id/reservation_img"
-                    app:layout_constraintTop_toBottomOf="@+id/reservation_text" />
 
                 <ImageView
                     android:id="@+id/category_img"
