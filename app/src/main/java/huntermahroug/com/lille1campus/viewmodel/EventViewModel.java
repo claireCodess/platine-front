@@ -29,9 +29,6 @@ import static android.view.View.VISIBLE;
 
 public class EventViewModel extends BaseObservable {
 
-    private static double latCentreCampus = 50.6086026;
-    private static double lngCentreCampus = 3.136856;
-
     /**
      * L'objet "model" de l'événement
      */
@@ -178,7 +175,7 @@ public class EventViewModel extends BaseObservable {
 
     public void onLocationClick() {
         String encodedLocationStr = Uri.encode(event.getLocation());
-        Uri gmmIntentUri = Uri.parse("geo:" + latCentreCampus + "," + lngCentreCampus + "?q=" + encodedLocationStr);
+        Uri gmmIntentUri = Uri.parse("geo:" + Event.latCentreCampus + "," + Event.lngCentreCampus + "?q=" + encodedLocationStr);
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
         if (mapIntent.resolveActivity(fragment.getActivity().getPackageManager()) != null) {
             fragment.startActivity(mapIntent);

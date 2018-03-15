@@ -15,6 +15,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class Event implements Parcelable {
 
+    public static double latCentreCampus = 50.6094028;
+    public static double lngCentreCampus = 3.139537;
+
     /**
      * ID de l'événement
      */

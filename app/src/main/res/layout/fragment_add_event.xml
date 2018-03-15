@@ -112,6 +112,7 @@
                 android:maxLines="2"
                 android:minLines="1"
                 android:onClick="@{() -> event.getLocationFromGooglePlaces()}"
+                app:onFocusChange="@{event.onLocationEditFocusChange}"
                 android:paddingBottom="8dp"
                 android:paddingTop="8dp"
                 android:text="@={event.location}"

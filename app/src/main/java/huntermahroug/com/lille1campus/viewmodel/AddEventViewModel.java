@@ -29,6 +29,7 @@ import huntermahroug.com.lille1campus.LilleCampusAPI;
 import huntermahroug.com.lille1campus.LilleCampusApplication;
 import huntermahroug.com.lille1campus.R;
 import huntermahroug.com.lille1campus.model.Category;
+import huntermahroug.com.lille1campus.model.Event;
 import huntermahroug.com.lille1campus.model.EventTest;
 import huntermahroug.com.lille1campus.model.EventToAdd;
 import huntermahroug.com.lille1campus.util.Util;
@@ -56,9 +57,16 @@ public class AddEventViewModel extends BaseObservable {
      */
     private Fragment fragment;
 
+    /**
+     * Définition des coordonnées des coins N-W et S-E de la Google Map affichée
+     * lors de la sélection d'un lieu
+     */
+    private LatLngBounds mapCorners;
+
     public AddEventViewModel(Fragment fragment) {
         this.event = new EventToAdd();
         this.fragment = fragment;
+        this.mapCorners = toBounds(new LatLng(Event.latCentreCampus, Event.lngCentreCampus), 800);
     }
 
     private View.OnFocusChangeListener onDateEditFocusChange = new View.OnFocusChangeListener() {
@@ -75,6 +83,15 @@ public class AddEventViewModel extends BaseObservable {
         public void onFocusChange(View v, boolean hasFocus) {
             if (hasFocus) {
                 showTimeDialog(event.getDate().get());
+            }
+        }
+    };
+
+    private View.OnFocusChangeListener onLocationEditFocusChange = new View.OnFocusChangeListener() {
+        @Override
+        public void onFocusChange(View v, boolean hasFocus) {
+            if (hasFocus) {
+                getLocationFromGooglePlaces();
             }
         }
     };
@@ -204,9 +221,9 @@ public class AddEventViewModel extends BaseObservable {
 
     public void getLocationFromGooglePlaces() {
         // On veut ouvrir l'appli Google Places avec la carte centrée sur Lille 1,
-        // avec un rayon autour de 3km.
+        // avec un rayon autour de 800m.
         PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
-        builder.setLatLngBounds(toBounds(new LatLng(50.607871, 3.1309819), 3000));
+        builder.setLatLngBounds(mapCorners);
         try {
             fragment.startActivityForResult(builder.build(fragment.getActivity()), AddEventFragment_.PLACE_PICKER_REQUEST);
         } catch (GooglePlayServicesRepairableException e) {
@@ -312,6 +329,9 @@ public class AddEventViewModel extends BaseObservable {
     public View.OnFocusChangeListener getOnTimeEditFocusChange() {
         return onTimeEditFocusChange;
     }
+
+    @Bindable
+    public View.OnFocusChangeListener getOnLocationEditFocusChange() { return onLocationEditFocusChange; }
 
     @BindingAdapter("onFocusChange")
     public static void setOnFocusChange(View view, View.OnFocusChangeListener focusChangeListener) {
