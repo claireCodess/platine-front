@@ -33,7 +33,7 @@ import huntermahroug.com.lille1campus.view.fragment.EventListFragment_;
 import huntermahroug.com.lille1campus.view.fragment.SearchFragment_;
 
 @EActivity
-public class MainActivity extends AppCompatActivity { //implements EventListFragment.OnSearchPerformedListener {
+public class MainActivity extends AppCompatActivity {
 
     @ViewById(R.id.list_events)
     RecyclerView listEventsView;
@@ -86,7 +86,6 @@ public class MainActivity extends AppCompatActivity { //implements EventListFrag
 
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     switch (item.getItemId()) {
-                        // TODO : si on a appuyé sur un élément du menu et qu'on réappuie dessus ça ne fait rien
                         case R.id.nav_view:
                             // TODO : migrer l'appel API getAll ici
                             fragmentTransaction.replace(R.id.fragment_placeholder, EventListFragment_.newInstance(false, false, "", -1));
@@ -115,7 +114,6 @@ public class MainActivity extends AppCompatActivity { //implements EventListFrag
             }
         );
 
-        // add
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.fragment_placeholder, new EventListFragment_());
         fragmentTransaction.commit();

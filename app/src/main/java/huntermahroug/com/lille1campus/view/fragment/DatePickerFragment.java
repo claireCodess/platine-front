@@ -81,7 +81,6 @@ public class DatePickerFragment extends DialogFragment
         String dateStr = dateFormat.format(cal.getTime());
 
         // Enfin, mettre le texte dans le bon format dans le EditText
-
         EditText dateEdit = getActivity().findViewById(R.id.date_edit);
         dateEdit.setText(dateStr);
     }

@@ -2,7 +2,6 @@ package huntermahroug.com.lille1campus.view.fragment;
 
 import android.app.Fragment;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
@@ -29,6 +28,9 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
+/**
+ * Le Fragment de l'écran de la liste des événements.
+ */
 @DataBound
 @EFragment(R.layout.fragment_event_list)
 public class EventListFragment extends Fragment {
@@ -47,25 +49,26 @@ public class EventListFragment extends Fragment {
     private LilleCampusApplication lilleCampusApplication;
     private LilleCampusAPI lilleCampusAPI;
 
-    private OnFragmentInteractionListener mListener;
-
     private boolean inSearchFragment;
     private boolean inCategoriesFragment;
     private String searchQuery;
     private int categoryId;
 
+    // Constructeur vide obligatoire
     public EventListFragment() {
-        // Required empty public constructor
     }
 
     /**
      * Créer une nouvelle instance de ce fragment en utilisant un booléen
      * pour indiquer si ce fragment se trouve dans le fragment de recherche.
      *
-     * @param inSearchFragment Booléen à true si ce fragment est créé dans le
-     *                         fragment de recherche, false s'il est crée
-     *                         directement dans le MainActivity.
-     * @param searchQuery    Boolean
+     * @param inSearchFragment      Booléen à true si ce fragment est créé dans le
+     *                              fragment de recherche.
+     * @param inCategoriesFragment  Booléen à true si ce fragment est créé dans le
+     *                              fragment des catégories.
+     * @param searchQuery           La requête de la recherche de l'utilisateur
+     * @param categoryId            L'ID de la catégorie sélectionnée, si on est dans
+     *                              le fragment des catégories.
      *
      * @return Une nouvelle instance du fragment EventListFragment.
      */
@@ -91,13 +94,6 @@ public class EventListFragment extends Fragment {
         }
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -115,26 +111,10 @@ public class EventListFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
     }
 
     @BindingObject
     FragmentEventListBinding binding;
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
 
     /**
      * Rafraîchit la vue avec les données récupérées grâce à l'API.

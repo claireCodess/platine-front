@@ -9,8 +9,6 @@ import android.databinding.BindingAdapter;
 import android.view.View;
 import android.widget.ImageView;
 
-import huntermahroug.com.lille1campus.LilleCampusAPI;
-import huntermahroug.com.lille1campus.LilleCampusApplication;
 import huntermahroug.com.lille1campus.R;
 import huntermahroug.com.lille1campus.model.Category;
 import huntermahroug.com.lille1campus.view.fragment.EventListFragment_;
@@ -72,14 +70,11 @@ public class CategoryViewModel extends BaseObservable {
     }
 
     public void onClick() {
-        LilleCampusAPI lilleCampusAPI = ((LilleCampusApplication) fragment.getActivity().getApplication()).getLilleCampusAPI();
-
         // Effectuer la transition vers le fragment de tous les événements avec le paramètre "category"
         FragmentManager fragmentManager = fragment.getActivity().getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_placeholder, EventListFragment_.newInstance(false, true, "", category.getId()));
         fragmentTransaction.commit();
-
     }
 
 }

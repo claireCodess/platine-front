@@ -192,28 +192,6 @@ public class AddEventViewModel extends BaseObservable {
         return ((Category) view.getSelectedItem()).getId();
     }
 
-    /*@BindingAdapter(value = "locationTextAttrChanged")
-    public static void setLocationListener(EditText editText, final InverseBindingListener listener) {
-        if (listener != null) {
-            editText.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.onChange();
-                    // On veut ouvrir l'appli Google Maps avec la carte centrée sur Lille
-                    // Intent searchAddress = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:50.6227391,3.0538202?z=13"));
-                    PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
-                    try {
-                        fragment.startActivityForResult(builder.build(fragment.getActivity()), AddEventFragment_.PLACE_PICKER_REQUEST);
-                    } catch (GooglePlayServicesRepairableException e) {
-                        e.printStackTrace();
-                    } catch (GooglePlayServicesNotAvailableException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-        }
-    }*/
-
     public LatLngBounds toBounds(LatLng center, double radiusInMeters) {
         double distanceFromCenterToCorner = radiusInMeters * Math.sqrt(2.0);
         LatLng southwestCorner =
@@ -237,34 +215,12 @@ public class AddEventViewModel extends BaseObservable {
         }
     }
 
-    /*@BindingAdapter("locationText")
-    public static void setLocationText(EditText view, String newValue) {
-        String oldValue = view.getText().toString();
-        if(!oldValue.equals(newValue)) {
-            view.setText(newValue);
-        }
-    }
-
-    @InverseBindingAdapter(attribute = "locationText")
-    public static String getLocationText(EditText view) {
-        return view.getText().toString();
-    }*/
-
     public EventPost createEventPost() {
         return new EventPost(event.getName().get(), event.getCategoryId(), convertDateAndTimeToAPIFormat(), convertPriceToAPIFormat(),
                 event.getDescription().get(), event.getEmail().get(), event.getLocation().get(), event.getNbPlaces().get());
     }
 
     public void onSubmitForm() {
-        System.out.println("name = " + event.getName().get());
-        System.out.println("category = " + event.getCategoryId());
-        System.out.println("date and time = " + convertDateAndTimeToAPIFormat());
-        System.out.println("location = " + event.getLocation().get());
-        System.out.println("description = " + event.getDescription().get());
-        System.out.println("e-mail = " + event.getEmail().get());
-        System.out.println("price = " + convertPriceToAPIFormat());
-        System.out.println("nb places = " + event.getNbPlaces().get());
-
         LilleCampusAPI lilleCampusAPI = ((LilleCampusApplication) fragment.getActivity().getApplication()).getLilleCampusAPI();
 
         if(champsValides()) {
@@ -274,7 +230,6 @@ public class AddEventViewModel extends BaseObservable {
                 lilleCampusAPI.postEvent(eventPost, new Callback<EventPost>() {
                     @Override
                     public void success(EventPost event, Response response) {
-                        System.out.println("Successsssssssss !!!!!!!!!!!!");
                         // On est redirigé vers le fragment de la liste des événements
                         FragmentTransaction fragmentTransaction = fragment.getFragmentManager().beginTransaction();
                         fragmentTransaction.replace(R.id.fragment_placeholder, EventListFragment_.newInstance(false, false, "", -1));
@@ -304,29 +259,13 @@ public class AddEventViewModel extends BaseObservable {
         return true;
     }
 
-    //@Click(R.id.date_edit)
     public void onDateEditClick() {
         showDateDialog(event.getDate().get());
     }
 
-    //@Click(R.id.time_edit)
     public void onTimeEditClick() {
         showTimeDialog(event.getTime().get());
     }
-
-    /*@FocusChange(R.id.date_edit)
-    public void onDateEditFocusChange(View v, boolean hasFocus) {
-        if (hasFocus) {
-            showDateDialog(event.getDate().get());
-        }
-    }
-
-    @FocusChange(R.id.time_edit)
-    public void onTimeEditFocusChange(View v, boolean hasFocus) {
-        if (hasFocus) {
-            showTimeDialog(event.getTime().get());
-        }
-    }*/
 
     @Bindable
     public View.OnFocusChangeListener getOnDateEditFocusChange() {

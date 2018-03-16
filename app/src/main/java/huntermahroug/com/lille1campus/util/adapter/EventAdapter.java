@@ -11,7 +11,6 @@ import java.util.List;
 import huntermahroug.com.lille1campus.R;
 import huntermahroug.com.lille1campus.databinding.EventItemLayoutBinding;
 import huntermahroug.com.lille1campus.model.EventLight;
-import huntermahroug.com.lille1campus.util.listener.EventItemClickListener;
 import huntermahroug.com.lille1campus.viewmodel.EventLightViewModel;
 
 /**
@@ -29,16 +28,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.BindingHolde
      * Le fragment correspondant à cet Adapter
      */
     private Fragment fragment;
-
-    /**
-     * Le listener pour le clic de chaque item
-     * de la liste des événements
-     */
-    private EventItemClickListener listener;
-
-    public void setListener(EventItemClickListener listener) {
-        this.listener = listener;
-    }
 
     public EventAdapter(List<EventLight> events, Fragment fragment) {
         this.events = events;
